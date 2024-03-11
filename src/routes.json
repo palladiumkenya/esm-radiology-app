@@ -5,6 +5,21 @@
     "webservices.rest": "^2.24.0"
   },
   "extensions": [
+    {
+      "component": "radiologyDashboardLink",
+      "name": "radiology-dashboard-link",
+      "slot": "homepage-dashboard-slot",
+      "meta": {
+        "name": "radiology",
+        "title": "radiology",
+        "slot": "radiology-dashboard-slot"
+      }
+    },
+    {
+      "component": "root",
+      "name": "radiology-dashboard-root",
+      "slot": "radiology-dashboard-slot"
+    }
   ],
   "pages": [
     {

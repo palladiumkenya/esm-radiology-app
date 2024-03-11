@@ -4,8 +4,13 @@
  * connects the app shell to the React application(s) that make up this
  * microfrontend.
  */
-import { getAsyncLifecycle, defineConfigSchema } from "@openmrs/esm-framework";
+import {
+  getAsyncLifecycle,
+  defineConfigSchema,
+  getSyncLifecycle,
+} from "@openmrs/esm-framework";
 import { configSchema } from "./config-schema";
+import { createLeftPanelLink } from "./left-panel-link";
 
 const moduleName = "@openmrs/esm-radiology-imaging";
 
@@ -44,5 +49,13 @@ export function startupApp() {
  */
 export const root = getAsyncLifecycle(
   () => import("./root.component"),
+  options
+);
+
+export const radiologyDashboardLink = getSyncLifecycle(
+  createLeftPanelLink({
+    name: "radiology",
+    title: "Radiology",
+  }),
   options
 );
