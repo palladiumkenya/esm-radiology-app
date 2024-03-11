@@ -12,7 +12,7 @@ import {
 import { configSchema } from "./config-schema";
 import { createLeftPanelLink } from "./left-panel-link";
 
-const moduleName = "@openmrs/esm-radiology-imaging";
+const moduleName = "@openmrs/esm-radiology-app";
 
 const options = {
   featureName: "root-world",

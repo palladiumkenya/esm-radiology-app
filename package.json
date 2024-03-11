@@ -1,9 +1,9 @@
 {
-  "name": "@openmrs/esm-radiology-imaging",
+  "name": "@openmrs/esm-radiology-app",
   "version": "3.0.0",
   "license": "MPL-2.0",
   "description": "An OpenMRS seed application for building microfrontends",
-  "browser": "dist/openmrs-esm-radiology-imaging.js",
+  "browser": "dist/openmrs-esm-radiology-app.js",
   "main": "src/index.ts",
   "source": true,
   "scripts": {
@@ -35,9 +35,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/openmrs/openmrs-esm-radiology-imaging.git"
+    "url": "git+https://github.com/openmrs/openmrs-esm-radiology-app.git"
   },
-  "homepage": "https://github.com/openmrs/openmrs-esm-radiology-imaging#readme",
+  "homepage": "https://github.com/openmrs/openmrs-esm-radiology-app#readme",
   "publishConfig": {
     "access": "public"
   },

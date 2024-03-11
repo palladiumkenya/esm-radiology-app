@@ -5534,7 +5534,7 @@ __metadata:
 
 "@openmrs/esm-radiology-imaging@workspace:.":
   version: 0.0.0-use.local
-  resolution: "@openmrs/esm-radiology-imaging@workspace:."
+  resolution: "@openmrs/esm-radiology-app@workspace:."
   dependencies:
     "@carbon/react": ^1.33.1
     "@openmrs/esm-framework": next
