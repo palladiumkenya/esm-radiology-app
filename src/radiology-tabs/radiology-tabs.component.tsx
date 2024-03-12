@@ -1,16 +1,12 @@
 import React from "react";
-import { TabPanels } from "@carbon/react";
-import { TabList } from "@carbon/react";
-import { Tabs } from "@carbon/react";
-import { Tab } from "@carbon/react";
-import { TabPanel } from "@carbon/react";
-import { Checkbox } from "@carbon/react";
-import { Button } from "@carbon/react";
-import { TextInput } from "@carbon/react";
+import { TabPanels, TabList, Tabs, Tab, TabPanel } from "@carbon/react";
+import { TestsOrdered } from "./test ordered/tests-ordered.component";
+import { useTranslation } from "react-i18next";
 
 interface radiologyTabsProps {}
 
 export const RadiologyTabs: React.FC<radiologyTabsProps> = () => {
+  const { t } = useTranslation();
   return (
     <div>
       <Tabs>
@@ -19,7 +15,7 @@ export const RadiologyTabs: React.FC<radiologyTabsProps> = () => {
           contained
           style={{ marginLeft: "1rem" }}
         >
-          <Tab>Placeholder 1</Tab>
+          <Tab>{t("testOrdered", "Test Ordered")}</Tab>
           <Tab>Placeholder 2</Tab>
           <Tab>Placeholder 3</Tab>
           <Tab>Placeholder 4</Tab>
@@ -27,7 +23,9 @@ export const RadiologyTabs: React.FC<radiologyTabsProps> = () => {
           <Tab>Placeholder 6</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel>Placeholder for component</TabPanel>
+          <TabPanel>
+            <TestsOrdered />
+          </TabPanel>
           <TabPanel>Placeholder for component</TabPanel>
           <TabPanel>Placeholder for component</TabPanel>
           <TabPanel>Placeholder for component</TabPanel>
