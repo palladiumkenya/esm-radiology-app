@@ -19,7 +19,43 @@
       "component": "root",
       "name": "radiology-dashboard-root",
       "slot": "radiology-dashboard-slot"
-    }
+    },
+    {
+      "name": "tests-ordered-tile-component",
+      "slot": "radio-tiles-slot",
+      "component": "testOrderedTileComponent",
+      "meta": {
+          "name": "testsOrderedTileSlot",
+          "title": "Ordered tests"
+      }
+  },
+  {
+      "name": "completed-tile-component",
+      "slot": "radio-tiles-slot",
+      "component": "completedTileComponent",
+      "meta": {
+          "name": "completedTileSlot",
+          "title": "Completed"
+      }
+  },
+  {
+      "name": "worklist-tile-component",
+      "slot": "radio-tiles-slot",
+      "component": "worklistTileComponent",
+      "meta": {
+          "name": "worklisTileSlot",
+          "title": "Worklist"
+      }
+  },
+  {
+      "name": "referred-tile-component",
+      "slot": "radio-tiles-slot",
+      "component": "referredTileComponent",
+      "meta": {
+          "name": "referredTileSlot",
+          "title": "Referred tests"
+      }
+  }
   ],
   "pages": [
     {
