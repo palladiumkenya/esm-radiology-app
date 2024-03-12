@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import TestComponent from "./test.component";
+import Radiology from "./radiology.component";
 
 const Root: React.FC = () => {
   const baseName = window.getOpenmrsSpaBase() + "home/radiology";
@@ -8,7 +8,7 @@ const Root: React.FC = () => {
   return (
     <BrowserRouter basename={baseName}>
       <Routes>
-        <Route path="/" element={<TestComponent />} />
+        <Route path="/" element={<Radiology />} />
       </Routes>
     </BrowserRouter>
   );
