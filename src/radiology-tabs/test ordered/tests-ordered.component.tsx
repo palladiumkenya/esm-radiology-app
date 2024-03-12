@@ -13,9 +13,7 @@ import {
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
 
-interface TestsOrderedProps {}
-
-export const TestsOrdered: React.FC<TestsOrderedProps> = () => {
+export const TestsOrdered: React.FC = () => {
   const { t } = useTranslation();
   const [currenntPageSize, setCurrentPageSize] = useState<number>(10);
   const { workListEntries, isLoading } = useOrdersWorklist("", "");
@@ -42,7 +40,6 @@ export const TestsOrdered: React.FC<TestsOrderedProps> = () => {
       }));
   }, [paginatedResults]);
 
-  console.log(paginatedResults);
   const tableColums = [
     { id: 0, header: t("date", "Date"), key: "date" },
     { id: 1, header: t("orderNumber", "Order Number"), key: "orderNumber" },
