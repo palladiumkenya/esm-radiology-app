@@ -4,9 +4,7 @@ import { TestsOrdered } from "./test ordered/tests-ordered.component";
 import { useTranslation } from "react-i18next";
 import WorkList from "../work-list/work-list.component";
 
-interface radiologyTabsProps {}
-
-export const RadiologyTabs: React.FC<radiologyTabsProps> = () => {
+export const RadiologyTabs: React.FC = () => {
   const { t } = useTranslation();
   return (
     <div>

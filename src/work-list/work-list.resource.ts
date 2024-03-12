@@ -1,6 +1,5 @@
 import { openmrsFetch } from "@openmrs/esm-framework";
 import useSWR from "swr";
-
 export interface Result {
   uuid: string;
   orderNumber: string;
@@ -8,7 +7,7 @@ export interface Result {
   patient: Patient;
   concept: Concept;
   action: string;
-  careSetting: any;
+  careSetting: CareSetting;
   previousOrder: PreviousOrder;
   dateActivated: string;
   scheduledDate: any;
@@ -23,9 +22,9 @@ export interface Result {
   instructions: any;
   commentToFulfiller: any;
   display: string;
-  auditInfo?: AuditInfo;
-  fulfillerStatus?: string;
-  fulfillerComment?: any;
+  auditInfo: AuditInfo;
+  fulfillerStatus: string;
+  fulfillerComment: any;
   specimenSource: SpecimenSource;
   laterality: any;
   clinicalHistory: any;
