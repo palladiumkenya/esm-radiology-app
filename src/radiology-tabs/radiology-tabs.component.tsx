@@ -5,6 +5,8 @@ import { useTranslation } from "react-i18next";
 import WorkList from "../work-list/work-list.component";
 import { ReferredTests } from "./referred-test/referred-ordered.component";
 import { Review } from "./review/review-ordered.component";
+import { ApprovedOrders } from "./approved/approved-orders.component";
+import { OrdersNotDone } from "./orders-not-done/orders-not-done.component";
 
 export const RadiologyTabs: React.FC = () => {
   const { t } = useTranslation();
@@ -20,8 +22,8 @@ export const RadiologyTabs: React.FC = () => {
           <Tab>{t("workList", "WorkList")}</Tab>
           <Tab>{t("referredTest", "Referred Test")}</Tab>
           <Tab>{t("review","Review")}</Tab>
-          <Tab>Placeholder 5</Tab>
-          <Tab>Placeholder 6</Tab>
+          <Tab>{t("approved","Approved")}</Tab>
+          <Tab>{t("notDone","Not Done")}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -36,8 +38,12 @@ export const RadiologyTabs: React.FC = () => {
           <TabPanel>
             <Review />
           </TabPanel>
-          <TabPanel>Placeholder for component</TabPanel>
-          <TabPanel>Placeholder for component</TabPanel>
+          <TabPanel>
+            <ApprovedOrders />
+          </TabPanel>
+          <TabPanel>
+            <OrdersNotDone />
+          </TabPanel>
         </TabPanels>
       </Tabs>
     </div>
