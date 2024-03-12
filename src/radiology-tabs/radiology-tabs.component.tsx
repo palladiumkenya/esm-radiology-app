@@ -2,10 +2,11 @@ import React from "react";
 import { TabPanels, TabList, Tabs, Tab, TabPanel } from "@carbon/react";
 import { TestsOrdered } from "./test ordered/tests-ordered.component";
 import { useTranslation } from "react-i18next";
+import { type } from "os";
 
-interface radiologyTabsProps {}
+// type radiologyTabsProps = {};
 
-export const RadiologyTabs: React.FC<radiologyTabsProps> = () => {
+export const RadiologyTabs: React.FC = () => {
   const { t } = useTranslation();
   return (
     <div>
