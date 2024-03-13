@@ -110,20 +110,6 @@ export const TestsOrdered: React.FC = () => {
                       {row.cells.map((cell) => (
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                       ))}
-                      <TableCell>
-                        {row.id === "actions" ? (
-                          <OverflowMenu flipped={true}>
-                            <OverflowMenuItem
-                              itemText="Action 1"
-                              onClick={() => "Pick Request"}
-                            />
-                            <OverflowMenuItem
-                              itemText="Rejected Order"
-                              onClick={() => "Rejected Order"}
-                            />
-                          </OverflowMenu>
-                        ) : null}
-                      </TableCell>
                     </TableRow>
                     {expandedRows.has(row.id) && (
                       <TableRow>
