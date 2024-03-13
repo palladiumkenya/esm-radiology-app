@@ -55,6 +55,33 @@
           "name": "referredTileSlot",
           "title": "Referred tests"
       }
+  },
+  {
+    "name": "review-tile-component",
+    "slot": "radio-tiles-slot",
+    "component": "reviewTileComponent",
+    "meta": {
+        "name": "reviewTileSlot",
+        "title": "Review"
+    }
+  },
+  {
+    "name": "approved-tile-component",
+    "slot": "radio-tiles-slot",
+    "component": "approveTileComponent",
+    "meta": {
+        "name": "approveTileSlot",
+        "title": "Approved"
+    }
+  },
+  {
+    "name": "notdone-tile-component",
+    "slot": "radio-tiles-slot",
+    "component": "notDoneTileComponent",
+    "meta": {
+        "name": "notDoneTileSlot",
+        "title": "Not Done"
+    }
   }
   ],
   "pages": [
