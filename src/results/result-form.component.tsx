@@ -57,10 +57,10 @@ const ResultForm: React.FC<ResultFormProps> = ({ order, patientUuid }) => {
     e.preventDefault();
     // assign result to test order
     const documentedValues = getValues();
-    let obsValue = [];
+    const obsValue = [];
 
     if (concept.set && concept.setMembers.length > 0) {
-      let groupMembers = [];
+      const groupMembers = [];
       concept.setMembers.forEach((member) => {
         let value;
         if (

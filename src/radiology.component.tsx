@@ -7,7 +7,7 @@ const Radiology: React.FC = () => {
   return (
     <div className={`omrs-main-content`}>
       <RadiologyHeader />
-      <RadiologySummaryTiles/>
+      <RadiologySummaryTiles />
       <RadiologyTabs />
     </div>
   );
