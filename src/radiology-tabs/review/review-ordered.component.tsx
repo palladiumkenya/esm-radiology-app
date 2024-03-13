@@ -10,6 +10,8 @@ import {
   DataTable,
   DataTableSkeleton,
   Pagination,
+  OverflowMenu,
+  OverflowMenuItem,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
@@ -23,12 +25,24 @@ export const Review: React.FC = () => {
     results: paginatedResults,
     currentPage,
   } = usePagination(workListEntries, currentPageSize);
+
   const pageSizes = [10, 20, 30, 40, 50];
+  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
+
+  const toggleRowExpansion = (rowId: string) => {
+    const newExpandedRows = new Set(expandedRows);
+    if (expandedRows.has(rowId)) {
+      newExpandedRows.delete(rowId);
+    } else {
+      newExpandedRows.add(rowId);
+    }
+    setExpandedRows(newExpandedRows);
+  };
 
   const rows = useMemo(() => {
     return paginatedResults
       ?.filter((item) => item.action === "NEW")
-      .map((entry) => ({
+      .map((entry, index) => ({
         ...entry,
         id: entry.uuid,
         date: formatDate(parseDate(entry.dateActivated)),
@@ -40,10 +54,22 @@ export const Review: React.FC = () => {
         status: entry.fulfillerStatus ?? "--",
         orderer: entry.orderer.display,
         urgency: entry.urgency,
+        actions: (
+          <OverflowMenu flipped={true}>
+            <OverflowMenuItem
+              itemText="Pick Request"
+              onClick={() => "Pick Request"}
+            />
+            <OverflowMenuItem
+              itemText="Rejected Order"
+              onClick={() => "Rejected Order"}
+            />
+          </OverflowMenu>
+        ),
       }));
   }, [paginatedResults]);
 
-  const tableColums = [
+  const tableColumns = [
     { id: 0, header: t("date", "Date"), key: "date" },
     { id: 1, header: t("orderNumber", "Order Number"), key: "orderNumber" },
     { id: 2, header: t("patient", "Patient"), key: "patient" },
@@ -52,6 +78,7 @@ export const Review: React.FC = () => {
     { id: 6, header: t("status", "Status"), key: "status" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
+    { id: 10, header: t("actions", "Actions"), key: "actions" },
   ];
 
   return isLoading ? (
@@ -60,7 +87,7 @@ export const Review: React.FC = () => {
     <div>
       <DataTable
         rows={rows}
-        headers={tableColums}
+        headers={tableColumns}
         useZebraStyles
         overflowMenuOnHover={true}
       >
@@ -78,11 +105,20 @@ export const Review: React.FC = () => {
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  <TableRow {...getRowProps({ row })}>
-                    {row.cells.map((cell) => (
-                      <TableCell key={cell.id}>{cell.value}</TableCell>
-                    ))}
-                  </TableRow>
+                  <React.Fragment key={row.id}>
+                    <TableRow {...getRowProps({ row })}>
+                      {row.cells.map((cell) => (
+                        <TableCell key={cell.id}>{cell.value}</TableCell>
+                      ))}
+                    </TableRow>
+                    {expandedRows.has(row.id) && (
+                      <TableRow>
+                        <TableCell
+                          colSpan={tableColumns.length + 1}
+                        ></TableCell>
+                      </TableRow>
+                    )}
+                  </React.Fragment>
                 ))}
               </TableBody>
             </Table>
