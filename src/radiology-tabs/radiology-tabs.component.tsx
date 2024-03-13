@@ -1,6 +1,6 @@
 import React from "react";
 import { TabPanels, TabList, Tabs, Tab, TabPanel } from "@carbon/react";
-import { TestsOrdered } from "./test ordered/tests-ordered.component";
+import { TestsOrdered } from "./test-ordered/tests-ordered.component";
 import { useTranslation } from "react-i18next";
 import WorkList from "../work-list/work-list.component";
 import { ReferredTests } from "./referred-test/referred-ordered.component";

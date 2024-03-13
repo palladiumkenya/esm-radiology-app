@@ -18,10 +18,11 @@ export const ReferredTests: React.FC = () => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
   const { workListEntries, isLoading } = useOrdersWorklist("", "");
-  const { goTo, results: paginatedResults, currentPage } = usePagination(
-    workListEntries,
-    currentPageSize
-  ); 
+  const {
+    goTo,
+    results: paginatedResults,
+    currentPage,
+  } = usePagination(workListEntries, currentPageSize);
 
   const pageSizes = [10, 20, 30, 40, 50];
 
