@@ -8,8 +8,8 @@ import {
   TableBody,
   TableCell,
   DataTable,
-  InlineLoading,
   Pagination,
+  DataTableSkeleton,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
@@ -56,7 +56,7 @@ export const ApprovedOrders: React.FC = () => {
   ];
 
   return isLoading ? (
-    <InlineLoading />
+    <DataTableSkeleton />
   ) : (
     <div>
       <DataTable

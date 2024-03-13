@@ -5,36 +5,28 @@ import React, {
   useCallback,
 } from "react";
 import { useTranslation } from "react-i18next";
-import { EmptyState, ErrorState } from "@openmrs/esm-patient-common-lib";
 import { Microscope, TrashCan } from "@carbon/react/icons";
 
 import {
   DataTable,
-  DataTableHeader,
   DataTableSkeleton,
   Pagination,
   Table,
   TableBody,
   TableCell,
   TableContainer,
-  TableExpandHeader,
-  TableExpandRow,
   TableHead,
   TableHeader,
   TableRow,
-  TabPanel,
   TableToolbar,
   TableToolbarContent,
   TableToolbarSearch,
   Layer,
   Tag,
-  TableExpandedRow,
   Button,
   Tile,
   DatePicker,
   DatePickerInput,
-  Select,
-  SelectItem,
 } from "@carbon/react";
 import { Result, useGetOrdersWorklist } from "./work-list.resource";
 import styles from "./work-list.scss";

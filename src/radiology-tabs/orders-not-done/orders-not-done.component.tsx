@@ -8,7 +8,7 @@ import {
   TableBody,
   TableCell,
   DataTable,
-  InlineLoading,
+  DataTableSkeleton,
   Pagination,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
@@ -56,7 +56,7 @@ export const OrdersNotDone: React.FC = () => {
   ];
 
   return isLoading ? (
-    <InlineLoading />
+    <DataTableSkeleton />
   ) : (
     <div>
       <DataTable
