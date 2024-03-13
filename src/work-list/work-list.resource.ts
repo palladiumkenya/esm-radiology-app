@@ -48,9 +48,14 @@ export interface Link {
 }
 
 export interface Concept {
+  conceptClass: ConceptClass;
   uuid: string;
   display: string;
   links: Link[];
+}
+
+export interface ConceptClass {
+  uuid: string;
 }
 
 export interface CareSetting {
