@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Table,
@@ -14,8 +14,37 @@ import {
   OverflowMenuItem,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
+import {
+  formatDate,
+  parseDate,
+  showModal,
+  usePagination,
+} from "@openmrs/esm-framework";
+import styles from "./tests-ordered.scss";
+import { Result } from "../../work-list/work-list.resource";
 
+interface RejectOrderOverflowMenuItemProps {
+  order: Result;
+}
+
+const RejectOrderMenuItem: React.FC<RejectOrderOverflowMenuItemProps> = ({
+  order,
+}) => {
+  const handleRejectOrderModel = useCallback(() => {
+    const dispose = showModal("reject-order-dialog", {
+      closeModal: () => dispose(),
+      order,
+    });
+  }, [order]);
+  return (
+    <OverflowMenuItem
+      className={styles.rejectOrders}
+      itemText="Rejected Order"
+      onClick={handleRejectOrderModel}
+      hasDivider
+    />
+  );
+};
 export const TestsOrdered: React.FC = () => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
@@ -60,10 +89,7 @@ export const TestsOrdered: React.FC = () => {
               itemText="Pick Request"
               onClick={() => "Pick Request"}
             />
-            <OverflowMenuItem
-              itemText="Rejected Order"
-              onClick={() => "Rejected Order"}
-            />
+            <RejectOrderMenuItem order={entry} />
           </OverflowMenu>
         ),
       }));

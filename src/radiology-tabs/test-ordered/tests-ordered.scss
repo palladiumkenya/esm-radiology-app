@@ -1,0 +1,9 @@
+@use '@carbon/colors';
+@import '~@openmrs/esm-styleguide/src/vars';
+
+.rejectOrders {
+    &:hover{
+        background-color: red;
+        color: colors.$white;
+    }
+}
