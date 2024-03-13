@@ -16,8 +16,8 @@ export function useLabTestsStats(fulfillerStatus: string) {
     
   
     const orderTypeQuery =
-      laboratoryOrderTypeUuid !== ""
-        ? `orderType=${laboratoryOrderTypeUuid}&`
+      (laboratoryOrderTypeUuid !== "" && laboratoryOrderTypeUuid !== undefined)
+        ? `orderType=${laboratoryOrderTypeUuid}&` 
         : "";
   
     const apiUrl = `${restBaseUrl}/order?${orderTypeQuery}fulfillerStatus=${fulfillerStatus}&v=full`;
