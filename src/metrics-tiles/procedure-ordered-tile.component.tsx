@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import SummaryTile from "../summary-tiles/summary-tile.component";
 import { useLabTestsStats } from "../summary-tiles/radiology-summary.resource";
 
-const ReferredTileComponent = () => {
+const ProcedureOrderedTileComponent = () => {
   const { t } = useTranslation();
 
   const { count: testOrderedCount } = useLabTestsStats("");
@@ -17,4 +17,4 @@ const ReferredTileComponent = () => {
   );
 };
 
-export default ReferredTileComponent;
+export default ProcedureOrderedTileComponent;
