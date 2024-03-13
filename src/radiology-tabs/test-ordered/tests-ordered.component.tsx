@@ -14,14 +14,14 @@ import {
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
 
-export const ReferredTests: React.FC = () => {
+export const TestsOrdered: React.FC = () => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
   const { workListEntries, isLoading } = useOrdersWorklist("", "");
   const { goTo, results: paginatedResults, currentPage } = usePagination(
     workListEntries,
     currentPageSize
-  ); 
+  );
 
   const pageSizes = [10, 20, 30, 40, 50];
 
