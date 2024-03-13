@@ -12,6 +12,8 @@ import testsOrdered from "./metrics-tiles/procedure-ordered-tile.component";
 import reviewTile from "./metrics-tiles/review-tile.component";
 import approveTile from "./metrics-tiles/approved-tile.component";
 import rejectedTile from "./metrics-tiles/rejected-tile.component";
+import pickRadiologyLabRequestButtonComponent from "./radiology-tabs/test-ordered/pick-radiology-lab-request-menu.component"
+
 
 const moduleName = "@openmrs/esm-radiology-app";
 
@@ -56,3 +58,8 @@ export const reviewTileComponent = getSyncLifecycle(reviewTile, options);
 export const approveTileComponent = getSyncLifecycle(approveTile, options);
 
 export const notDoneTileComponent = getSyncLifecycle(rejectedTile, options);
+
+export const pickLabRequestButton = getSyncLifecycle(
+  pickRadiologyLabRequestButtonComponent,
+  options
+);

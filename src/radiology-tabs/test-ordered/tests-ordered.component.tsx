@@ -20,6 +20,7 @@ import {
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
+import PickRadiologyLabRequestActionMenu from "./pick-radiology-lab-request-menu.component";
 
 export const TestsOrdered: React.FC = () => {
   const { t } = useTranslation();
