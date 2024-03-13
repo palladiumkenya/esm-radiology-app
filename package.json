@@ -53,14 +53,13 @@
   },
   "peerDependencies": {
     "@openmrs/esm-framework": "*",
-    "dayjs": "1.x",
     "react": "18.x",
     "react-i18next": "11.x",
     "react-router-dom": "6.x",
     "rxjs": "6.x"
   },
   "devDependencies": {
-    "@openmrs/esm-framework": "next",
+    "@openmrs/esm-framework": "5.4.1-pre.1608",
     "@openmrs/esm-styleguide": "next",
     "@playwright/test": "^1.30.0",
     "@swc/cli": "^0.1.62",
@@ -79,6 +78,7 @@
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "@typescript-eslint/parser": "^5.61.0",
     "css-loader": "^6.8.1",
+    "dayjs": "^1.10.0",
     "dotenv": "^16.0.3",
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
@@ -91,7 +91,7 @@
     "jest": "^28.1.3",
     "jest-cli": "^28.1.3",
     "jest-environment-jsdom": "^28.1.3",
-    "openmrs": "next",
+    "openmrs": "5.4.1-pre.1608",
     "prettier": "^2.8.8",
     "pretty-quick": "^3.1.3",
     "react": "^18.2.0",

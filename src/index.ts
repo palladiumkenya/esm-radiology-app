@@ -5,10 +5,10 @@ import {
 } from "@openmrs/esm-framework";
 import { configSchema } from "./config-schema";
 import { createLeftPanelLink } from "./left-panel-link";
-import worklistTile from './radio-tiles/worklist-tile.component';
+import worklistTile from "./radio-tiles/worklist-tile.component";
 import referredTile from "./radio-tiles/referred-tile.component";
 import completedTile from "./radio-tiles/completed-tile.component";
-import testsOrdered from "./radio-tiles/tests-ordered-tile.component"
+import testsOrdered from "./radio-tiles/tests-ordered-tile.component";
 
 const moduleName = "@openmrs/esm-radiology-app";
 

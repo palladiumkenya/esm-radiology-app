@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-empty-interface */
 import React, { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {

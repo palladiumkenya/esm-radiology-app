@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getGlobalStore } from "@openmrs/esm-framework";
 import { useEffect, useState } from "react";
 

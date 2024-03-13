@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { Calendar, Location } from "@carbon/react/icons";
-import { useSession, formatDate } from "@openmrs/esm-framework";
+import { DatePicker, DatePickerInput } from "@carbon/react";
+import { useSession } from "@openmrs/esm-framework";
 import RadiologyIllustration from "./radiology-illustration.component";
+import { omrsDateFormat } from "../constants";
+import SelectedDateContext from "../hooks/selectedDateContext";
 import styles from "./radiology-header.scss";
+import dayjs from "dayjs";
 
 export const RadiologyHeader: React.FC = () => {
   const { t } = useTranslation();
   const userSession = useSession();
   const userLocation = userSession?.sessionLocation?.display;
+  const { selectedDate, setSelectedDate } = useContext(SelectedDateContext);
 
   return (
     <div className={styles.header}>
@@ -23,10 +28,27 @@ export const RadiologyHeader: React.FC = () => {
           <Location size={16} />
           <span className={styles.value}>{userLocation}</span>
           <span className={styles.middot}>&middot;</span>
-          <Calendar size={16} />
-          <span className={styles.value}>
-            {formatDate(new Date(), { mode: "standard" })}
-          </span>
+          <DatePicker
+            onChange={([date]) =>
+              setSelectedDate(dayjs(date).startOf("day").format(omrsDateFormat))
+            }
+            value={dayjs(selectedDate).format("DD MMM YYYY")}
+            dateFormat="d-M-Y"
+            datePickerType="single"
+          >
+            <DatePickerInput
+              style={{
+                cursor: "pointer",
+                backgroundColor: "transparent",
+                border: "none",
+                maxWidth: "10rem",
+              }}
+              id="radiology-date-picker"
+              placeholder="DD-MMM-YYYY"
+              labelText=""
+              type="text"
+            />
+          </DatePicker>
         </div>
       </div>
     </div>
