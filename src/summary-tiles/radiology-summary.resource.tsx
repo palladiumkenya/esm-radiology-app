@@ -14,11 +14,7 @@ import { useCallback } from "react";
 export function useLabTestsStats(fulfillerStatus: string) {
     const { laboratoryOrderTypeUuid } = useConfig();
     
-  
-    const orderTypeQuery =
-      laboratoryOrderTypeUuid !== ""
-        ? `orderType=${laboratoryOrderTypeUuid}&`
-        : "";
+    const orderTypeQuery = laboratoryOrderTypeUuid ? `orderType=${laboratoryOrderTypeUuid}&` : ""; 
   
     const apiUrl = `${restBaseUrl}/order?${orderTypeQuery}fulfillerStatus=${fulfillerStatus}&v=full`;
   
