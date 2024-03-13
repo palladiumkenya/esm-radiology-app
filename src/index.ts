@@ -5,13 +5,13 @@ import {
 } from "@openmrs/esm-framework";
 import { configSchema } from "./config-schema";
 import { createLeftPanelLink } from "./left-panel-link";
-import worklistTile from "./radio-tiles/worklist-tile.component";
-import referredTile from "./radio-tiles/referred-tile.component";
-import completedTile from "./radio-tiles/completed-tile.component";
-import testsOrdered from "./radio-tiles/tests-ordered-tile.component";
-import reviewTile from "./radio-tiles/review-tile.component";
-import approveTile from "./radio-tiles/approved-tile.component";
-import notdoneTile from "./radio-tiles/not-done-tile.component";
+import worklistTile from "./metrics-tiles/worklist-tile.component";
+import referredTile from "./metrics-tiles/referred-tile.component";
+import completedTile from "./metrics-tiles/completed-tile.component";
+import testsOrdered from "./metrics-tiles/procedure-ordered-tile.component";
+import reviewTile from "./metrics-tiles/review-tile.component";
+import approveTile from "./metrics-tiles/approved-tile.component";
+import rejectedTile from "./metrics-tiles/rejected-tile.component";
 
 const moduleName = "@openmrs/esm-radiology-app";
 
@@ -55,4 +55,4 @@ export const reviewTileComponent = getSyncLifecycle(reviewTile, options);
 
 export const approveTileComponent = getSyncLifecycle(approveTile, options);
 
-export const notDoneTileComponent = getSyncLifecycle(notdoneTile, options);
+export const notDoneTileComponent = getSyncLifecycle(rejectedTile, options);

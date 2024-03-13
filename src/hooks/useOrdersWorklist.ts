@@ -6,7 +6,7 @@ export function useOrdersWorklist(
   activatedOnOrAfterDate: string,
   fulfillerStatus: string
 ) {
-  const orderTypeParam = `orderTypes=52a447d3-a64a-11e3-9aeb-50e549534c5e&activatedOnOrAfterDate=${activatedOnOrAfterDate}&isStopped=false&fulfillerStatus=${fulfillerStatus}&v=full`;
+  const orderTypeParam = `orderTypes=4237a01f-29c5-4167-9d8e-96d6e590aa33&activatedOnOrAfterDate=${activatedOnOrAfterDate}&isStopped=false&fulfillerStatus=${fulfillerStatus}&v=full`;
   const apiUrl = `/ws/rest/v1/order?${orderTypeParam}`;
 
   const { data, error, isLoading } = useSWR<
