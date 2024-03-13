@@ -19,10 +19,9 @@ import {
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import styles from "./tests-ordered.scss";
-import { Result } from "../work-list/work-list.resource";
 
 interface RejectOrderOverflowMenuItemProps {
-  order: Result;
+  order: any;
 }
 import {
   formatDate,

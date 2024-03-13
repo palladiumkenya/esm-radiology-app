@@ -61,7 +61,8 @@ export const notDoneTileComponent = getSyncLifecycle(rejectedTile, options);
 
 export const addRadiologyToWorklistDialogComponent = getSyncLifecycle(
   addRadiologyToWorklistDialog,
-  options);
+  options
+);
 export const rejectOrderDialog = getSyncLifecycle(
   rejectOrderDialogComponent,
   options

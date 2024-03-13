@@ -2,10 +2,9 @@ import { OverflowMenuItem } from "@carbon/react";
 import { showModal } from "@openmrs/esm-framework";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Result } from "../work-list/work-list.resource";
 
 interface PickRadiologyLabRequestActionMenuProps {
-  order: Result;
+  order: any;
   closeModal: () => void;
 }
 
