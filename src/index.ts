@@ -53,7 +53,6 @@ export const testOrderedTileComponent = getSyncLifecycle(testsOrdered, options);
 
 export const reviewTileComponent = getSyncLifecycle(reviewTile, options);
 
-export const approveTileComponent =getSyncLifecycle(approveTile, options);
+export const approveTileComponent = getSyncLifecycle(approveTile, options);
 
 export const notDoneTileComponent = getSyncLifecycle(notdoneTile, options);
-
