@@ -14,11 +14,7 @@ import {
   OverflowMenuItem,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import {
-  formatDate,
-  parseDate,
-  usePagination
-} from "@openmrs/esm-framework";
+import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
 
 export const TestsOrdered: React.FC = () => {
   const { t } = useTranslation();
@@ -59,17 +55,17 @@ export const TestsOrdered: React.FC = () => {
         orderer: entry.orderer.display,
         urgency: entry.urgency,
         actions: (
-        <OverflowMenu flipped={true}>
-          <OverflowMenuItem
-            itemText="Action 1"
-            onClick={() => console.log("Action 1 clicked")}
-          />
-          <OverflowMenuItem
-            itemText="Action 2"
-            onClick={() => console.log("Action 2 clicked")}
-          />
-        </OverflowMenu>
-      ),
+          <OverflowMenu flipped={true}>
+            <OverflowMenuItem
+              itemText="Pick Request"
+              onClick={() => "Pick Request"}
+            />
+            <OverflowMenuItem
+              itemText="Rejected Order"
+              onClick={() => "Rejected Order"}
+            />
+          </OverflowMenu>
+        ),
       }));
   }, [paginatedResults]);
 
@@ -82,7 +78,7 @@ export const TestsOrdered: React.FC = () => {
     { id: 6, header: t("status", "Status"), key: "status" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
-    { id: 10, header: t("actions", "Actions"), key: "actions" },  
+    { id: 10, header: t("actions", "Actions"), key: "actions" },
   ];
 
   return isLoading ? (
@@ -114,25 +110,12 @@ export const TestsOrdered: React.FC = () => {
                       {row.cells.map((cell) => (
                         <TableCell key={cell.id}>{cell.value}</TableCell>
                       ))}
-                      <TableCell>
-                        {row.id === "actions" ? (
-                          <OverflowMenu flipped={true}>
-                            <OverflowMenuItem
-                              itemText="Action 1"
-                              onClick={() => console.log("Action 1 clicked")}
-                            />
-                            <OverflowMenuItem
-                              itemText="Action 2"
-                              onClick={() => console.log("Action 2 clicked")}
-                            />
-                          </OverflowMenu>
-                        ) : null}
-                      </TableCell>
                     </TableRow>
                     {expandedRows.has(row.id) && (
                       <TableRow>
-                        <TableCell colSpan={tableColumns.length + 1}>
-                        </TableCell>
+                        <TableCell
+                          colSpan={tableColumns.length + 1}
+                        ></TableCell>
                       </TableRow>
                     )}
                   </React.Fragment>
