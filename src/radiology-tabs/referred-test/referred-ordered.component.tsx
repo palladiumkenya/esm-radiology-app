@@ -10,6 +10,8 @@ import {
   DataTable,
   InlineLoading,
   Pagination,
+  OverflowMenu,
+  OverflowMenuItem,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
@@ -41,6 +43,18 @@ export const ReferredTests: React.FC = () => {
         status: entry.fulfillerStatus ?? "--",
         orderer: entry.orderer.display,
         urgency: entry.urgency,
+        actions: (
+          <OverflowMenu flipped={true}>
+            <OverflowMenuItem
+              itemText="Action 1"
+              onClick={() => console.log("Action 1 clicked")}
+            />
+            <OverflowMenuItem
+              itemText="Action 2"
+              onClick={() => console.log("Action 2 clicked")}
+            />
+          </OverflowMenu>
+        ),
       }));
   }, [paginatedResults]);
 
@@ -53,6 +67,7 @@ export const ReferredTests: React.FC = () => {
     { id: 6, header: t("status", "Status"), key: "status" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
+    { id: 10, header: t("actions", "Actions"), key: "actions" },
   ];
 
   return isLoading ? (
