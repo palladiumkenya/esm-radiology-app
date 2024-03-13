@@ -9,6 +9,9 @@ import worklistTile from "./radio-tiles/worklist-tile.component";
 import referredTile from "./radio-tiles/referred-tile.component";
 import completedTile from "./radio-tiles/completed-tile.component";
 import testsOrdered from "./radio-tiles/tests-ordered-tile.component";
+import reviewTile from "./radio-tiles/review-tile.component";
+import approveTile from "./radio-tiles/approved-tile.component";
+import notdoneTile from "./radio-tiles/not-done-tile.component";
 
 const moduleName = "@openmrs/esm-radiology-app";
 
@@ -24,22 +27,10 @@ export const importTranslation = require.context(
   "lazy"
 );
 
-/**
- * This function performs any setup that should happen at microfrontend
- * load-time (such as defining the config schema) and then returns an
- * object which describes how the React application(s) should be
- * rendered.
- */
 export function startupApp() {
   defineConfigSchema(moduleName, configSchema);
 }
 
-/**
- * This named export tells the app shell that the default export of `root.component.tsx`
- * should be rendered when the route matches `root`. The full route
- * will be `openmrsSpaBase() + 'root'`, which is usually
- * `/openmrs/spa/root`.
- */
 export const root = getAsyncLifecycle(
   () => import("./root.component"),
   options
@@ -59,3 +50,10 @@ export const referredTileComponent = getSyncLifecycle(referredTile, options);
 export const completedTileComponent = getSyncLifecycle(completedTile, options);
 
 export const testOrderedTileComponent = getSyncLifecycle(testsOrdered, options);
+
+export const reviewTileComponent = getSyncLifecycle(reviewTile, options);
+
+export const approveTileComponent =getSyncLifecycle(approveTile, options);
+
+export const notDoneTileComponent = getSyncLifecycle(notdoneTile, options);
+

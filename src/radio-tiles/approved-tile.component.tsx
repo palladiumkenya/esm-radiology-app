@@ -2,16 +2,16 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import SummaryTile from "../summary-tiles/summary-tile.component";
 
-const ReferredTileComponent = () => {
+const ApprovedTileComponent = () => {
   const { t } = useTranslation();
 
   return (
     <SummaryTile
-      label={t("transferred", "Transferred")}
+      label={t("approved", "Approved")}
       value={0}
-      headerLabel={t("referredTests", "Referred tests")}
+      headerLabel={t("approved", "Approved")}
     />
   );
 };
 
-export default ReferredTileComponent;
+export default ApprovedTileComponent;
