@@ -57,7 +57,7 @@ export const ReferredTests: React.FC = () => {
         actions: (
           <OverflowMenu flipped={true}>
             <OverflowMenuItem
-              itemText="Action 1"
+              itemText="Pick Request"
               onClick={() => "Pick Request"}
             />
             <OverflowMenuItem
@@ -115,7 +115,7 @@ export const ReferredTests: React.FC = () => {
                           <OverflowMenu flipped={true}>
                             <OverflowMenuItem
                               itemText="Action 1"
-                              onClick={() => console.log("Action 1 clicked")}
+                              onClick={() => "Pick Request"}
                             />
                             <OverflowMenuItem
                               itemText="Rejected Order"
