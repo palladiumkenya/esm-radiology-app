@@ -9,18 +9,22 @@ import {
   TableCell,
   DataTable,
   InlineLoading,
+  Pagination,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
 
 export const ApprovedOrders: React.FC = () => {
   const { t } = useTranslation();
-  const [currenntPageSize, setCurrentPageSize] = useState<number>(10);
+  const [currentPageSize, setCurrentPageSize] = useState<number>(10);
   const { workListEntries, isLoading } = useOrdersWorklist("", "");
-  const { results: paginatedResults } = usePagination(
-    workListEntries,
-    currenntPageSize
-  ); //pagination for the first ten entries
+  const {
+    goTo,
+    results: paginatedResults,
+    currentPage,
+  } = usePagination(workListEntries, currentPageSize);
+
+  const pageSizes = [10, 20, 30, 40, 50];
 
   const rows = useMemo(() => {
     return paginatedResults
@@ -62,26 +66,44 @@ export const ApprovedOrders: React.FC = () => {
         overflowMenuOnHover={true}
       >
         {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
-          <Table {...getTableProps()}>
-            <TableHead>
-              <TableRow>
-                {headers.map((header) => (
-                  <TableHeader {...getHeaderProps({ header })}>
-                    {header.header}
-                  </TableHeader>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow {...getRowProps({ row })}>
-                  {row.cells.map((cell) => (
-                    <TableCell key={cell.id}>{cell.value}</TableCell>
+          <>
+            <Table {...getTableProps()}>
+              <TableHead>
+                <TableRow>
+                  {headers.map((header) => (
+                    <TableHeader {...getHeaderProps({ header })}>
+                      {header.header}
+                    </TableHeader>
                   ))}
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow {...getRowProps({ row })}>
+                    {row.cells.map((cell) => (
+                      <TableCell key={cell.id}>{cell.value}</TableCell>
+                    ))}
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <Pagination
+              forwardText="Next page"
+              backwardText="Previous page"
+              page={currentPage}
+              pageSize={currentPageSize}
+              pageSizes={pageSizes}
+              totalItems={workListEntries?.length}
+              onChange={({ pageSize, page }) => {
+                if (pageSize !== currentPageSize) {
+                  setCurrentPageSize(pageSize);
+                }
+                if (page !== currentPage) {
+                  goTo(page);
+                }
+              }}
+            />
+          </>
         )}
       </DataTable>
     </div>
