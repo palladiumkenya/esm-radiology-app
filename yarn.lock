@@ -1690,7 +1690,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/react@npm:^1.33.1":
+"@carbon/react@npm:^1.12.0, @carbon/react@npm:^1.33.1":
   version: 1.52.0
   resolution: "@carbon/react@npm:1.52.0"
   dependencies:
@@ -4013,12 +4013,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@openmrs/esm-patient-common-lib@npm:next":
+  version: 7.0.2-pre.4066
+  resolution: "@openmrs/esm-patient-common-lib@npm:7.0.2-pre.4066"
+  dependencies:
+    "@carbon/react": ^1.12.0
+    lodash-es: ^4.17.21
+    uuid: ^8.3.2
+  peerDependencies:
+    "@openmrs/esm-framework": 5.x
+    react: 18.x
+    single-spa: 6.x
+  checksum: cb9e9c6127365b6bf7e387aa59cbfc313b05e033539cae130e57818252d494c7cbbeeeabd1a0eec21e84a2bad5f3b50dccbe9fbc9e53758de9801aa20f1500d0
+  languageName: node
+  linkType: hard
+
 "@openmrs/esm-radiology-app@workspace:.":
   version: 0.0.0-use.local
   resolution: "@openmrs/esm-radiology-app@workspace:."
   dependencies:
     "@carbon/react": ^1.33.1
     "@openmrs/esm-framework": next
+    "@openmrs/esm-patient-common-lib": next
     "@openmrs/esm-styleguide": next
     "@playwright/test": ^1.30.0
     "@swc/cli": ^0.1.62
@@ -4055,6 +4071,7 @@ __metadata:
     pretty-quick: ^3.1.3
     react: ^18.2.0
     react-dom: ^18.2.0
+    react-hook-form: ^7.51.0
     react-i18next: ^11.18.6
     react-image-annotate: ^1.8.0
     react-router-dom: ^6.14.1
@@ -19310,6 +19327,15 @@ __metadata:
   peerDependencies:
     react: ^16.8.0
   checksum: 55f21c9c02c865c3d240d319d5c60afb02cec701181edfbd70e4b0bf130bbc86853a08e47ec8411bf0f6507d2710f9166cf65a3cc2db3ce6cb41fa39702b9096
+  languageName: node
+  linkType: hard
+
+"react-hook-form@npm:^7.51.0":
+  version: 7.51.0
+  resolution: "react-hook-form@npm:7.51.0"
+  peerDependencies:
+    react: ^16.8.0 || ^17 || ^18
+  checksum: c3d9996a2c2867994f10d1f598ca24b0dee019221116750ebe64f5abb422081b76b217c0265807485c9f2fc7b2e8c2aa8bed153cbf86fa0c2603d42b714f20eb
   languageName: node
   linkType: hard
 

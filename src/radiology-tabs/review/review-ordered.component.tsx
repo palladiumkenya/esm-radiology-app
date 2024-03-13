@@ -13,9 +13,7 @@ import {
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
 
-interface ReviewProps {}
-
-export const Review: React.FC<ReviewProps> = () => {
+export const Review: React.FC = () => {
   const { t } = useTranslation();
   const [currenntPageSize, setCurrentPageSize] = useState<number>(10);
   const { workListEntries, isLoading } = useOrdersWorklist("", "");
@@ -27,7 +25,7 @@ export const Review: React.FC<ReviewProps> = () => {
   const rows = useMemo(() => {
     return paginatedResults
       ?.filter((item) => item.action === "NEW")
-      .map((entry, index) => ({
+      .map((entry) => ({
         ...entry,
         id: entry.uuid,
         date: formatDate(parseDate(entry.dateActivated)),
@@ -42,7 +40,6 @@ export const Review: React.FC<ReviewProps> = () => {
       }));
   }, [paginatedResults]);
 
-  console.log(paginatedResults);
   const tableColums = [
     { id: 0, header: t("date", "Date"), key: "date" },
     { id: 1, header: t("orderNumber", "Order Number"), key: "orderNumber" },

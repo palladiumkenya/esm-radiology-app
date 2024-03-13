@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 
 interface OverlayStore {
   isOverlayOpen: boolean;
-  component?: any;
+  component?: React.ReactNode;
   header: string;
 }
 
-const initialState = { isOverlayOpen: false, component: Function, header: "" };
+const initialState = { isOverlayOpen: false, component: null, header: "" };
 
 const getOverlayStore = () => {
   return getGlobalStore("laboratory", initialState);
