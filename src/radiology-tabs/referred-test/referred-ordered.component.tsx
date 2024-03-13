@@ -27,6 +27,17 @@ export const ReferredTests: React.FC = () => {
   } = usePagination(workListEntries, currentPageSize);
 
   const pageSizes = [10, 20, 30, 40, 50];
+  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
+
+  const toggleRowExpansion = (rowId: string) => {
+    const newExpandedRows = new Set(expandedRows);
+    if (expandedRows.has(rowId)) {
+      newExpandedRows.delete(rowId);
+    } else {
+      newExpandedRows.add(rowId);
+    }
+    setExpandedRows(newExpandedRows);
+  };
 
   const rows = useMemo(() => {
     return paginatedResults
@@ -47,18 +58,18 @@ export const ReferredTests: React.FC = () => {
           <OverflowMenu flipped={true}>
             <OverflowMenuItem
               itemText="Action 1"
-              onClick={() => console.log("Action 1 clicked")}
+              onClick={() => "Pick Request"}
             />
             <OverflowMenuItem
-              itemText="Action 2"
-              onClick={() => console.log("Action 2 clicked")}
+              itemText="Rejected Order"
+              onClick={() => "Rejected Order"}
             />
           </OverflowMenu>
         ),
       }));
   }, [paginatedResults]);
 
-  const tableColums = [
+  const tableColumns = [
     { id: 0, header: t("date", "Date"), key: "date" },
     { id: 1, header: t("orderNumber", "Order Number"), key: "orderNumber" },
     { id: 2, header: t("patient", "Patient"), key: "patient" },
@@ -76,7 +87,7 @@ export const ReferredTests: React.FC = () => {
     <div>
       <DataTable
         rows={rows}
-        headers={tableColums}
+        headers={tableColumns}
         useZebraStyles
         overflowMenuOnHover={true}
       >
@@ -94,11 +105,34 @@ export const ReferredTests: React.FC = () => {
               </TableHead>
               <TableBody>
                 {rows.map((row) => (
-                  <TableRow {...getRowProps({ row })}>
-                    {row.cells.map((cell) => (
-                      <TableCell key={cell.id}>{cell.value}</TableCell>
-                    ))}
-                  </TableRow>
+                  <React.Fragment key={row.id}>
+                    <TableRow {...getRowProps({ row })}>
+                      {row.cells.map((cell) => (
+                        <TableCell key={cell.id}>{cell.value}</TableCell>
+                      ))}
+                      <TableCell>
+                        {row.id === "actions" ? (
+                          <OverflowMenu flipped={true}>
+                            <OverflowMenuItem
+                              itemText="Action 1"
+                              onClick={() => console.log("Action 1 clicked")}
+                            />
+                            <OverflowMenuItem
+                              itemText="Rejected Order"
+                              onClick={() => "Rejected Order"}
+                            />
+                          </OverflowMenu>
+                        ) : null}
+                      </TableCell>
+                    </TableRow>
+                    {expandedRows.has(row.id) && (
+                      <TableRow>
+                        <TableCell
+                          colSpan={tableColumns.length + 1}
+                        ></TableCell>
+                      </TableRow>
+                    )}
+                  </React.Fragment>
                 ))}
               </TableBody>
             </Table>
