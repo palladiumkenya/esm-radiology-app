@@ -12,19 +12,30 @@ import {
   Pagination,
   OverflowMenu,
   OverflowMenuItem,
+  TableContainer,
+  TableToolbar,
+  TableToolbarContent,
+  TableToolbarSearch,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
+import { useSearchResults } from "../../hooks/useSearchResults";
 
 export const TestsOrdered: React.FC = () => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
   const { workListEntries, isLoading } = useOrdersWorklist("", "");
+  const [searchString, setSearchString] = useState<string>("");
+
+  workListEntries && console.log("workListEntries", workListEntries);
+
+  const searchResults = useSearchResults(workListEntries, searchString);
+
   const {
     goTo,
     results: paginatedResults,
     currentPage,
-  } = usePagination(workListEntries, currentPageSize);
+  } = usePagination(searchResults, currentPageSize);
 
   const pageSizes = [10, 20, 30, 40, 50];
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
@@ -93,51 +104,69 @@ export const TestsOrdered: React.FC = () => {
       >
         {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
           <>
-            <Table {...getTableProps()}>
-              <TableHead>
-                <TableRow>
-                  {headers.map((header) => (
-                    <TableHeader {...getHeaderProps({ header })}>
-                      {header.header}
-                    </TableHeader>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <React.Fragment key={row.id}>
-                    <TableRow {...getRowProps({ row })}>
-                      {row.cells.map((cell) => (
-                        <TableCell key={cell.id}>{cell.value}</TableCell>
-                      ))}
-                    </TableRow>
-                    {expandedRows.has(row.id) && (
-                      <TableRow>
-                        <TableCell
-                          colSpan={tableColumns.length + 1}
-                        ></TableCell>
+            <TableContainer>
+              <TableToolbar
+                style={{
+                  position: "static",
+                  height: "3rem",
+                  overflow: "visible",
+                  margin: 0,
+                  // TODO: add background color to the toolbar
+                }}
+              >
+                <TableToolbarContent style={{ margin: 0 }}>
+                  <TableToolbarSearch
+                    style={{ backgroundColor: "#f4f4f4" }}
+                    onChange={(event) => setSearchString(event.target.value)}
+                  />
+                </TableToolbarContent>
+              </TableToolbar>
+              <Table {...getTableProps()}>
+                <TableHead>
+                  <TableRow>
+                    {headers.map((header) => (
+                      <TableHeader {...getHeaderProps({ header })}>
+                        {header.header}
+                      </TableHeader>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <React.Fragment key={row.id}>
+                      <TableRow {...getRowProps({ row })}>
+                        {row.cells.map((cell) => (
+                          <TableCell key={cell.id}>{cell.value}</TableCell>
+                        ))}
                       </TableRow>
-                    )}
-                  </React.Fragment>
-                ))}
-              </TableBody>
-            </Table>
-            <Pagination
-              forwardText="Next page"
-              backwardText="Previous page"
-              page={currentPage}
-              pageSize={currentPageSize}
-              pageSizes={pageSizes}
-              totalItems={workListEntries?.length}
-              onChange={({ pageSize, page }) => {
-                if (pageSize !== currentPageSize) {
-                  setCurrentPageSize(pageSize);
-                }
-                if (page !== currentPage) {
-                  goTo(page);
-                }
-              }}
-            />
+                      {expandedRows.has(row.id) && (
+                        <TableRow>
+                          <TableCell
+                            colSpan={tableColumns.length + 1}
+                          ></TableCell>
+                        </TableRow>
+                      )}
+                    </React.Fragment>
+                  ))}
+                </TableBody>
+              </Table>
+              <Pagination
+                forwardText="Next page"
+                backwardText="Previous page"
+                page={currentPage}
+                pageSize={currentPageSize}
+                pageSizes={pageSizes}
+                totalItems={workListEntries?.length}
+                onChange={({ pageSize, page }) => {
+                  if (pageSize !== currentPageSize) {
+                    setCurrentPageSize(pageSize);
+                  }
+                  if (page !== currentPage) {
+                    goTo(page);
+                  }
+                }}
+              />
+            </TableContainer>
           </>
         )}
       </DataTable>

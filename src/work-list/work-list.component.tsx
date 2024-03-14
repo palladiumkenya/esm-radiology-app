@@ -1,9 +1,4 @@
-import React, {
-  useState,
-  useMemo,
-  AnchorHTMLAttributes,
-  useCallback,
-} from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Microscope, TrashCan } from "@carbon/react/icons";
 
