@@ -10,19 +10,29 @@ import {
   DataTable,
   DataTableSkeleton,
   Pagination,
+  TableContainer,
+  TableToolbar,
+  TableToolbarContent,
+  TableToolbarSearch,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
+import { useSearchResults } from "../../hooks/useSearchResults";
 
 export const Review: React.FC = () => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
   const { workListEntries, isLoading } = useOrdersWorklist("", "");
+  const [searchString, setSearchString] = useState<string>("");
+
+  const searchResults = useSearchResults(workListEntries, searchString);
+
   const {
     goTo,
     results: paginatedResults,
     currentPage,
-  } = usePagination(workListEntries, currentPageSize);
+  } = usePagination(searchResults, currentPageSize);
+
   const pageSizes = [10, 20, 30, 40, 50];
 
   const rows = useMemo(() => {
@@ -66,42 +76,59 @@ export const Review: React.FC = () => {
       >
         {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
           <>
-            <Table {...getTableProps()}>
-              <TableHead>
-                <TableRow>
-                  {headers.map((header) => (
-                    <TableHeader {...getHeaderProps({ header })}>
-                      {header.header}
-                    </TableHeader>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {rows.map((row) => (
-                  <TableRow {...getRowProps({ row })}>
-                    {row.cells.map((cell) => (
-                      <TableCell key={cell.id}>{cell.value}</TableCell>
+            <TableContainer>
+              <TableToolbar
+                style={{
+                  position: "static",
+                  height: "3rem",
+                  overflow: "visible",
+                  margin: 0,
+                }}
+              >
+                <TableToolbarContent style={{ margin: 0 }}>
+                  <TableToolbarSearch
+                    style={{ backgroundColor: "#f4f4f4" }}
+                    onChange={(event) => setSearchString(event.target.value)}
+                  />
+                </TableToolbarContent>
+              </TableToolbar>
+              <Table {...getTableProps()}>
+                <TableHead>
+                  <TableRow>
+                    {headers.map((header) => (
+                      <TableHeader {...getHeaderProps({ header })}>
+                        {header.header}
+                      </TableHeader>
                     ))}
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-            <Pagination
-              forwardText="Next page"
-              backwardText="Previous page"
-              page={currentPage}
-              pageSize={currentPageSize}
-              pageSizes={pageSizes}
-              totalItems={workListEntries?.length}
-              onChange={({ pageSize, page }) => {
-                if (pageSize !== currentPageSize) {
-                  setCurrentPageSize(pageSize);
-                }
-                if (page !== currentPage) {
-                  goTo(page);
-                }
-              }}
-            />
+                </TableHead>
+                <TableBody>
+                  {rows.map((row) => (
+                    <TableRow {...getRowProps({ row })}>
+                      {row.cells.map((cell) => (
+                        <TableCell key={cell.id}>{cell.value}</TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+              <Pagination
+                forwardText="Next page"
+                backwardText="Previous page"
+                page={currentPage}
+                pageSize={currentPageSize}
+                pageSizes={pageSizes}
+                totalItems={workListEntries?.length}
+                onChange={({ pageSize, page }) => {
+                  if (pageSize !== currentPageSize) {
+                    setCurrentPageSize(pageSize);
+                  }
+                  if (page !== currentPage) {
+                    goTo(page);
+                  }
+                }}
+              />
+            </TableContainer>
           </>
         )}
       </DataTable>
