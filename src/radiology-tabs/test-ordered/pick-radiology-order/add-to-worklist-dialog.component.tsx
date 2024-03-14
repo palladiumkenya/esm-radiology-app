@@ -11,7 +11,7 @@ import {
 import { useTranslation } from "react-i18next";
 import styles from "./add-to-worklist-dialog.scss";
 import { showNotification, showSnackbar } from "@openmrs/esm-framework";
-import { UpdateOrder } from "./add-to-worklist-dialog.resource";
+import { updateOrder } from "./add-to-worklist-dialog.resource";
 import { Result } from "../../work-list/work-list.resource";
 
 interface AddRadiologyToWorklistDialogProps {
@@ -28,15 +28,17 @@ const AddRadiologyToWorklistDialog: React.FC<
   const [isReferredChecked, setIsReferredChecked] = useState(false);
   const [referredLocation, setReferredLocation] = useState("");
 
-  const pickLabRequestQueue = async (event) => {
+  const pickRadiologyLabRequestQueue = async (event) => {
     event.preventDefault();
+
     const body = {
-      fulfillerStatus: "IN_PROGRESS",
-      fulfillerComment: "Radiology",
+      fulfillerComment: "",
+      fulfillerStatus: isReferredChecked ? "EXCEPTION" : "IN_PROGRESS",
+      // referralLocation: isReferredChecked ? referredLocation : "",
     };
 
-    UpdateOrder(order.uuid, body).then(
-      () => {
+    updateOrder(order.uuid, body)
+      .then(() => {
         showSnackbar({
           isLowContrast: true,
           title: t("pickedAnOrder", "Picked an order"),
@@ -47,16 +49,15 @@ const AddRadiologyToWorklistDialog: React.FC<
           ),
         });
         closeModal();
-      },
-      (error) => {
+      })
+      .catch((error) => {
         showNotification({
           title: t(`errorPicking an order', 'Error Picking an Order`),
           kind: "error",
           critical: true,
           description: error?.message,
         });
-      }
-    );
+      });
   };
 
   const handleCheckboxChange = () => {
@@ -65,7 +66,7 @@ const AddRadiologyToWorklistDialog: React.FC<
 
   return (
     <div>
-      <Form onSubmit={pickLabRequestQueue}>
+      <Form onSubmit={pickRadiologyLabRequestQueue}>
         <ModalHeader
           closeModal={closeModal}
           title={t("pickRadiologyLabRequest", "Pick Lab Request")}
@@ -95,7 +96,7 @@ const AddRadiologyToWorklistDialog: React.FC<
           <Button kind="secondary" onClick={closeModal}>
             {t("cancel", "Cancel")}
           </Button>
-          <Button type="submit" onClick={pickLabRequestQueue}>
+          <Button type="submit" onClick={pickRadiologyLabRequestQueue}>
             {t("pickPatient", "Pick Lab Request")}
           </Button>
         </ModalFooter>
