@@ -78,7 +78,10 @@ export const TestsOrdered: React.FC = () => {
               itemText="Pick Request"
               onClick={() => "Pick Request"}
             />
-            <RejectOrderMenuItem order={entry} />
+            <OverflowMenuItem
+              itemText="Rejected Order"
+              onClick={() => "Rejected Order"}
+            />
           </OverflowMenu>
         ),
       }));
