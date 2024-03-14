@@ -19,7 +19,7 @@ import {
 import { Result } from "../radiology-tabs/work-list/work-list.resource";
 import { useForm } from "react-hook-form";
 import {
-  UpdateOrderResult,
+  saveProcedureReport,
   useGetOrderConceptByUuid,
 } from "./result-form.resource";
 
@@ -64,30 +64,26 @@ const ProcedureReportForm: React.FC<ResultFormProps> = ({
     e.preventDefault();
     // assign result to test order
 
-    const orderDiscontinuationPayload = {
-      previousOrder: order.uuid,
-      type: "testorder",
-      action: "DISCONTINUE",
-      careSetting: order.careSetting.uuid,
-      encounter: order.encounter.uuid,
-      patient: order.patient.uuid,
+    const reportPayload = {
+      patient: patientUuid,
+      procedureOrder: order.uuid,
       concept: order.concept.uuid,
-      orderer: order.orderer,
+      status: "IN_PROGRESS",
+      procedureReport: report,
+      participants: [],
+      procedureResults: [],
+      complications: [],
     };
 
-    UpdateOrderResult(
-      order.encounter.uuid,
-      {},
-      orderDiscontinuationPayload
-    ).then(
+    saveProcedureReport(reportPayload).then(
       () => {
         showToast({
           critical: true,
-          title: t("updateEncounter", "Update lab results"),
+          title: t("saveReport", "Report updated sucessful"),
           kind: "success",
           description: t(
             "generateSuccessfully",
-            "You have successfully updated test results"
+            "You have successfully save the report"
           ),
         });
         closeOverlay();
@@ -95,7 +91,7 @@ const ProcedureReportForm: React.FC<ResultFormProps> = ({
       (err) => {
         showNotification({
           title: t(
-            `errorUpdatingEncounter', 'Error occurred while updating test results`
+            `errorSavingReport', 'Error occurred while saving the report`
           ),
           kind: "error",
           critical: true,

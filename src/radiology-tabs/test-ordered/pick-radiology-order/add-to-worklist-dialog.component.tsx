@@ -69,7 +69,7 @@ const AddRadiologyToWorklistDialog: React.FC<
       <Form onSubmit={pickRadiologyLabRequestQueue}>
         <ModalHeader
           closeModal={closeModal}
-          title={t("pickRadiologyLabRequest", "Pick Lab Request")}
+          title={t("pickRequest", "Pick Request")}
         />
         <ModalBody>
           <div className={styles.modalBody}>
@@ -97,7 +97,7 @@ const AddRadiologyToWorklistDialog: React.FC<
             {t("cancel", "Cancel")}
           </Button>
           <Button type="submit" onClick={pickRadiologyLabRequestQueue}>
-            {t("pickPatient", "Pick Lab Request")}
+            {t("pickRequest", "Pick Request")}
           </Button>
         </ModalFooter>
       </Form>
