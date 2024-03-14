@@ -27,8 +27,6 @@ export const TestsOrdered: React.FC = () => {
   const { workListEntries, isLoading } = useOrdersWorklist("", "");
   const [searchString, setSearchString] = useState<string>("");
 
-  workListEntries && console.log("workListEntries", workListEntries);
-
   const searchResults = useSearchResults(workListEntries, searchString);
 
   const {
@@ -40,20 +38,10 @@ export const TestsOrdered: React.FC = () => {
   const pageSizes = [10, 20, 30, 40, 50];
   const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
 
-  const toggleRowExpansion = (rowId: string) => {
-    const newExpandedRows = new Set(expandedRows);
-    if (expandedRows.has(rowId)) {
-      newExpandedRows.delete(rowId);
-    } else {
-      newExpandedRows.add(rowId);
-    }
-    setExpandedRows(newExpandedRows);
-  };
-
   const rows = useMemo(() => {
     return paginatedResults
       ?.filter((item) => item.action === "NEW")
-      .map((entry, index) => ({
+      .map((entry) => ({
         ...entry,
         id: entry.uuid,
         date: formatDate(parseDate(entry.dateActivated)),
