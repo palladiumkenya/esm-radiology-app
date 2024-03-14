@@ -6,7 +6,7 @@ import {
   ModalBody,
   ModalFooter,
   ModalHeader,
-  TextArea
+  TextArea,
 } from "@carbon/react";
 import { useTranslation } from "react-i18next";
 import styles from "./reject-order-dialog.scss";
