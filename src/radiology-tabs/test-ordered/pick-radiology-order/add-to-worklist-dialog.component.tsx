@@ -34,7 +34,6 @@ const AddRadiologyToWorklistDialog: React.FC<
       fulfillerStatus: "IN_PROGRESS",
       fulfillerComment: "Radiology",
     };
-    console.log("body", body);
 
     UpdateOrder(order.uuid, body).then(
       () => {
