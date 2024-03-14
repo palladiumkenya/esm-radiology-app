@@ -22,7 +22,7 @@ import styles from "./tests-ordered.scss";
 import { Result } from "../work-list/work-list.resource";
 
 interface RejectOrderOverflowMenuItemProps {
-  order: Result;
+  order: any;
 }
 import {
   formatDate,
