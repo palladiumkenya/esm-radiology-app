@@ -82,6 +82,10 @@
         "name": "notDoneTileSlot",
         "title": "Not Done"
     }
+  },
+  {
+    "name": "reject-order-dialog",
+    "component": "rejectOrderDialog"
   }
   ],
   "pages": [
