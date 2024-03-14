@@ -139,7 +139,7 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
           ),
         },
         orderNumber: { content: <span>{entry.orderNumber}</span> },
-        test: { content: <span>{entry.concept.display}</span> },
+        procedure: { content: <span>{entry.concept.display}</span> },
         action: { content: <span>{entry.action}</span> },
         status: {
           content: (
