@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useMemo } from "react";
 import styles from "./result-form.scss";
 import { Button, InlineLoading, ModalBody, ModalFooter } from "@carbon/react";

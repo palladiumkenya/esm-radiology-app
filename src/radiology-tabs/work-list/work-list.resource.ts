@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { openmrsFetch } from "@openmrs/esm-framework";
 import useSWR from "swr";
 export interface Result {
