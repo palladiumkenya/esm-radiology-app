@@ -1,7 +1,6 @@
 import { openmrsFetch } from "@openmrs/esm-framework";
 import useSWR from "swr";
 export interface Result {
-  buttonState: string;
   uuid: string;
   orderNumber: string;
   accessionNumber: string;
