@@ -96,7 +96,7 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
       header: t("accessionNumber", "Accession Number"),
       key: "accessionNumber",
     },
-    { id: 4, header: t("test", "Test"), key: "test" },
+    { id: 4, header: t("procedure", "Procedure"), key: "procedure" },
     { id: 6, header: t("status", "Status"), key: "status" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },

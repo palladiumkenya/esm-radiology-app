@@ -6,7 +6,8 @@ export function useOrdersWorklist(
   activatedOnOrAfterDate: string,
   fulfillerStatus: string
 ) {
-  const orderTypeParam = `orderTypes=52a447d3-a64a-11e3-9aeb-50e549534c5e&activatedOnOrAfterDate=${activatedOnOrAfterDate}&isStopped=false&fulfillerStatus=${fulfillerStatus}&v=full`;
+  const orderTypeParam = `orderTypes=4237a01f-29c5-4167-9d8e-96d6e590aa33&activatedOnOrAfterDate=${activatedOnOrAfterDate}&isStopped=false&fulfillerStatus=${fulfillerStatus}
+  &v=custom:(uuid,orderNumber,patient:ref,concept:(uuid,display,conceptClass),action,careSetting,orderer:ref,urgency,instructions,commentToFulfiller,display,fulfillerStatus,dateStopped)`;
   const apiUrl = `/ws/rest/v1/order?${orderTypeParam}`;
 
   const { data, error, isLoading } = useSWR<
@@ -19,13 +20,17 @@ export function useOrdersWorklist(
       return (
         order.fulfillerStatus === null &&
         order.dateStopped === null &&
-        order.action === "NEW"
+        order.action === "NEW" &&
+        order.concept.conceptClass.uuid ===
+          "8caa332c-efe4-4025-8b18-3398328e1323"
       );
     } else if (fulfillerStatus === "IN_PROGRESS") {
       return (
         order.fulfillerStatus === "IN_PROGRESS" &&
         order.dateStopped === null &&
-        order.action !== "DISCONTINUE"
+        order.action !== "DISCONTINUE" &&
+        order.concept.conceptClass.uuid ===
+          "8caa332c-efe4-4025-8b18-3398328e1323"
       );
     }
   });

@@ -2,7 +2,7 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import SummaryTile from "../summary-tiles/summary-tile.component";
 
-const ApprovedTileComponent = () => {
+const RejectedTileComponent = () => {
   const { t } = useTranslation();
 
   return (
@@ -14,4 +14,4 @@ const ApprovedTileComponent = () => {
   );
 };
 
-export default ApprovedTileComponent;
+export default RejectedTileComponent;
