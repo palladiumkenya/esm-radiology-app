@@ -43,16 +43,6 @@ export const TestsOrdered: React.FC = () => {
       ?.filter((item) => item.action === "NEW")
       .map((entry) => ({
         ...entry,
-        id: entry.uuid,
-        date: formatDate(parseDate(entry.dateActivated)),
-        patient: entry.patient.display.split("-")[1],
-        orderNumber: entry.orderNumber,
-        accessionNumber: entry.accessionNumber,
-        procedure: entry.concept.display,
-        action: entry.action,
-        status: entry.fulfillerStatus ?? "--",
-        orderer: entry.orderer.display,
-        urgency: entry.urgency,
         actions: (
           <OverflowMenu flipped={true}>
             <OverflowMenuItem
