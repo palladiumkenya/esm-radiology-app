@@ -10,16 +10,14 @@ import {
   DataTable,
   Pagination,
   DataTableSkeleton,
-} from "@carbon/react";
-import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
-import { useSearchResults } from "../../hooks/useSearchResults";
-import {
   TableContainer,
   TableToolbar,
   TableToolbarContent,
   TableToolbarSearch,
 } from "@carbon/react";
+import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
+import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
+import { useSearchResults } from "../../hooks/useSearchResults";
 
 export const ApprovedOrders: React.FC = () => {
   const { t } = useTranslation();
@@ -40,7 +38,7 @@ export const ApprovedOrders: React.FC = () => {
   const rows = useMemo(() => {
     return paginatedResults
       ?.filter((item) => item.action === "NEW")
-      .map((entry, index) => ({
+      .map((entry) => ({
         ...entry,
         id: entry.uuid,
         date: formatDate(parseDate(entry.dateActivated)),
