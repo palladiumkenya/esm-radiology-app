@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Table,
@@ -18,10 +18,39 @@ import {
   TableToolbarSearch,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
+import styles from "./tests-ordered.scss";
+import { Result } from "../work-list/work-list.resource";
+
+interface RejectOrderOverflowMenuItemProps {
+  order: Result;
+}
+import {
+  formatDate,
+  parseDate,
+  showModal,
+  usePagination,
+} from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
 import PickRadiologyLabRequestActionMenu from "./pick-radiology-lab-request-menu.component";
 
+const RejectOrderMenuItem: React.FC<RejectOrderOverflowMenuItemProps> = ({
+  order,
+}) => {
+  const handleRejectOrderModel = useCallback(() => {
+    const dispose = showModal("reject-order-dialog", {
+      closeModal: () => dispose(),
+      order,
+    });
+  }, [order]);
+  return (
+    <OverflowMenuItem
+      className={styles.rejectOrders}
+      itemText="Rejected Order"
+      onClick={handleRejectOrderModel}
+      hasDivider
+    />
+  );
+};
 export const TestsOrdered: React.FC = () => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
@@ -44,26 +73,13 @@ export const TestsOrdered: React.FC = () => {
       ?.filter((item) => item.action === "NEW")
       .map((entry) => ({
         ...entry,
-        id: entry.uuid,
-        date: formatDate(parseDate(entry.dateActivated)),
-        patient: entry.patient.display.split("-")[1],
-        orderNumber: entry.orderNumber,
-        accessionNumber: entry.accessionNumber,
-        procedure: entry.concept.display,
-        action: entry.action,
-        status: entry.fulfillerStatus ?? "--",
-        orderer: entry.orderer.display,
-        urgency: entry.urgency,
         actions: (
           <OverflowMenu flipped={true}>
             <PickRadiologyLabRequestActionMenu
               closeModal={() => true}
               order={entry}
             />
-            <OverflowMenuItem
-              itemText="Rejected Order"
-              onClick={() => "Rejected Order"}
-            />
+            <RejectOrderMenuItem order={entry} />
           </OverflowMenu>
         ),
       }));
