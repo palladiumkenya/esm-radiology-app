@@ -8,8 +8,9 @@ import { useCallback } from "react";
 export function useProcedureOrderStats(fulfillerStatus: string) {
   const procedureOrderTypeUuid = "4237a01f-29c5-4167-9d8e-96d6e590aa33"; // TODO Make configurable
 
-  const orderTypeParam = `orderTypes=${procedureOrderTypeUuid}&fulfillerStatus=${fulfillerStatus}
-  &v=custom:(uuid,orderNumber,patient:ref,concept:(uuid,display,conceptClass),action,careSetting,orderer:ref,urgency,instructions,commentToFulfiller,display,fulfillerStatus,dateStopped)`;
+  const responseFormat =
+    "custom:(uuid,orderNumber,patient:ref,concept:(uuid,display,conceptClass),action,careSetting,orderer:ref,urgency,instructions,commentToFulfiller,display,fulfillerStatus,dateStopped)";
+  const orderTypeParam = `orderTypes=${procedureOrderTypeUuid}&fulfillerStatus=${fulfillerStatus}&v=${responseFormat}`;
   const apiUrl = `/ws/rest/v1/order?${orderTypeParam}`;
 
   const mutateOrders = useCallback(
