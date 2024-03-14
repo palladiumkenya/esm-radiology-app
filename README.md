@@ -6,14 +6,15 @@ For more information, please refer to the
 [OpenMRS 3.x Frontend Documentation](https://o3-docs.openmrs.org/).
 
 ### Dashboard
-<img width="1725" alt="Screenshot 2024-03-13 at 15 26 20" src="https://github.com/palladiumkenya/esm-radiology-app/assets/51090527/9a57d75f-a631-46bf-acad-48189ac259dc">
+<img width="1728" alt="Screenshot 2024-03-14 at 11 14 08" src="https://github.com/palladiumkenya/esm-radiology-app/assets/51090527/92101a9d-b423-4a4e-a230-3f2345309514">
 
 
 # Getting Started
 
 ```sh
 # Clone the repository
-git clone git@github.com:openmrs/openmrs-esm-radiology.git
+https://github.com/palladiumkenya/
+git clone git@github.com:palladiumkenya/esm-radiology-app.git
 
 # to install dependencies
 yarn
