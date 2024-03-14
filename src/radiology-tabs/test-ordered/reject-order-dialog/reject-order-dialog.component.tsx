@@ -46,6 +46,7 @@ const RejectOrderDialog: React.FC<RejectOrderDialogProps> = ({
           ),
         });
         closeModal();
+        window.location.reload();
       },
       (err) => {
         showNotification({
