@@ -31,7 +31,7 @@ const RejectOrderDialog: React.FC<RejectOrderDialogProps> = ({
     event.preventDefault();
 
     const payload = {
-      fulfillerStatus: "EXCEPTION", // Todo changed to Declined when UgEMR module is upgraded to 2.6.1
+      fulfillerStatus: "DECLINED",
       fulfillerComment: notes,
     };
     RejectOrder(order.uuid, payload).then(
