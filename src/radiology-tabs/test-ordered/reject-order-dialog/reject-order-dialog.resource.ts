@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { openmrsFetch, restBaseUrl } from "@openmrs/esm-framework";
 
 export async function RejectOrder(uuid: string, body: any) {

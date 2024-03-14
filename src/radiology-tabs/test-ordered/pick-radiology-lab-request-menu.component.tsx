@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { OverflowMenuItem } from "@carbon/react";
 import { showModal } from "@openmrs/esm-framework";
 import React, { useCallback } from "react";
