@@ -78,7 +78,10 @@ export const TestsOrdered: React.FC = () => {
               closeModal={() => true}
               order={entry}
             />
-            <RejectOrderMenuItem order={entry} />
+            <OverflowMenuItem
+              itemText="Rejected Order"
+              onClick={() => "Rejected Order"}
+            />
           </OverflowMenu>
         ),
       }));
