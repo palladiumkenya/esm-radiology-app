@@ -10,7 +10,7 @@ import {
 } from "@carbon/react";
 import { useTranslation } from "react-i18next";
 import styles from "./reject-order-dialog.scss";
-import { Result } from "../../../work-list/work-list.resource";
+import { Result } from "../../work-list/work-list.resource";
 import { RejectOrder } from "./reject-order-dialog.resource";
 import { showNotification, showSnackbar } from "@openmrs/esm-framework";
 

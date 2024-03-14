@@ -2,9 +2,9 @@ import React from "react";
 import { TabPanels, TabList, Tabs, Tab, TabPanel } from "@carbon/react";
 import { TestsOrdered } from "./test-ordered/tests-ordered.component";
 import { useTranslation } from "react-i18next";
-import WorkList from "../work-list/work-list.component";
+import WorkList from "./work-list/work-list.component";
 import { ReferredTests } from "./referred-test/referred-ordered.component";
-import { Review } from "./review/review-ordered.component";
+import { Review } from "./review-ordered/review-ordered.component";
 import { ApprovedOrders } from "./approved/approved-orders.component";
 import { OrdersNotDone } from "./orders-not-done/orders-not-done.component";
 
@@ -30,7 +30,7 @@ export const RadiologyTabs: React.FC = () => {
             <TestsOrdered />
           </TabPanel>
           <TabPanel>
-            <WorkList fulfillerStatus={""} />
+            <WorkList fulfillerStatus={"IN_PROGRESS"} />
           </TabPanel>
           <TabPanel>
             <ReferredTests />
