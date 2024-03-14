@@ -56,9 +56,9 @@ export const TestsOrdered: React.FC = () => {
         urgency: entry.urgency,
         actions: (
           <OverflowMenu flipped={true}>
-            <OverflowMenuItem
-              itemText="Pick Request"
-              onClick={() => "Pick Request"}
+            <PickRadiologyLabRequestActionMenu
+              closeModal={() => true}
+              order={entry}
             />
             <OverflowMenuItem
               itemText="Rejected Order"

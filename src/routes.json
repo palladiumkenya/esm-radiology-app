@@ -82,6 +82,10 @@
         "name": "notDoneTileSlot",
         "title": "Not Done"
     }
+  },
+  {
+    "name":"add-radiology-to-worklist-dialog",
+    "component": "addRadiologyToWorklistDialogComponent"
   }
   ],
   "pages": [

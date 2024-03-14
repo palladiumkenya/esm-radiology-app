@@ -2,20 +2,20 @@ import { OverflowMenuItem } from "@carbon/react";
 import { showModal } from "@openmrs/esm-framework";
 import React, { useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Order } from "@openmrs/esm-patient-common-lib";
+import { Result } from "../work-list/work-list.resource";
 
 interface PickRadiologyLabRequestActionMenuProps {
-  order: Order;
+  order: Result;
   closeModal: () => void;
 }
 
-const PickRadiologyLabRequestActionMenu: React.FC<PickRadiologyLabRequestActionMenuProps> = ({
-  order,
-}) => {
+const PickRadiologyLabRequestActionMenu: React.FC<
+  PickRadiologyLabRequestActionMenuProps
+> = ({ order }) => {
   const { t } = useTranslation();
 
   const launchPickLabRequestModal = useCallback(() => {
-    const dispose = showModal("add-to-worklist-dialog", {
+    const dispose = showModal("add-radiology-to-worklist-dialog", {
       closeModal: () => dispose(),
       order,
     });
@@ -23,7 +23,7 @@ const PickRadiologyLabRequestActionMenu: React.FC<PickRadiologyLabRequestActionM
 
   return (
     <OverflowMenuItem
-      itemText={t("pickLabRequest", "Pick Lab Request")}
+      itemText={t("pickRadiologyLabRequest", "Pick Lab Request")}
       onClick={launchPickLabRequestModal}
       style={{
         maxWidth: "100vw",
