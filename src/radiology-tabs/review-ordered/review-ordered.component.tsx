@@ -10,8 +10,6 @@ import {
   DataTable,
   DataTableSkeleton,
   Pagination,
-  OverflowMenu,
-  OverflowMenuItem,
   TableContainer,
   TableToolbar,
   TableToolbarContent,
