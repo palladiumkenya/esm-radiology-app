@@ -10,7 +10,7 @@ const ReviewTileComponent = () => {
   return (
     <SummaryTile
       label={t("review", "Review")}
-      value={0}
+      value={completedCount}
       headerLabel={t("review", "Review")}
     />
   );
