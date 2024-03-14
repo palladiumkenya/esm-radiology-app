@@ -18,7 +18,7 @@ export const RadiologyTabs: React.FC = () => {
           contained
           style={{ marginLeft: "1rem" }}
         >
-          <Tab>{t("pendingOrders", "Pending Orders")}</Tab>
+          <Tab>{t("pendingOrders", "Active Orders")}</Tab>
           <Tab>{t("workList", "WorkList")}</Tab>
           <Tab>{t("referredProcedures", "Referred Procedures")}</Tab>
           <Tab>{t("review", "Review")}</Tab>

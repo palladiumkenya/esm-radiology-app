@@ -18,13 +18,13 @@ import {
   TableToolbarSearch,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
+import { usePagination } from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
 
 export const ReferredTests: React.FC = () => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
-  const { workListEntries, isLoading } = useOrdersWorklist("", "");
+  const { workListEntries, isLoading } = useOrdersWorklist("", "EXCEPTION");
   const [searchString, setSearchString] = useState<string>("");
 
   const searchResults = useSearchResults(workListEntries, searchString);
