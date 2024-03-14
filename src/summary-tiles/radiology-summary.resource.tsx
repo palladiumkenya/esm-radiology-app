@@ -1,7 +1,7 @@
 import useSWR, { mutate } from "swr";
 import { openmrsFetch, restBaseUrl } from "@openmrs/esm-framework";
 
-import { Result } from "../work-list/work-list.resource";
+import { Result } from "../radiology-tabs/work-list/work-list.resource";
 import { useCallback } from "react";
 
 // worklist

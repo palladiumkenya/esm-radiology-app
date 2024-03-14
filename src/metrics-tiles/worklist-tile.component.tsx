@@ -6,7 +6,7 @@ import { useProcedureOrderStats } from "../summary-tiles/radiology-summary.resou
 const WorklistTileComponent = () => {
   const { t } = useTranslation();
 
-  const { count: worklistCount } = useProcedureOrderStats("COMPLETEDvvv");
+  const { count: worklistCount } = useProcedureOrderStats("IN_PROGRESS");
 
   return (
     <SummaryTile
