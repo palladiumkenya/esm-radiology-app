@@ -10,8 +10,6 @@ import {
   DataTable,
   DataTableSkeleton,
   Pagination,
-  OverflowMenu,
-  OverflowMenuItem,
   TableContainer,
   TableToolbar,
   TableToolbarContent,
@@ -36,7 +34,6 @@ export const Review: React.FC = () => {
   } = usePagination(searchResults, currentPageSize);
 
   const pageSizes = [10, 20, 30, 40, 50];
-  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
 
   const rows = useMemo(() => {
     return paginatedResults
@@ -44,22 +41,10 @@ export const Review: React.FC = () => {
       .map((entry) => ({
         ...entry,
         //TODO: add action items here
-        actions: (
-          <OverflowMenu flipped={true}>
-            <OverflowMenuItem
-              itemText="Pick Request"
-              onClick={() => "Pick Request"}
-            />
-            <OverflowMenuItem
-              itemText="Rejected Order"
-              onClick={() => "Rejected Order"}
-            />
-          </OverflowMenu>
-        ),
       }));
   }, [paginatedResults]);
 
-  const tableColumns = [
+  const tableColums = [
     { id: 0, header: t("date", "Date"), key: "date" },
     { id: 1, header: t("orderNumber", "Order Number"), key: "orderNumber" },
     { id: 2, header: t("patient", "Patient"), key: "patient" },
@@ -68,7 +53,6 @@ export const Review: React.FC = () => {
     { id: 6, header: t("status", "Status"), key: "status" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
-    { id: 10, header: t("actions", "Actions"), key: "actions" },
   ];
 
   return isLoading ? (
@@ -77,7 +61,7 @@ export const Review: React.FC = () => {
     <div>
       <DataTable
         rows={rows}
-        headers={tableColumns}
+        headers={tableColums}
         useZebraStyles
         overflowMenuOnHover={true}
       >
@@ -90,7 +74,6 @@ export const Review: React.FC = () => {
                   height: "3rem",
                   overflow: "visible",
                   margin: 0,
-                  // TODO: add background color to the toolbar
                 }}
               >
                 <TableToolbarContent style={{ margin: 0 }}>
@@ -112,20 +95,11 @@ export const Review: React.FC = () => {
                 </TableHead>
                 <TableBody>
                   {rows.map((row) => (
-                    <React.Fragment key={row.id}>
-                      <TableRow {...getRowProps({ row })}>
-                        {row.cells.map((cell) => (
-                          <TableCell key={cell.id}>{cell.value}</TableCell>
-                        ))}
-                      </TableRow>
-                      {expandedRows.has(row.id) && (
-                        <TableRow>
-                          <TableCell
-                            colSpan={tableColumns.length + 1}
-                          ></TableCell>
-                        </TableRow>
-                      )}
-                    </React.Fragment>
+                    <TableRow {...getRowProps({ row })}>
+                      {row.cells.map((cell) => (
+                        <TableCell key={cell.id}>{cell.value}</TableCell>
+                      ))}
+                    </TableRow>
                   ))}
                 </TableBody>
               </Table>

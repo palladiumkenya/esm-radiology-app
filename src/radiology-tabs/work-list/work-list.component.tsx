@@ -1,134 +1,276 @@
-import React, { useMemo, useState } from "react";
+import React, { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { Microscope, TrashCan } from "@carbon/react/icons";
+
 import {
-  Table,
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableBody,
-  TableCell,
   DataTable,
   DataTableSkeleton,
   Pagination,
-  OverflowMenu,
-  OverflowMenuItem,
+  Table,
+  TableBody,
+  TableCell,
   TableContainer,
+  TableHead,
+  TableHeader,
+  TableRow,
   TableToolbar,
   TableToolbarContent,
   TableToolbarSearch,
+  Layer,
+  Tag,
+  Button,
+  Tile,
+  DatePicker,
+  DatePickerInput,
 } from "@carbon/react";
+import { Result } from "./work-list.resource";
+import styles from "./work-list.scss";
+import {
+  ConfigurableLink,
+  formatDate,
+  parseDate,
+  showModal,
+  usePagination,
+} from "@openmrs/esm-framework";
+import { launchOverlay } from "../../components/overlay/hook";
+import ResultForm from "../../results/result-form.component";
+import { getStatusColor } from "../../utils/functions";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
-import { useSearchResults } from "../../hooks/useSearchResults";
 
-export const WorkList: React.FC = () => {
+interface WorklistProps {
+  fulfillerStatus: string;
+}
+
+interface ResultsOrderProps {
+  order: Result;
+  patientUuid: string;
+}
+
+interface RejectOrderProps {
+  order: Result;
+}
+
+const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
   const { t } = useTranslation();
-  const [currentPageSize, setCurrentPageSize] = useState<number>(10);
-  const { workListEntries, isLoading } = useOrdersWorklist("", "");
-  const [searchString, setSearchString] = useState<string>("");
 
-  const searchResults = useSearchResults(workListEntries, searchString);
+  const [activatedOnOrAfterDate, setActivatedOnOrAfterDate] = useState("");
+
+  const { workListEntries, isLoading } = useOrdersWorklist(
+    activatedOnOrAfterDate,
+    fulfillerStatus
+  );
+
+  const pageSizes = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+  const [currentPageSize, setPageSize] = useState(10);
 
   const {
     goTo,
-    results: paginatedResults,
+    results: paginatedWorkListEntries,
     currentPage,
-  } = usePagination(searchResults, currentPageSize);
+  } = usePagination(workListEntries, currentPageSize);
 
-  const pageSizes = [10, 20, 30, 40, 50];
-  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
+  const RejectOrder: React.FC<RejectOrderProps> = ({ order }) => {
+    const launchRejectOrderModal = useCallback(() => {
+      const dispose = showModal("reject-order-dialog", {
+        closeModal: () => dispose(),
+        order,
+      });
+    }, [order]);
+    return (
+      <Button
+        kind="ghost"
+        onClick={launchRejectOrderModal}
+        renderIcon={(props) => <TrashCan size={16} {...props} />}
+      />
+    );
+  };
 
-  const rows = useMemo(() => {
-    return paginatedResults
-      ?.filter((item) => item.action === "NEW")
-      .map((entry) => ({
-        ...entry,
-        actions: (
-          <OverflowMenu flipped={true}>
-            <OverflowMenuItem
-              itemText="Pick Request"
-              onClick={() => "Pick Request"}
-            />
-            <OverflowMenuItem
-              itemText="Rejected Order"
-              onClick={() => "Rejected Order"}
-            />
-          </OverflowMenu>
-        ),
-      }));
-  }, [paginatedResults]);
-
-  const tableColumns = [
+  // get picked orders
+  const columns = [
     { id: 0, header: t("date", "Date"), key: "date" },
+
     { id: 1, header: t("orderNumber", "Order Number"), key: "orderNumber" },
     { id: 2, header: t("patient", "Patient"), key: "patient" },
+
+    {
+      id: 3,
+      header: t("accessionNumber", "Accession Number"),
+      key: "accessionNumber",
+    },
     { id: 4, header: t("procedure", "Procedure"), key: "procedure" },
-    { id: 5, header: t("action", "Action"), key: "action" },
     { id: 6, header: t("status", "Status"), key: "status" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
-    { id: 10, header: t("swtich", "Swtich"), key: "swtich" },
-    { id: 11, header: t("actions", "Actions"), key: "actions" },
+    { id: 10, header: t("actions", "Actions"), key: "actions" },
   ];
 
-  return isLoading ? (
-    <DataTableSkeleton />
-  ) : (
-    <div>
-      <DataTable
-        rows={rows}
-        headers={tableColumns}
-        useZebraStyles
-        overflowMenuOnHover={true}
-      >
-        {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
-          <>
-            <TableContainer>
+  const tableRows = useMemo(() => {
+    const ResultsOrder: React.FC<ResultsOrderProps> = ({
+      order,
+      patientUuid,
+    }) => {
+      return (
+        <Button
+          kind="ghost"
+          onClick={() => {
+            launchOverlay(
+              t("resultForm", "Lab results form"),
+              <ResultForm patientUuid={patientUuid} order={order} />
+            );
+          }}
+          renderIcon={(props) => <Microscope size={16} {...props} />}
+        />
+      );
+    };
+    return paginatedWorkListEntries
+      ?.filter((item) => item.fulfillerStatus === "IN_PROGRESS")
+      .map((entry, index) => ({
+        ...entry,
+        id: entry.uuid,
+        date: {
+          content: (
+            <>
+              <span>{formatDate(parseDate(entry.dateActivated))}</span>
+            </>
+          ),
+        },
+        patient: {
+          content: (
+            <ConfigurableLink
+              to={`\${openmrsSpaBase}/patient/${entry.patient.uuid}/chart/laboratory-orders`}
+            >
+              {entry.patient.display.split("-")[1]}
+            </ConfigurableLink>
+          ),
+        },
+        orderNumber: { content: <span>{entry.orderNumber}</span> },
+        accessionNumber: { content: <span>{entry.accessionNumber}</span> },
+        test: { content: <span>{entry.concept.display}</span> },
+        action: { content: <span>{entry.action}</span> },
+        status: {
+          content: (
+            <>
+              <Tag>
+                <span
+                  className={styles.statusContainer}
+                  style={{ color: `${getStatusColor(entry.fulfillerStatus)}` }}
+                >
+                  <span>{entry.fulfillerStatus}</span>
+                </span>
+              </Tag>
+            </>
+          ),
+        },
+        orderer: { content: <span>{entry.orderer.display}</span> },
+        orderType: { content: <span>{entry?.orderType?.display}</span> },
+        urgency: { content: <span>{entry.urgency}</span> },
+        actions: {
+          content: (
+            <>
+              <ResultsOrder
+                patientUuid={entry.patient.uuid}
+                order={paginatedWorkListEntries[index]}
+              />
+              <RejectOrder order={paginatedWorkListEntries[index]} />
+            </>
+          ),
+        },
+      }));
+  }, [paginatedWorkListEntries, t]);
+
+  if (isLoading) {
+    return <DataTableSkeleton role="progressbar" />;
+  }
+
+  if (paginatedWorkListEntries?.length >= 0) {
+    return (
+      <div>
+        <div className={styles.headerBtnContainer}></div>
+        <DataTable rows={tableRows} headers={columns} useZebraStyles>
+          {({
+            rows,
+            headers,
+            getHeaderProps,
+            getTableProps,
+            getRowProps,
+            onInputChange,
+          }) => (
+            <TableContainer className={styles.tableContainer}>
               <TableToolbar
                 style={{
                   position: "static",
                   height: "3rem",
                   overflow: "visible",
-                  margin: 0,
-                  // TODO: add background color to the toolbar
+                  backgroundColor: "color",
                 }}
               >
-                <TableToolbarContent style={{ margin: 0 }}>
-                  <TableToolbarSearch
-                    style={{ backgroundColor: "#f4f4f4" }}
-                    onChange={(event) => setSearchString(event.target.value)}
-                  />
+                <TableToolbarContent>
+                  <Layer style={{ margin: "5px" }}>
+                    <DatePicker dateFormat="Y-m-d" datePickerType="single">
+                      <DatePickerInput
+                        labelText={""}
+                        id="activatedOnOrAfterDate"
+                        placeholder="YYYY-MM-DD"
+                        onChange={(event) => {
+                          setActivatedOnOrAfterDate(event.target.value);
+                        }}
+                        type="date"
+                        value={activatedOnOrAfterDate}
+                      />
+                    </DatePicker>
+                  </Layer>
+                  <Layer>
+                    <TableToolbarSearch
+                      onChange={onInputChange}
+                      placeholder={t("searchThisList", "Search this list")}
+                      size="sm"
+                    />
+                  </Layer>
                 </TableToolbarContent>
               </TableToolbar>
-              <Table {...getTableProps()}>
+              <Table
+                {...getTableProps()}
+                className={styles.activePatientsTable}
+              >
                 <TableHead>
                   <TableRow>
                     {headers.map((header) => (
                       <TableHeader {...getHeaderProps({ header })}>
-                        {header.header}
+                        {header.header?.content ?? header.header}
                       </TableHeader>
                     ))}
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {rows.map((row) => (
-                    <React.Fragment key={row.id}>
-                      <TableRow {...getRowProps({ row })}>
-                        {row.cells.map((cell) => (
-                          <TableCell key={cell.id}>{cell.value}</TableCell>
-                        ))}
-                      </TableRow>
-                      {expandedRows.has(row.id) && (
-                        <TableRow>
-                          <TableCell
-                            colSpan={tableColumns.length + 1}
-                          ></TableCell>
+                  {rows.map((row, index) => {
+                    return (
+                      <React.Fragment key={row.id}>
+                        <TableRow {...getRowProps({ row })} key={row.id}>
+                          {row.cells.map((cell) => (
+                            <TableCell key={cell.id}>
+                              {cell.value?.content ?? cell.value}
+                            </TableCell>
+                          ))}
                         </TableRow>
-                      )}
-                    </React.Fragment>
-                  ))}
+                      </React.Fragment>
+                    );
+                  })}
                 </TableBody>
               </Table>
+              {rows.length === 0 ? (
+                <div className={styles.tileContainer}>
+                  <Tile className={styles.tile}>
+                    <div className={styles.tileContent}>
+                      <p className={styles.content}>
+                        {t(
+                          "noWorklistsToDisplay",
+                          "No worklists orders to display"
+                        )}
+                      </p>
+                    </div>
+                  </Tile>
+                </div>
+              ) : null}
               <Pagination
                 forwardText="Next page"
                 backwardText="Previous page"
@@ -136,9 +278,10 @@ export const WorkList: React.FC = () => {
                 pageSize={currentPageSize}
                 pageSizes={pageSizes}
                 totalItems={workListEntries?.length}
+                className={styles.pagination}
                 onChange={({ pageSize, page }) => {
                   if (pageSize !== currentPageSize) {
-                    setCurrentPageSize(pageSize);
+                    setPageSize(pageSize);
                   }
                   if (page !== currentPage) {
                     goTo(page);
@@ -146,9 +289,11 @@ export const WorkList: React.FC = () => {
                 }}
               />
             </TableContainer>
-          </>
-        )}
-      </DataTable>
-    </div>
-  );
+          )}
+        </DataTable>
+      </div>
+    );
+  }
 };
+
+export default WorkList;
