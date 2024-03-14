@@ -1,6 +1,13 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import styles from "./result-form.scss";
-import { Button, InlineLoading, ModalBody, ModalFooter } from "@carbon/react";
+import {
+  Button,
+  InlineLoading,
+  ModalBody,
+  ModalFooter,
+  TextArea,
+  FormLabel,
+} from "@carbon/react";
 import { useTranslation } from "react-i18next";
 import { closeOverlay } from "../components/overlay/hook";
 import {
@@ -9,26 +16,26 @@ import {
   showToast,
   usePatient,
 } from "@openmrs/esm-framework";
-import {
-  useGetOrderConceptByUuid,
-  UpdateOrderResult,
-} from "./result-form.resource";
 import { Result } from "../radiology-tabs/work-list/work-list.resource";
-import ResultFormField from "./result-form-field.component";
 import { useForm } from "react-hook-form";
+import {
+  UpdateOrderResult,
+  useGetOrderConceptByUuid,
+} from "./result-form.resource";
 
 interface ResultFormProps {
   patientUuid: string;
   order: Result;
 }
 
-const ResultForm: React.FC<ResultFormProps> = ({ order, patientUuid }) => {
+const ProcedureReportForm: React.FC<ResultFormProps> = ({
+  order,
+  patientUuid,
+}) => {
+  const [report, setProcedureReport] = useState("");
   const { t } = useTranslation();
   const {
-    control,
-    register,
     formState: { isSubmitting, errors },
-    getValues,
     handleSubmit,
   } = useForm<{ testResult: string }>({
     defaultValues: {},
@@ -56,62 +63,6 @@ const ResultForm: React.FC<ResultFormProps> = ({ order, patientUuid }) => {
   const onSubmit = (data, e) => {
     e.preventDefault();
     // assign result to test order
-    const documentedValues = getValues();
-    const obsValue = [];
-
-    if (concept.set && concept.setMembers.length > 0) {
-      const groupMembers = [];
-      concept.setMembers.forEach((member) => {
-        let value;
-        if (
-          member.datatype.display === "Numeric" ||
-          member.datatype.display === "Text"
-        ) {
-          value = getValues()[`${member.uuid}`];
-        } else if (member.datatype.display === "Coded") {
-          value = {
-            uuid: getValues()[`${member.uuid}`],
-          };
-        }
-        const groupMember = {
-          concept: { uuid: member.uuid },
-          value: value,
-          status: "FINAL",
-          order: { uuid: order.uuid },
-        };
-        groupMembers.push(groupMember);
-      });
-
-      obsValue.push({
-        concept: { uuid: order.concept.uuid },
-        status: "FINAL",
-        order: { uuid: order.uuid },
-        groupMembers: groupMembers,
-      });
-    } else if (!concept.set && concept.setMembers.length === 0) {
-      let value;
-      if (
-        concept.datatype.display === "Numeric" ||
-        concept.datatype.display === "Text"
-      ) {
-        value = getValues()[`${concept.uuid}`];
-      } else if (concept.datatype.display === "Coded") {
-        value = {
-          uuid: getValues()[`${concept.uuid}`],
-        };
-      }
-
-      obsValue.push({
-        concept: { uuid: order.concept.uuid },
-        status: "FINAL",
-        order: { uuid: order.uuid },
-        value: value,
-      });
-    }
-
-    const obsPayload = {
-      obs: obsValue,
-    };
 
     const orderDiscontinuationPayload = {
       previousOrder: order.uuid,
@@ -126,7 +77,7 @@ const ResultForm: React.FC<ResultFormProps> = ({ order, patientUuid }) => {
 
     UpdateOrderResult(
       order.encounter.uuid,
-      obsPayload,
+      {},
       orderDiscontinuationPayload
     ).then(
       () => {
@@ -168,20 +119,28 @@ const ResultForm: React.FC<ResultFormProps> = ({ order, patientUuid }) => {
           {patient && (
             <ExtensionSlot name="patient-header-slot" state={bannerState} />
           )}
-          {/* // we need to display test name for test panels */}
-          {concept.setMembers.length > 0 && <div>{concept.display}</div>}
-          {concept && (
-            <section className={styles.section}>
-              <form>
-                <ResultFormField
-                  register={register}
-                  concept={concept}
-                  control={control}
-                  errors={errors}
-                />
-              </form>
-            </section>
-          )}
+          <section className={styles.section}>
+            <form>
+              <FormLabel className={styles.textArea}>
+                {concept?.display}
+              </FormLabel>
+              {Object.keys(errors).length > 0 && (
+                <div className={styles.errorDiv}>
+                  Procedure report is required
+                </div>
+              )}
+              <TextArea
+                id="procedureReport"
+                name="procedureReport"
+                rules={{
+                  required: true,
+                }}
+                invalidText="Required"
+                autofocus
+                onChange={(e) => setProcedureReport(e.target.value)}
+              />
+            </form>
+          </section>
         </ModalBody>
 
         <ModalFooter>
@@ -192,11 +151,11 @@ const ResultForm: React.FC<ResultFormProps> = ({ order, patientUuid }) => {
           >
             {t("cancel", "Cancel")}
           </Button>
-          <Button onClick={handleSubmit(onSubmit)}>Save test results</Button>
+          <Button onClick={handleSubmit(onSubmit)}>Save report</Button>
         </ModalFooter>
       </div>
     </>
   );
 };
 
-export default ResultForm;
+export default ProcedureReportForm;

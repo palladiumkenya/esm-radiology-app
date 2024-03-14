@@ -10,7 +10,7 @@ interface OverlayStore {
 const initialState = { isOverlayOpen: false, component: null, header: "" };
 
 const getOverlayStore = () => {
-  return getGlobalStore("laboratory", initialState);
+  return getGlobalStore("radiology", initialState);
 };
 
 export const launchOverlay = (headerTitle: string, componentToRender) => {
