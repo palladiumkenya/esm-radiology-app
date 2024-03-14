@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
-import { Calendar, Location } from "@carbon/react/icons";
+import { Location } from "@carbon/react/icons";
 import { useSession } from "@openmrs/esm-framework";
 import RadiologyIllustration from "./radiology-illustration.component";
 import styles from "./radiology-header.scss";
@@ -43,7 +43,7 @@ export const RadiologyHeader: React.FC = () => {
                 border: "none",
                 maxWidth: "10rem",
               }}
-              id="appointment-date-picker"
+              id="radiology-date-picker"
               placeholder="DD-MMM-YYYY"
               labelText=""
               type="text"
