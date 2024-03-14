@@ -22,7 +22,7 @@ import { useSearchResults } from "../../hooks/useSearchResults";
 export const Review: React.FC = () => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
-  const { workListEntries, isLoading } = useOrdersWorklist("", "DECLINED");
+  const { workListEntries, isLoading } = useOrdersWorklist("", "");
   const [searchString, setSearchString] = useState<string>("");
 
   const searchResults = useSearchResults(workListEntries, searchString);
