@@ -13,7 +13,7 @@ import {
   useGetOrderConceptByUuid,
   UpdateOrderResult,
 } from "./result-form.resource";
-import { Result } from "../work-list/work-list.resource";
+import { Result } from "./../radiology-tabs/work-list/work-list.resource";
 import ResultFormField from "./result-form-field.component";
 import { useForm } from "react-hook-form";
 

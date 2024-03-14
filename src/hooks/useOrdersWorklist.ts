@@ -1,6 +1,6 @@
 import { openmrsFetch } from "@openmrs/esm-framework";
 import useSWR from "swr";
-import { Result } from "../work-list/work-list.resource";
+import { Result } from "../radiology-tabs/work-list/work-list.resource";
 
 export function useOrdersWorklist(
   activatedOnOrAfterDate: string,

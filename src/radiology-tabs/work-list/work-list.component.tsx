@@ -37,9 +37,9 @@ import {
   showModal,
   usePagination,
 } from "@openmrs/esm-framework";
-import { launchOverlay } from "../components/overlay/hook";
-import ResultForm from "../results/result-form.component";
-import { getStatusColor } from "../utils/functions";
+import { launchOverlay } from "../../components/overlay/hook";
+import ResultForm from "../../results/result-form.component";
+import { getStatusColor } from "../../utils/functions";
 
 interface WorklistProps {
   fulfillerStatus: string;
