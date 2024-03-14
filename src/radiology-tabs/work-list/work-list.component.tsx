@@ -23,7 +23,7 @@ import {
   DatePicker,
   DatePickerInput,
 } from "@carbon/react";
-import { Result, useGetOrdersWorklist } from "./work-list.resource";
+import { Result } from "./work-list.resource";
 import styles from "./work-list.scss";
 import {
   ConfigurableLink,
@@ -32,9 +32,10 @@ import {
   showModal,
   usePagination,
 } from "@openmrs/esm-framework";
-import { launchOverlay } from "../components/overlay/hook";
-import ResultForm from "../results/result-form.component";
-import { getStatusColor } from "../utils/functions";
+import { launchOverlay } from "../../components/overlay/hook";
+import ResultForm from "../../results/result-form.component";
+import { getStatusColor } from "../../utils/functions";
+import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 
 interface WorklistProps {
   fulfillerStatus: string;
@@ -54,7 +55,7 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
 
   const [activatedOnOrAfterDate, setActivatedOnOrAfterDate] = useState("");
 
-  const { workListEntries, isLoading } = useGetOrdersWorklist(
+  const { workListEntries, isLoading } = useOrdersWorklist(
     activatedOnOrAfterDate,
     fulfillerStatus
   );
@@ -161,7 +162,7 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
           ),
         },
         orderer: { content: <span>{entry.orderer.display}</span> },
-        orderType: { content: <span>{entry.orderType.display}</span> },
+        orderType: { content: <span>{entry?.orderType?.display}</span> },
         urgency: { content: <span>{entry.urgency}</span> },
         actions: {
           content: (
