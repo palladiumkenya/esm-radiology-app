@@ -84,6 +84,10 @@
     }
   },
   {
+    "name":"add-radiology-to-worklist-dialog",
+    "component": "addRadiologyToWorklistDialogComponent"
+  },
+   {
     "name": "reject-order-dialog",
     "component": "rejectOrderDialog"
   }

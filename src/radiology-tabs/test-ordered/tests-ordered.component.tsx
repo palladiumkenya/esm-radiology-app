@@ -19,7 +19,6 @@ import {
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import styles from "./tests-ordered.scss";
-import { Result } from "../work-list/work-list.resource";
 
 interface RejectOrderOverflowMenuItemProps {
   order: any;
@@ -31,6 +30,7 @@ import {
   usePagination,
 } from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
+import PickRadiologyLabRequestActionMenu from "./pick-radiology-lab-request-menu.component";
 
 const RejectOrderMenuItem: React.FC<RejectOrderOverflowMenuItemProps> = ({
   order,
@@ -74,9 +74,9 @@ export const TestsOrdered: React.FC = () => {
         ...entry,
         actions: (
           <OverflowMenu flipped={true}>
-            <OverflowMenuItem
-              itemText="Pick Request"
-              onClick={() => "Pick Request"}
+            <PickRadiologyLabRequestActionMenu
+              closeModal={() => true}
+              order={entry}
             />
             <RejectOrderMenuItem order={entry} />
           </OverflowMenu>
