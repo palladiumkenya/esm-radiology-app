@@ -3,7 +3,7 @@
 
 .rejectOrders {
     &:hover{
-        background-color: red;
+        background-color: colors.$red-70-hover;
         color: colors.$white;
     }
 }

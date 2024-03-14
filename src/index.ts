@@ -12,7 +12,7 @@ import testsOrdered from "./metrics-tiles/procedure-ordered-tile.component";
 import reviewTile from "./metrics-tiles/review-tile.component";
 import approveTile from "./metrics-tiles/approved-tile.component";
 import rejectedTile from "./metrics-tiles/rejected-tile.component";
-import rejectOrderDialogComponent from "./radiology-tabs/test-ordered/reject-order-dialog.component";
+import rejectOrderDialogComponent from "./radiology-tabs/test-ordered/reject-order-dialog/reject-order-dialog.component";
 
 const moduleName = "@openmrs/esm-radiology-app";
 
