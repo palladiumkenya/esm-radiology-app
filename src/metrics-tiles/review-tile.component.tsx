@@ -6,7 +6,7 @@ import { useProcedureOrderStats } from "../summary-tiles/radiology-summary.resou
 const ReviewTileComponent = () => {
   const { t } = useTranslation();
 
-  const { count: completedCount } = useProcedureOrderStats("");
+  const { count: completedCount } = useProcedureOrderStats("COMPLETED");
   return (
     <SummaryTile
       label={t("review", "Review")}

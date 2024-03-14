@@ -1,5 +1,6 @@
 import { openmrsFetch } from "@openmrs/esm-framework";
 import useSWR from "swr";
+import { updateOrder } from "../radiology-tabs/test-ordered/pick-radiology-order/add-to-worklist-dialog.resource";
 
 export interface ConceptResponse {
   uuid: string;
@@ -351,5 +352,9 @@ export async function saveProcedureReport(reportPayload) {
     body: reportPayload,
   });
 
-  return updateResults;
+  if (updateResults.status === 201 || updateResults.status === 200) {
+    return await updateOrder(reportPayload.procedureOrder, {
+      fulfillerStatus: "COMPLETED",
+    });
+  }
 }
