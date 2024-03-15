@@ -13,7 +13,7 @@ import styles from "./review-radiology-report-dialog.scss";
 import { Result } from "../../work-list/work-list.resource";
 import { showNotification, showSnackbar } from "@openmrs/esm-framework";
 import { updateOrder } from "../../test-ordered/pick-radiology-order/add-to-worklist-dialog.resource";
-
+import { mutate } from "swr";
 interface ReviewOrderDialogProps {
   order: Result;
   closeModal: () => void;
@@ -35,7 +35,7 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
       fulfillerComment: notes,
     };
     updateOrder(order.uuid, payload).then(
-      (resp) => {
+      () => {
         showSnackbar({
           isLowContrast: true,
           title: t("rejectOrder", "Rejected Order"),
@@ -46,7 +46,10 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
           ),
         });
         closeModal();
-        window.location.reload();
+        mutate(
+          (key) =>
+            typeof key === "string" && key.startsWith("/ws/rest/v1/order")
+        );
       },
       (err) => {
         showNotification({
