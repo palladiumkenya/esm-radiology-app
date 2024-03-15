@@ -7,6 +7,8 @@ import {
   ModalFooter,
   ModalHeader,
   TextArea,
+  Accordion,
+  AccordionItem,
 } from "@carbon/react";
 import { useTranslation } from "react-i18next";
 import styles from "./review-radiology-report-dialog.scss";
@@ -67,20 +69,23 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
       <Form onSubmit={rejectOrder}>
         <ModalHeader
           closeModal={closeModal}
-          title={t("reviewReport", "Review Radilogy Report")}
+          title={t("reviewReport", "Review Radiology Report")}
         />
         <ModalBody>
           <div className={styles.modalBody}>
-            <section className={styles.section}>
-              <h5 className={styles.section}>
-                {order?.accessionNumber} &nbsp; · &nbsp;{order?.fulfillerStatus}{" "}
-                &nbsp; · &nbsp;
-                {order?.orderNumber}
-                &nbsp;
-              </h5>
+            <section className={styles.infoSection}>
+              <Accordion>
+                <AccordionItem
+                  title={t("procedureInstructions", "Procedure Instructions")}
+                >
+                  <p>Lorem ipsum dolor sit amet</p>
+                </AccordionItem>
+                <AccordionItem title={t("procedureReport", "Procedure Report")}>
+                  <p>Lorem ipsum dolor sit amet</p>
+                </AccordionItem>
+              </Accordion>
             </section>
-            <br />
-            <section className={styles.section}>
+            <section className={styles.textAreaInput}>
               <TextArea
                 labelText={t("nextNotes", "Reviewer's notes ")}
                 id="nextNotes"
