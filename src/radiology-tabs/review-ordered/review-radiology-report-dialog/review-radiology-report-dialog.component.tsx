@@ -14,6 +14,7 @@ import { Result } from "../../work-list/work-list.resource";
 import { showNotification, showSnackbar } from "@openmrs/esm-framework";
 import { updateOrder } from "../../test-ordered/pick-radiology-order/add-to-worklist-dialog.resource";
 import { mutate } from "swr";
+import { Accordion, AccordionItem } from "@carbon/react";
 interface ReviewOrderDialogProps {
   order: Result;
   closeModal: () => void;
@@ -67,20 +68,23 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
       <Form onSubmit={rejectOrder}>
         <ModalHeader
           closeModal={closeModal}
-          title={t("reviewReport", "Review Radilogy Report")}
+          title={t("reviewReport", "Review Radiology Report")}
         />
         <ModalBody>
           <div className={styles.modalBody}>
-            <section className={styles.section}>
-              <h5 className={styles.section}>
-                {order?.accessionNumber} &nbsp; · &nbsp;{order?.fulfillerStatus}{" "}
-                &nbsp; · &nbsp;
-                {order?.orderNumber}
-                &nbsp;
-              </h5>
+            <section className={styles.infoSection}>
+              <Accordion>
+                <AccordionItem
+                  title={t("procedureInstructions", "Procedure Instructions")}
+                >
+                  <p>Lorem ipsum dolor sit amet</p>
+                </AccordionItem>
+                <AccordionItem title={t("procedureReport", "Procedure Report")}>
+                  <p>Lorem ipsum dolor sit amet</p>
+                </AccordionItem>
+              </Accordion>
             </section>
-            <br />
-            <section className={styles.section}>
+            <section className={styles.textAreaInput}>
               <TextArea
                 labelText={t("nextNotes", "Reviewer's notes ")}
                 id="nextNotes"

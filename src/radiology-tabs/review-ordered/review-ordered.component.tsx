@@ -67,7 +67,7 @@ export const Review: React.FC = () => {
     { id: 5, header: t("orderType", "Order type"), key: "action" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
-    { id: 9, header: t("actions", "ACtions"), key: "actions" },
+    { id: 9, header: t("actions", "Actions"), key: "actions" },
   ];
 
   return isLoading ? (
