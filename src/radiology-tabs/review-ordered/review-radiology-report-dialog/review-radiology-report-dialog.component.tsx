@@ -7,6 +7,8 @@ import {
   ModalFooter,
   ModalHeader,
   TextArea,
+  Accordion,
+  AccordionItem,
 } from "@carbon/react";
 import { useTranslation } from "react-i18next";
 import styles from "./review-radiology-report-dialog.scss";
@@ -14,7 +16,6 @@ import { Result } from "../../work-list/work-list.resource";
 import { showNotification, showSnackbar } from "@openmrs/esm-framework";
 import { updateOrder } from "../../test-ordered/pick-radiology-order/add-to-worklist-dialog.resource";
 import { mutate } from "swr";
-import { Accordion, AccordionItem } from "@carbon/react";
 interface ReviewOrderDialogProps {
   order: Result;
   closeModal: () => void;
