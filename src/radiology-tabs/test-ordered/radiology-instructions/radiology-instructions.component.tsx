@@ -1,16 +1,20 @@
 import React, { useState } from "react";
-
 import {
   Button,
-  Form,
   ModalBody,
   ModalFooter,
   ModalHeader,
-  TextArea,
+  Table,
+  TableHead,
+  TableRow,
+  TableHeader,
+  TableBody,
+  TableCell,
 } from "@carbon/react";
 import { useTranslation } from "react-i18next";
 import styles from "./radiology-instructions.scss";
 import { Result } from "../../work-list/work-list.resource";
+import { Tile } from "@carbon/react";
 
 interface RadiologyInstructionsModalProps {
   order: Result;
@@ -23,34 +27,46 @@ const RadiologyInstructionsModal: React.FC<RadiologyInstructionsModalProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const [notes, setNotes] = useState("");
+  const tableData = [
+    { key: "Order Urgency", value: order.urgency },
+    {
+      key: "Schedule date",
+      value: order.scheduledDate || new Date().toLocaleDateString(),
+    },
+    { key: "Body Site", value: order.display },
+    { key: "Laterality", value: order.laterality },
+    { key: "Number of repeats", value: order.numberOfRepeats },
+    { key: "Frequency", value: order.frequency?.display },
+  ];
 
   return (
     <div>
       <ModalHeader
         closeModal={closeModal}
-        title={t("radiologyiNSTRUCTIONS", "Radiology Tests Instructions")}
+        title={t("radiologyInstructions", "Procedure Order Instructions")}
       />
       <ModalBody>
         <div className={styles.modalBody}>
           <section className={styles.section}>
-            <h5 className={styles.section}>
-              {/* {order?.accessionNumber} &nbsp; · &nbsp;{order?.fulfillerStatus}{" "}
-                &nbsp; · &nbsp;
-                {order?.orderNumber}
-                &nbsp; */}
-              Radiology Instructions
-            </h5>
-          </section>
-          <br />
-          <section className={styles.section}>
-            <ol>
-              <li>Instruction 1: Test Instruction</li>
-              <li>Instruction 1: Test Instruction</li>
-              <li>Instruction 1: Test Instruction</li>
-              <li>Instruction 1: Test Instruction</li>
-              <li>Instruction 1: Test Instruction</li>
-            </ol>
+            <Table size="lg" useZebraStyles={false} aria-label="sample table">
+              <TableBody>
+                {tableData.map((row, index) => (
+                  <TableRow key={index}>
+                    <TableCell>{row.key}</TableCell>
+                    <TableCell>{row.value}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+            <b />
+            <Tile>
+              <p>
+                <b>Instructions</b>
+              </p>
+              <p className={styles.instructions}>
+                {order.instructions}
+              </p>
+            </Tile>
           </section>
         </div>
       </ModalBody>
@@ -64,3 +80,4 @@ const RadiologyInstructionsModal: React.FC<RadiologyInstructionsModalProps> = ({
 };
 
 export default RadiologyInstructionsModal;
+
