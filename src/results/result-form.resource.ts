@@ -1,5 +1,6 @@
 import { openmrsFetch } from "@openmrs/esm-framework";
 import useSWR from "swr";
+import { updateOrder } from "../radiology-tabs/test-ordered/pick-radiology-order/add-to-worklist-dialog.resource";
 
 export interface ConceptResponse {
   uuid: string;
@@ -340,33 +341,20 @@ export async function UpdateEncounter(uuid: string, payload: any) {
   });
 }
 
-//TODO: the calls to update order and observations for results should be transactional to allow for rollback
-export async function UpdateOrderResult(
-  encounterUuid: string,
-  obsPayload: any,
-  orderPayload: any
-) {
+export async function saveProcedureReport(reportPayload) {
   const abortController = new AbortController();
-  const updateResults = await openmrsFetch(
-    `/ws/rest/v1/encounter/${encounterUuid}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      signal: abortController.signal,
-      body: obsPayload,
-    }
-  );
+  const updateResults = await openmrsFetch(`/ws/rest/v1/procedure`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    signal: abortController.signal,
+    body: reportPayload,
+  });
 
   if (updateResults.status === 201 || updateResults.status === 200) {
-    return await openmrsFetch(`/ws/rest/v1/order`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      signal: abortController.signal,
-      body: orderPayload,
+    return await updateOrder(reportPayload.procedureOrder, {
+      fulfillerStatus: "COMPLETED",
     });
   }
 }

@@ -20,8 +20,8 @@ export const RadiologyTabs: React.FC = () => {
         >
           <Tab>{t("pendingOrders", "Active Orders")}</Tab>
           <Tab>{t("workList", "WorkList")}</Tab>
-          <Tab>{t("referredProcedures", "Referred Procedures")}</Tab>
-          <Tab>{t("review", "Review")}</Tab>
+          <Tab>{t("referredProcedures", "Referred Out")}</Tab>
+          <Tab>{t("review", "Pending Review")}</Tab>
           <Tab>{t("approved", "Approved")}</Tab>
           <Tab>{t("notDone", "Not Done")}</Tab>
         </TabList>

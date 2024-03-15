@@ -22,7 +22,7 @@ const PickRadiologyLabRequestActionMenu: React.FC<
 
   return (
     <OverflowMenuItem
-      itemText={t("pickRadiologyLabRequest", "Pick Lab Request")}
+      itemText={t("pickRequest", "Pick Request")}
       onClick={launchPickLabRequestModal}
       style={{
         maxWidth: "100vw",

@@ -22,7 +22,7 @@ import { useSearchResults } from "../../hooks/useSearchResults";
 export const Review: React.FC = () => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
-  const { workListEntries, isLoading } = useOrdersWorklist("", "ON_HOLD");
+  const { workListEntries, isLoading } = useOrdersWorklist("", "COMPLETED");
   const [searchString, setSearchString] = useState<string>("");
 
   const searchResults = useSearchResults(workListEntries, searchString);
@@ -49,8 +49,7 @@ export const Review: React.FC = () => {
     { id: 1, header: t("orderNumber", "Order Number"), key: "orderNumber" },
     { id: 2, header: t("patient", "Patient"), key: "patient" },
     { id: 4, header: t("procedure", "Procedure"), key: "procedure" },
-    { id: 5, header: t("action", "Action"), key: "action" },
-    { id: 6, header: t("status", "Status"), key: "status" },
+    { id: 5, header: t("orderType", "Order type"), key: "action" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
   ];

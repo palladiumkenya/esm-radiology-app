@@ -30,15 +30,6 @@
       }
   },
   {
-      "name": "completed-tile-component",
-      "slot": "radio-tiles-slot",
-      "component": "completedTileComponent",
-      "meta": {
-          "name": "completedTileSlot",
-          "title": "Completed"
-      }
-  },
-  {
       "name": "worklist-tile-component",
       "slot": "radio-tiles-slot",
       "component": "worklistTileComponent",

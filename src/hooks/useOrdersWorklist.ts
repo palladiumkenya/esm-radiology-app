@@ -42,6 +42,14 @@ export function useOrdersWorklist(
         order.concept.conceptClass.uuid ===
           "8caa332c-efe4-4025-8b18-3398328e1323"
       );
+    } else if (fulfillerStatus === "COMPLETED") {
+      return (
+        order.fulfillerStatus === "COMPLETED" &&
+        order.dateStopped === null &&
+        order.action !== "DISCONTINUE" &&
+        order.concept.conceptClass.uuid ===
+          "8caa332c-efe4-4025-8b18-3398328e1323"
+      );
     }
   });
 

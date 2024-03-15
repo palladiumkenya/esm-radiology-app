@@ -33,7 +33,8 @@ import {
   usePagination,
 } from "@openmrs/esm-framework";
 import { launchOverlay } from "../../components/overlay/hook";
-import ResultForm from "../../results/result-form.component";
+import Overlay from "../../components/overlay/overlay.component";
+import ProcedureReportForm from "../../results/result-form.component";
 import { getStatusColor } from "../../utils/functions";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 
@@ -91,12 +92,6 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
 
     { id: 1, header: t("orderNumber", "Order Number"), key: "orderNumber" },
     { id: 2, header: t("patient", "Patient"), key: "patient" },
-
-    {
-      id: 3,
-      header: t("accessionNumber", "Accession Number"),
-      key: "accessionNumber",
-    },
     { id: 4, header: t("procedure", "Procedure"), key: "procedure" },
     { id: 6, header: t("status", "Status"), key: "status" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
@@ -114,8 +109,8 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
           kind="ghost"
           onClick={() => {
             launchOverlay(
-              t("resultForm", "Lab results form"),
-              <ResultForm patientUuid={patientUuid} order={order} />
+              t("procedureReportForm", "Procedure report form"),
+              <ProcedureReportForm patientUuid={patientUuid} order={order} />
             );
           }}
           renderIcon={(props) => <Microscope size={16} {...props} />}
@@ -144,8 +139,7 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
           ),
         },
         orderNumber: { content: <span>{entry.orderNumber}</span> },
-        accessionNumber: { content: <span>{entry.accessionNumber}</span> },
-        test: { content: <span>{entry.concept.display}</span> },
+        procedure: { content: <span>{entry.concept.display}</span> },
         action: { content: <span>{entry.action}</span> },
         status: {
           content: (
@@ -184,114 +178,117 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
 
   if (paginatedWorkListEntries?.length >= 0) {
     return (
-      <div>
-        <div className={styles.headerBtnContainer}></div>
-        <DataTable rows={tableRows} headers={columns} useZebraStyles>
-          {({
-            rows,
-            headers,
-            getHeaderProps,
-            getTableProps,
-            getRowProps,
-            onInputChange,
-          }) => (
-            <TableContainer className={styles.tableContainer}>
-              <TableToolbar
-                style={{
-                  position: "static",
-                  height: "3rem",
-                  overflow: "visible",
-                  backgroundColor: "color",
-                }}
-              >
-                <TableToolbarContent>
-                  <Layer style={{ margin: "5px" }}>
-                    <DatePicker dateFormat="Y-m-d" datePickerType="single">
-                      <DatePickerInput
-                        labelText={""}
-                        id="activatedOnOrAfterDate"
-                        placeholder="YYYY-MM-DD"
-                        onChange={(event) => {
-                          setActivatedOnOrAfterDate(event.target.value);
-                        }}
-                        type="date"
-                        value={activatedOnOrAfterDate}
+      <>
+        <div>
+          <div className={styles.headerBtnContainer}></div>
+          <DataTable rows={tableRows} headers={columns} useZebraStyles>
+            {({
+              rows,
+              headers,
+              getHeaderProps,
+              getTableProps,
+              getRowProps,
+              onInputChange,
+            }) => (
+              <TableContainer className={styles.tableContainer}>
+                <TableToolbar
+                  style={{
+                    position: "static",
+                    height: "3rem",
+                    overflow: "visible",
+                    backgroundColor: "color",
+                  }}
+                >
+                  <TableToolbarContent>
+                    <Layer style={{ margin: "5px" }}>
+                      <DatePicker dateFormat="Y-m-d" datePickerType="single">
+                        <DatePickerInput
+                          labelText={""}
+                          id="activatedOnOrAfterDate"
+                          placeholder="YYYY-MM-DD"
+                          onChange={(event) => {
+                            setActivatedOnOrAfterDate(event.target.value);
+                          }}
+                          type="date"
+                          value={activatedOnOrAfterDate}
+                        />
+                      </DatePicker>
+                    </Layer>
+                    <Layer>
+                      <TableToolbarSearch
+                        onChange={onInputChange}
+                        placeholder={t("searchThisList", "Search this list")}
+                        size="sm"
                       />
-                    </DatePicker>
-                  </Layer>
-                  <Layer>
-                    <TableToolbarSearch
-                      onChange={onInputChange}
-                      placeholder={t("searchThisList", "Search this list")}
-                      size="sm"
-                    />
-                  </Layer>
-                </TableToolbarContent>
-              </TableToolbar>
-              <Table
-                {...getTableProps()}
-                className={styles.activePatientsTable}
-              >
-                <TableHead>
-                  <TableRow>
-                    {headers.map((header) => (
-                      <TableHeader {...getHeaderProps({ header })}>
-                        {header.header?.content ?? header.header}
-                      </TableHeader>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {rows.map((row, index) => {
-                    return (
-                      <React.Fragment key={row.id}>
-                        <TableRow {...getRowProps({ row })} key={row.id}>
-                          {row.cells.map((cell) => (
-                            <TableCell key={cell.id}>
-                              {cell.value?.content ?? cell.value}
-                            </TableCell>
-                          ))}
-                        </TableRow>
-                      </React.Fragment>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-              {rows.length === 0 ? (
-                <div className={styles.tileContainer}>
-                  <Tile className={styles.tile}>
-                    <div className={styles.tileContent}>
-                      <p className={styles.content}>
-                        {t(
-                          "noWorklistsToDisplay",
-                          "No worklists orders to display"
-                        )}
-                      </p>
-                    </div>
-                  </Tile>
-                </div>
-              ) : null}
-              <Pagination
-                forwardText="Next page"
-                backwardText="Previous page"
-                page={currentPage}
-                pageSize={currentPageSize}
-                pageSizes={pageSizes}
-                totalItems={workListEntries?.length}
-                className={styles.pagination}
-                onChange={({ pageSize, page }) => {
-                  if (pageSize !== currentPageSize) {
-                    setPageSize(pageSize);
-                  }
-                  if (page !== currentPage) {
-                    goTo(page);
-                  }
-                }}
-              />
-            </TableContainer>
-          )}
-        </DataTable>
-      </div>
+                    </Layer>
+                  </TableToolbarContent>
+                </TableToolbar>
+                <Table
+                  {...getTableProps()}
+                  className={styles.activePatientsTable}
+                >
+                  <TableHead>
+                    <TableRow>
+                      {headers.map((header) => (
+                        <TableHeader {...getHeaderProps({ header })}>
+                          {header.header?.content ?? header.header}
+                        </TableHeader>
+                      ))}
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {rows.map((row, index) => {
+                      return (
+                        <React.Fragment key={row.id}>
+                          <TableRow {...getRowProps({ row })} key={row.id}>
+                            {row.cells.map((cell) => (
+                              <TableCell key={cell.id}>
+                                {cell.value?.content ?? cell.value}
+                              </TableCell>
+                            ))}
+                          </TableRow>
+                        </React.Fragment>
+                      );
+                    })}
+                  </TableBody>
+                </Table>
+                {rows.length === 0 ? (
+                  <div className={styles.tileContainer}>
+                    <Tile className={styles.tile}>
+                      <div className={styles.tileContent}>
+                        <p className={styles.content}>
+                          {t(
+                            "noWorklistsToDisplay",
+                            "No worklists orders to display"
+                          )}
+                        </p>
+                      </div>
+                    </Tile>
+                  </div>
+                ) : null}
+                <Pagination
+                  forwardText="Next page"
+                  backwardText="Previous page"
+                  page={currentPage}
+                  pageSize={currentPageSize}
+                  pageSizes={pageSizes}
+                  totalItems={workListEntries?.length}
+                  className={styles.pagination}
+                  onChange={({ pageSize, page }) => {
+                    if (pageSize !== currentPageSize) {
+                      setPageSize(pageSize);
+                    }
+                    if (page !== currentPage) {
+                      goTo(page);
+                    }
+                  }}
+                />
+              </TableContainer>
+            )}
+          </DataTable>
+        </div>
+        <Overlay />
+      </>
     );
   }
 };

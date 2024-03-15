@@ -10,7 +10,6 @@ export function useSearchResults(data: Result[], searchString: string) {
       date: formatDate(parseDate(eachObject.dateActivated)),
       patient: eachObject.patient.display.split("-")[1],
       orderNumber: eachObject.orderNumber,
-      accessionNumber: eachObject.accessionNumber,
       procedure: eachObject.concept.display,
       action: eachObject.action,
       status: eachObject.fulfillerStatus ?? "--",

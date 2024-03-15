@@ -7,7 +7,6 @@ import { configSchema } from "./config-schema";
 import { createLeftPanelLink } from "./left-panel-link";
 import worklistTile from "./metrics-tiles/worklist-tile.component";
 import referredTile from "./metrics-tiles/referred-tile.component";
-import completedTile from "./metrics-tiles/completed-tile.component";
 import testsOrdered from "./metrics-tiles/procedure-ordered-tile.component";
 import reviewTile from "./metrics-tiles/review-tile.component";
 import approveTile from "./metrics-tiles/approved-tile.component";
@@ -49,8 +48,6 @@ export const radiologyDashboardLink = getSyncLifecycle(
 export const worklistTileComponent = getSyncLifecycle(worklistTile, options);
 
 export const referredTileComponent = getSyncLifecycle(referredTile, options);
-
-export const completedTileComponent = getSyncLifecycle(completedTile, options);
 
 export const testOrderedTileComponent = getSyncLifecycle(testsOrdered, options);
 
