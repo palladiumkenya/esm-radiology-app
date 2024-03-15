@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Table,
@@ -14,10 +14,25 @@ import {
   TableToolbar,
   TableToolbarContent,
   TableToolbarSearch,
+  Button,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import { usePagination } from "@openmrs/esm-framework";
+import { showModal, usePagination } from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
+
+const ReviewReport: React.FC<any> = ({ order }) => {
+  const handleReportPrompt = useCallback(() => {
+    const dispose = showModal("review-radilogy-report-dialog", {
+      closeModal: () => dispose(),
+      order,
+    });
+  }, [order]);
+  return (
+    <Button kind="tertiary" onClick={handleReportPrompt}>
+      Review
+    </Button>
+  );
+};
 
 export const Review: React.FC = () => {
   const { t } = useTranslation();
@@ -40,7 +55,7 @@ export const Review: React.FC = () => {
       ?.filter((item) => item.action === "NEW")
       .map((entry) => ({
         ...entry,
-        //TODO: add action items here
+        actions: <ReviewReport />,
       }));
   }, [paginatedResults]);
 
@@ -52,6 +67,7 @@ export const Review: React.FC = () => {
     { id: 5, header: t("orderType", "Order type"), key: "action" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
+    { id: 9, header: t("actions", "ACtions"), key: "actions" },
   ];
 
   return isLoading ? (

@@ -14,6 +14,7 @@ import rejectedTile from "./metrics-tiles/rejected-tile.component";
 import addRadiologyToWorklistDialog from "./radiology-tabs/test-ordered/pick-radiology-order/add-to-worklist-dialog.component";
 import rejectOrderDialogComponent from "./radiology-tabs/test-ordered/reject-order-dialog/reject-order-dialog.component";
 import radiologyInstructionsModal from "./radiology-tabs/test-ordered/radiology-instructions/radiology-instructions.component";
+import ReviewOrderDialog from "./radiology-tabs/review-ordered/review-radiology-report-dialog/review-radiology-report-dialog.component";
 
 const moduleName = "@openmrs/esm-radiology-app";
 
@@ -68,5 +69,10 @@ export const rejectOrderDialog = getSyncLifecycle(
 
 export const radiologyInstructionsModalComponent = getSyncLifecycle(
   radiologyInstructionsModal,
+  options
+);
+
+export const reviewRadiologyReportDialog = getSyncLifecycle(
+  ReviewOrderDialog,
   options
 );

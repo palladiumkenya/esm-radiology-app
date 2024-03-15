@@ -78,13 +78,18 @@
     "name":"add-radiology-to-worklist-dialog",
     "component": "addRadiologyToWorklistDialogComponent"
   },
-   {
+  {
     "name": "reject-order-dialog",
     "component": "rejectOrderDialog"
   },
   {
     "name":"radiology-instructions-modal",
     "component": "radiologyInstructionsModalComponent"
+  },
+  {
+
+    "name": "review-radilogy-report-dialog",
+    "component": "reviewRadiologyReportDialog"
   }
   ],
   "pages": [
