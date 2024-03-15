@@ -13,6 +13,7 @@ import styles from "./reject-order-dialog.scss";
 import { Result } from "../../work-list/work-list.resource";
 import { RejectOrder } from "./reject-order-dialog.resource";
 import { showNotification, showSnackbar } from "@openmrs/esm-framework";
+import { mutate } from "swr";
 
 interface RejectOrderDialogProps {
   order: Result;
@@ -46,7 +47,12 @@ const RejectOrderDialog: React.FC<RejectOrderDialogProps> = ({
           ),
         });
         closeModal();
-        window.location.reload();
+        mutate(
+          (key) =>
+            typeof key === "string" && key.startsWith("/ws/rest/v1/order"),
+          undefined,
+          { revalidate: true }
+        );
       },
       (err) => {
         showNotification({
