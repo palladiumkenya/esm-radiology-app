@@ -32,6 +32,10 @@ import {
   parseDate,
   showModal,
   usePagination,
+  showSnackbar,
+  showNotification,
+  openmrsFetch,
+  restBaseUrl,
 } from "@openmrs/esm-framework";
 import { launchOverlay } from "../../components/overlay/hook";
 import Overlay from "../../components/overlay/overlay.component";
@@ -90,6 +94,86 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
       />
     );
   };
+  const StartOrder = ({ order }) => {
+    const [buttonStyle, setButtonStyle] = useState({
+      borderRadius: "80px",
+      backgroundColor: "#cccccc",
+      width: "10%",
+      height: "2%",
+    });
+    const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
+    const handleStartClick = async () => {
+      const body = {
+        fulfillerComment: "",
+        fulfillerStatus: "IN_PROGRESS",
+      };
+
+      try {
+        const response = await openmrsFetch(
+          `${restBaseUrl}/order/${order.uuid}/fulfillerdetails`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+          }
+        );
+
+        if (response.status === 201) {
+          // Check for successful POST
+          showSnackbar({
+            isLowContrast: true,
+            title: t(
+              "statusUpdatedSuccessfully",
+              "Status updated successfully"
+            ),
+            kind: "success",
+          });
+
+          // Update button style on successful POST
+          setButtonStyle({
+            borderRadius: "80px",
+            backgroundColor: "#90EE90",
+            width: "10%",
+            height: "2%",
+          });
+
+          setIsButtonDisabled(true);
+        } else {
+          const errorData = await response.json();
+          showNotification({
+            title: t("errorUpdatingStatus", "Error updating status"),
+            kind: "error",
+            critical: true,
+            description: errorData.message || "Failed to update status",
+          });
+        }
+      } catch (error) {
+        showNotification({
+          title: t("errorUpdatingStatus", "Error updating status"),
+          kind: "error",
+          critical: true,
+          description: "Error updating status: " + error.message,
+        });
+      }
+    };
+
+    return (
+      <div>
+        <Button
+          kind="primary"
+          size="small"
+          onClick={handleStartClick}
+          style={buttonStyle}
+          disabled={isButtonDisabled} // Set the button's disabled status
+        >
+          START
+        </Button>
+      </div>
+    );
+  };
 
   // get picked orders
   const columns = [
@@ -101,7 +185,8 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
     { id: 6, header: t("status", "Status"), key: "status" },
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
-    { id: 10, header: t("actions", "Actions"), key: "actions" },
+    { id: 10, header: t("start", "Start"), key: "start" },
+    { id: 11, header: t("actions", "Actions"), key: "actions" },
   ];
 
   const tableRows = useMemo(() => {
@@ -186,6 +271,13 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
         orderer: { content: <span>{entry.orderer.display}</span> },
         orderType: { content: <span>{entry?.orderType?.display}</span> },
         urgency: { content: <span>{entry.urgency}</span> },
+        start: {
+          content: (
+            <>
+              <StartOrder order={paginatedWorkListEntries[index]} />
+            </>
+          ),
+        },
         actions: {
           content: (
             <>
