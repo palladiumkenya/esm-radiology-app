@@ -31,6 +31,7 @@ import {
 } from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
 import PickRadiologyLabRequestActionMenu from "./pick-radiology-lab-request-menu.component";
+import RadiologyInstructionsActionMenu from "./radiology-instructions/radiology-instructions-menu.component";
 
 const RejectOrderMenuItem: React.FC<RejectOrderOverflowMenuItemProps> = ({
   order,
@@ -79,6 +80,10 @@ export const TestsOrdered: React.FC = () => {
               order={entry}
             />
             <RejectOrderMenuItem order={entry} />
+            <RadiologyInstructionsActionMenu
+              order={entry}
+              closeModal={() => true}
+            />
           </OverflowMenu>
         ),
       }));
