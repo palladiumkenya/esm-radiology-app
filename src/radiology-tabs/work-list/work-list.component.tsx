@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Microscope, TrashCan } from "@carbon/react/icons";
+import { Information, Microscope, TrashCan } from "@carbon/react/icons";
 
 import {
   DataTable,
@@ -22,6 +22,7 @@ import {
   Tile,
   DatePicker,
   DatePickerInput,
+  Tooltip,
 } from "@carbon/react";
 import { Result } from "./work-list.resource";
 import styles from "./work-list.scss";
@@ -48,6 +49,10 @@ interface ResultsOrderProps {
 }
 
 interface RejectOrderProps {
+  order: Result;
+}
+
+interface InstructionsProps {
   order: Result;
 }
 
@@ -113,7 +118,30 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
               <ProcedureReportForm patientUuid={patientUuid} order={order} />
             );
           }}
-          renderIcon={(props) => <Microscope size={16} {...props} />}
+          renderIcon={(props) => (
+            <Tooltip align="top" label="Lab Results">
+              <Microscope size={16} {...props} />
+            </Tooltip>
+          )}
+        />
+      );
+    };
+    const Instructions: React.FC<InstructionsProps> = ({ order }) => {
+      const launchRadiologyInstructionsModal = useCallback(() => {
+        const dispose = showModal("radiology-instructions-modal", {
+          closeModal: () => dispose(),
+          order,
+        });
+      }, [order]);
+      return (
+        <Button
+          kind="ghost"
+          onClick={launchRadiologyInstructionsModal}
+          renderIcon={(props) => (
+            <Tooltip align="top" label="Instructions">
+              <Information size={16} {...props} />
+            </Tooltip>
+          )}
         />
       );
     };
@@ -161,6 +189,7 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
         actions: {
           content: (
             <>
+              <Instructions order={entry} />
               <ResultsOrder
                 patientUuid={entry.patient.uuid}
                 order={paginatedWorkListEntries[index]}
