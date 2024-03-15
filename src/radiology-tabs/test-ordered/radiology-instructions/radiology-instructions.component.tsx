@@ -10,11 +10,11 @@ import {
   TableHeader,
   TableBody,
   TableCell,
+  Tile,
 } from "@carbon/react";
 import { useTranslation } from "react-i18next";
 import styles from "./radiology-instructions.scss";
 import { Result } from "../../work-list/work-list.resource";
-import { Tile } from "@carbon/react";
 
 interface RadiologyInstructionsModalProps {
   order: Result;
