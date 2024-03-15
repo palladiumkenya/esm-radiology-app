@@ -63,9 +63,7 @@ const RadiologyInstructionsModal: React.FC<RadiologyInstructionsModalProps> = ({
               <p>
                 <b>Instructions</b>
               </p>
-              <p className={styles.instructions}>
-                {order.instructions}
-              </p>
+              <p className={styles.instructions}>{order.instructions}</p>
             </Tile>
           </section>
         </div>
@@ -80,4 +78,3 @@ const RadiologyInstructionsModal: React.FC<RadiologyInstructionsModalProps> = ({
 };
 
 export default RadiologyInstructionsModal;
-
