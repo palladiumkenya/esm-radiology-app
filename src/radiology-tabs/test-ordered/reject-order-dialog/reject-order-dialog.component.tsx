@@ -11,10 +11,9 @@ import {
 import { useTranslation } from "react-i18next";
 import styles from "./reject-order-dialog.scss";
 import { Result } from "../../work-list/work-list.resource";
-import { RejectOrder } from "./reject-order-dialog.resource";
 import { showNotification, showSnackbar } from "@openmrs/esm-framework";
 import { mutate } from "swr";
-
+import { updateOrder } from "../pick-radiology-order/add-to-worklist-dialog.resource";
 interface RejectOrderDialogProps {
   order: Result;
   closeModal: () => void;
@@ -35,8 +34,8 @@ const RejectOrderDialog: React.FC<RejectOrderDialogProps> = ({
       fulfillerStatus: "DECLINED",
       fulfillerComment: notes,
     };
-    RejectOrder(order.uuid, payload).then(
-      (resp) => {
+    updateOrder(order.uuid, payload).then(
+      () => {
         showSnackbar({
           isLowContrast: true,
           title: t("rejectOrder", "Rejected Order"),
