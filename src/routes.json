@@ -90,6 +90,10 @@
    {
     "name": "reject-order-dialog",
     "component": "rejectOrderDialog"
+  },
+  {
+    "name":"radiology-instructions-modal",
+    "component": "radiologyInstructionsModalComponent"
   }
   ],
   "pages": [
