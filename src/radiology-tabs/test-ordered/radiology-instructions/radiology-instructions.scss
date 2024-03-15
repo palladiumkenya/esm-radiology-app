@@ -12,3 +12,13 @@ section {
 .modalBody {
   padding-bottom: spacing.$spacing-05;
 }
+.instructions {
+  margin-top: 1rem;
+  white-space: pre-wrap;
+}
+
+.modalBody{
+  :global(.cds--tooltip-trigger__wrapper){
+    visibility: hidden;
+  }
+}
