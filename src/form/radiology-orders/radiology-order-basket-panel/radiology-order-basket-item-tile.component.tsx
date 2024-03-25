@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
-import classNames from 'classnames';
-import { useTranslation } from 'react-i18next';
-import { Button, ClickableTile, Tile } from '@carbon/react';
-import { TrashCan, Warning } from '@carbon/react/icons';
-import { useLayoutType } from '@openmrs/esm-framework';
-import styles from './radiology-order-basket-item-tile.scss';
-import { type RadiologyOrderBasketItem } from '../../../types';
+import React, { useRef } from "react";
+import classNames from "classnames";
+import { useTranslation } from "react-i18next";
+import { Button, ClickableTile, Tile } from "@carbon/react";
+import { TrashCan, Warning } from "@carbon/react/icons";
+import { useLayoutType } from "@openmrs/esm-framework";
+import styles from "./radiology-order-basket-item-tile.scss";
+import { type RadiologyOrderBasketItem } from "../../../types";
 
 export interface OrderBasketItemTileProps {
   orderBasketItem: RadiologyOrderBasketItem;
@@ -19,7 +19,7 @@ export function RadiologyOrderBasketItemTile({
   onRemoveClick,
 }: OrderBasketItemTileProps) {
   const { t } = useTranslation();
-  const isTablet = useLayoutType() === 'tablet';
+  const isTablet = useLayoutType() === "tablet";
 
   // This here is really dirty, but required.
   // If the ref's value is false, we won't react to the ClickableTile's handleClick function.
@@ -40,9 +40,13 @@ export function RadiologyOrderBasketItemTile({
             <>
               <br />
               <span className={styles.orderErrorText}>
-                <Warning size={16} /> &nbsp; <span className={styles.label01}>{t('error', 'Error').toUpperCase()}</span>{' '}
+                <Warning size={16} /> &nbsp;{" "}
+                <span className={styles.label01}>
+                  {t("error", "Error").toUpperCase()}
+                </span>{" "}
                 &nbsp;
-                {orderBasketItem.orderError.responseBody?.error?.message ?? orderBasketItem.orderError.message}
+                {orderBasketItem.orderError.responseBody?.error?.message ??
+                  orderBasketItem.orderError.message}
               </span>
             </>
           )}
@@ -53,7 +57,7 @@ export function RadiologyOrderBasketItemTile({
         kind="ghost"
         hasIconOnly={true}
         renderIcon={(props) => <TrashCan size={16} {...props} />}
-        iconDescription={t('removeFromBasket', 'Remove from basket')}
+        iconDescription={t("removeFromBasket", "Remove from basket")}
         onClick={() => {
           shouldOnClickBeCalled.current = false;
           onRemoveClick();
@@ -63,7 +67,7 @@ export function RadiologyOrderBasketItemTile({
     </div>
   );
 
-  return orderBasketItem.action === 'DISCONTINUE' ? (
+  return orderBasketItem.action === "DISCONTINUE" ? (
     <Tile>{labTile}</Tile>
   ) : (
     <ClickableTile
@@ -79,22 +83,46 @@ export function RadiologyOrderBasketItemTile({
   );
 }
 
-function OrderActionLabel({ orderBasketItem }: { orderBasketItem: RadiologyOrderBasketItem }) {
+function OrderActionLabel({
+  orderBasketItem,
+}: {
+  orderBasketItem: RadiologyOrderBasketItem;
+}) {
   const { t } = useTranslation();
 
   if (orderBasketItem.isOrderIncomplete) {
-    return <span className={styles.orderActionIncompleteLabel}>{t('orderActionIncomplete', 'Incomplete')}</span>;
+    return (
+      <span className={styles.orderActionIncompleteLabel}>
+        {t("orderActionIncomplete", "Incomplete")}
+      </span>
+    );
   }
 
   switch (orderBasketItem.action) {
-    case 'NEW':
-      return <span className={styles.orderActionNewLabel}>{t('orderActionNew', 'New')}</span>;
-    case 'RENEW':
-      return <span className={styles.orderActionRenewLabel}>{t('orderActionRenew', 'Renew')}</span>;
-    case 'REVISE':
-      return <span className={styles.orderActionRevisedLabel}>{t('orderActionRevise', 'Modify')}</span>;
-    case 'DISCONTINUE':
-      return <span className={styles.orderActionDiscontinueLabel}>{t('orderActionDiscontinue', 'Discontinue')}</span>;
+    case "NEW":
+      return (
+        <span className={styles.orderActionNewLabel}>
+          {t("orderActionNew", "New")}
+        </span>
+      );
+    case "RENEW":
+      return (
+        <span className={styles.orderActionRenewLabel}>
+          {t("orderActionRenew", "Renew")}
+        </span>
+      );
+    case "REVISE":
+      return (
+        <span className={styles.orderActionRevisedLabel}>
+          {t("orderActionRevise", "Modify")}
+        </span>
+      );
+    case "DISCONTINUE":
+      return (
+        <span className={styles.orderActionDiscontinueLabel}>
+          {t("orderActionDiscontinue", "Discontinue")}
+        </span>
+      );
     default:
       return <></>;
   }

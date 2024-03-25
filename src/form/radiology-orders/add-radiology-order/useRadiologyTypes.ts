@@ -62,7 +62,7 @@ function useRadiologyConceptsSWR(labOrderableConcepts?: Array<string>) {
   };
 }
 
-export function useRadiologyTypes(searchTerm: string = ""): UseRadiologyType {
+export function useRadiologyTypes(searchTerm = ""): UseRadiologyType {
   const { labOrderableConcepts } = useConfig<RadiologyConfig>().orders;
 
   const { data, isLoading, error } = useRadiologyConceptsSWR(
