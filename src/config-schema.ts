@@ -1,26 +1,33 @@
-import { Type, validator } from "@openmrs/esm-framework";
+import { Type } from "@openmrs/esm-framework";
 
 export const configSchema = {
-  casualGreeting: {
-    _type: Type.Boolean,
-    _default: false,
-    _description: "Whether to use a casual greeting (or a formal one).",
-  },
-  whoToGreet: {
-    _type: Type.Array,
-    _default: ["World"],
-    _description:
-      "Who should be greeted. Names will be separated by a comma and space.",
-    _elements: {
-      _type: Type.String,
+  orders: {
+    labOrderTypeUuid: {
+      _type: Type.UUID,
+      _description: "UUID for the 'Lab' order type",
+      _default: "52a447d3-a64a-11e3-9aeb-50e549534c5e",
     },
-    _validators: [
-      validator((v) => v.length > 0, "At least one person must be greeted."),
-    ],
+    labOrderableConcepts: {
+      _type: Type.Array,
+      _description:
+        "UUIDs of concepts that represent orderable lab tests or lab sets. If an empty array `[]` is provided, every concept with class `Test` will be considered orderable.",
+      _elements: {
+        _type: Type.UUID,
+      },
+      _default: [],
+    },
   },
 };
 
-export type Config = {
-  casualGreeting: boolean;
-  whoToGreet: Array<string>;
+interface OrderReason {
+  labTestUuid: string;
+  required: boolean;
+  orderReasons: Array<string>;
+}
+export type RadiologyConfig = {
+  orders: {
+    labOrderTypeUuid: string;
+    labOrderableConcepts: Array<string>;
+  };
+  labTestsWithOrderReasons: Array<OrderReason>;
 };

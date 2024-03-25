@@ -1620,6 +1620,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/colors@npm:^11.21.0":
+  version: 11.21.0
+  resolution: "@carbon/colors@npm:11.21.0"
+  dependencies:
+    "@ibm/telemetry-js": ^1.2.1
+  checksum: 64badf2d24974b6a902723824e377ebc5755344a1eb4949d1e5c598aaf82e9f6c234060cba199e1179c6494fb0664b54e678308f9ffcad499cd0e29c3edafe5b
+  languageName: node
+  linkType: hard
+
 "@carbon/feature-flags@npm:^0.16.0":
   version: 0.16.0
   resolution: "@carbon/feature-flags@npm:0.16.0"
@@ -1634,6 +1643,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/feature-flags@npm:^0.18.0":
+  version: 0.18.0
+  resolution: "@carbon/feature-flags@npm:0.18.0"
+  dependencies:
+    "@ibm/telemetry-js": ^1.2.1
+  checksum: 0b33dd7c2db309c50006e588057dbdb031d448c8b65f4870a2f50753b43b1159cb27ed8f442b701d6b17d120c39277a75d675dcd95dce960eb76f6241aa19379
+  languageName: node
+  linkType: hard
+
 "@carbon/grid@npm:^11.21.0, @carbon/grid@npm:^11.21.1":
   version: 11.21.1
   resolution: "@carbon/grid@npm:11.21.1"
@@ -1643,10 +1661,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/grid@npm:^11.22.0":
+  version: 11.22.0
+  resolution: "@carbon/grid@npm:11.22.0"
+  dependencies:
+    "@carbon/layout": ^11.21.0
+    "@ibm/telemetry-js": ^1.2.1
+  checksum: 4efd8d12019ebdf9890245dbe6b081efe017acbce24c8af0a69a77eaf3e1796e268e8bca0efbdde08556d74c2da00b8bfe6b2379272131ab2ba340eab594aa93
+  languageName: node
+  linkType: hard
+
 "@carbon/icon-helpers@npm:^10.44.0, @carbon/icon-helpers@npm:^10.46.0":
   version: 10.46.0
   resolution: "@carbon/icon-helpers@npm:10.46.0"
   checksum: f6510822b54a6572039bf9c4845e4f54e735aa5f4c86f5a619d287c27156b4211db7e1e00776edf52970291c44f57aa0c2d9344b82b9783065b0ecfc7a6524b5
+  languageName: node
+  linkType: hard
+
+"@carbon/icon-helpers@npm:^10.47.0":
+  version: 10.47.0
+  resolution: "@carbon/icon-helpers@npm:10.47.0"
+  dependencies:
+    "@ibm/telemetry-js": ^1.2.1
+  checksum: 26b3e8409bacd215df93e10039f1f9d54336ce811c8d640a778fbeafc3c489a18f8ba8018eb350957c5839b38d3013088dafbf6cc6339d1c69bd6bfb1b31fa39
   languageName: node
   linkType: hard
 
@@ -1676,10 +1713,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/icons-react@npm:^11.38.0":
+  version: 11.38.0
+  resolution: "@carbon/icons-react@npm:11.38.0"
+  dependencies:
+    "@carbon/icon-helpers": ^10.47.0
+    "@ibm/telemetry-js": ^1.2.1
+    prop-types: ^15.7.2
+  peerDependencies:
+    react: ">=16"
+  checksum: bdd15d9607a7f0567e79161b486149dfb97281e89f3da95c377e7ad39f6b7a13a084645296540f94851a22dca3d9c6dcc0f4606ab17565be7807240668b5fb26
+  languageName: node
+  linkType: hard
+
 "@carbon/layout@npm:^11.19.0, @carbon/layout@npm:^11.20.0, @carbon/layout@npm:^11.20.1":
   version: 11.20.1
   resolution: "@carbon/layout@npm:11.20.1"
   checksum: 8db3a31c08ab1fc62bd06404a72ca1e724c938d1ac73c708a63b06103fe054a5ab4294b1fba3471e3f55140ebe0e91e32872a2828dda73a32801fccb670acd35
+  languageName: node
+  linkType: hard
+
+"@carbon/layout@npm:^11.21.0":
+  version: 11.21.0
+  resolution: "@carbon/layout@npm:11.21.0"
+  dependencies:
+    "@ibm/telemetry-js": ^1.2.1
+  checksum: 7aeb621fafe968dbfbc2b1dc6aaf9111d6d4edca682336616523145e125322a2b01e7c1e3c323852f5392c3346eecf6a4ecd1aa7019cc968eed8f3f3a3659233
   languageName: node
   linkType: hard
 
@@ -1690,7 +1749,49 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@carbon/react@npm:^1.12.0, @carbon/react@npm:^1.33.1":
+"@carbon/motion@npm:^11.17.0":
+  version: 11.17.0
+  resolution: "@carbon/motion@npm:11.17.0"
+  dependencies:
+    "@ibm/telemetry-js": ^1.2.1
+  checksum: 9efa5e359bd0958af99a44a6a37cc3dbb434422f2ea1d9f4b1bf4e14c0ff79be242db2cf0f0912a0f49aadb2991bc5e77903e0e711efc0dc49ca538e4e335da2
+  languageName: node
+  linkType: hard
+
+"@carbon/react@npm:^1.12.0":
+  version: 1.53.1
+  resolution: "@carbon/react@npm:1.53.1"
+  dependencies:
+    "@babel/runtime": ^7.18.3
+    "@carbon/feature-flags": ^0.18.0
+    "@carbon/icons-react": ^11.38.0
+    "@carbon/layout": ^11.21.0
+    "@carbon/styles": ^1.53.1
+    "@ibm/telemetry-js": ^1.2.1
+    classnames: 2.5.1
+    copy-to-clipboard: ^3.3.1
+    downshift: 8.4.0
+    flatpickr: 4.6.13
+    invariant: ^2.2.3
+    lodash.debounce: ^4.0.8
+    lodash.findlast: ^4.5.0
+    lodash.isequal: ^4.5.0
+    lodash.omit: ^4.5.0
+    lodash.throttle: ^4.1.1
+    prop-types: ^15.7.2
+    react-is: ^18.2.0
+    use-resize-observer: ^6.0.0
+    wicg-inert: ^3.1.1
+    window-or-global: ^1.0.1
+  peerDependencies:
+    react: ^16.8.6 || ^17.0.1 || ^18.2.0
+    react-dom: ^16.8.6 || ^17.0.1 || ^18.2.0
+    sass: ^1.33.0
+  checksum: 9998bdf1e8caaa85d33f873c9cbc7c4a9f41d9c29367775bb58c012266430fd8f1faf572f7abc6f6de7a3373e52c3344d41a5f6e1d54c2112dcb0658fc00dbcd
+  languageName: node
+  linkType: hard
+
+"@carbon/react@npm:^1.33.1":
   version: 1.52.0
   resolution: "@carbon/react@npm:1.52.0"
   dependencies:
@@ -1777,6 +1878,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/styles@npm:^1.53.1":
+  version: 1.53.1
+  resolution: "@carbon/styles@npm:1.53.1"
+  dependencies:
+    "@carbon/colors": ^11.21.0
+    "@carbon/feature-flags": ^0.18.0
+    "@carbon/grid": ^11.22.0
+    "@carbon/layout": ^11.21.0
+    "@carbon/motion": ^11.17.0
+    "@carbon/themes": ^11.33.1
+    "@carbon/type": ^11.26.0
+    "@ibm/plex": 6.0.0-next.6
+    "@ibm/telemetry-js": ^1.2.1
+  peerDependencies:
+    sass: ^1.33.0
+  peerDependenciesMeta:
+    sass:
+      optional: true
+  checksum: 2fbf4cd51b045bf03ac92a57e332386043da6b841760fd78333e7a64722247a960405a824a074cd537233be532c2c7176c49d8e691b62a992c13805a75a9da6f
+  languageName: node
+  linkType: hard
+
 "@carbon/telemetry@npm:0.1.0":
   version: 0.1.0
   resolution: "@carbon/telemetry@npm:0.1.0"
@@ -1798,6 +1921,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@carbon/themes@npm:^11.33.1":
+  version: 11.33.1
+  resolution: "@carbon/themes@npm:11.33.1"
+  dependencies:
+    "@carbon/colors": ^11.21.0
+    "@carbon/layout": ^11.21.0
+    "@carbon/type": ^11.26.0
+    "@ibm/telemetry-js": ^1.2.1
+    color: ^4.0.0
+  checksum: 82910aa584f2db72340277bde5c387e1a436ab9c0d060931cad83149debde94c0f3d84a67385d94f33a7b6739ef935f7024b4a839fe8a851f5abc6db7dfa0f69
+  languageName: node
+  linkType: hard
+
 "@carbon/type@npm:^11.25.0":
   version: 11.25.1
   resolution: "@carbon/type@npm:11.25.1"
@@ -1805,6 +1941,17 @@ __metadata:
     "@carbon/grid": ^11.21.1
     "@carbon/layout": ^11.20.1
   checksum: 5184b9cddf050d06dbc3a369400c149e594cd281e090eb0fea972ef964b741ca94c20b828cb6c138be0812861d335d0abbabfe78b368483a5a97bf2ad7e1fc68
+  languageName: node
+  linkType: hard
+
+"@carbon/type@npm:^11.26.0":
+  version: 11.26.0
+  resolution: "@carbon/type@npm:11.26.0"
+  dependencies:
+    "@carbon/grid": ^11.22.0
+    "@carbon/layout": ^11.21.0
+    "@ibm/telemetry-js": ^1.2.1
+  checksum: 60aaed6c77b603cc9dc4705db3940895b15466e5c3aa06718329e4a3ddd6c9388370f1df646af73b7c0f201fdabf851d0b9a12ce165863e5f39c80738a396044
   languageName: node
   linkType: hard
 
@@ -2409,6 +2556,15 @@ __metadata:
   dependencies:
     is-negated-glob: ^1.0.0
   checksum: 30ec7825064422b6f02c1975ab6c779ff73409411c37bec2e984262459935afd196c1dbe960075e914967a047743ccf726fce3d3ebb4417ca2e3c34538fbceb8
+  languageName: node
+  linkType: hard
+
+"@hookform/resolvers@npm:^3.3.4":
+  version: 3.3.4
+  resolution: "@hookform/resolvers@npm:3.3.4"
+  peerDependencies:
+    react-hook-form: ^7.0.0
+  checksum: 7761e3340d23acd092dec4023344678e62b0c0ea0ed5aa3687cd315fc339b3b965e11124d643811292e6962683357423e6fe646fffabf9b96f8322f41903924d
   languageName: node
   linkType: hard
 
@@ -4013,9 +4169,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openmrs/esm-patient-common-lib@npm:next":
-  version: 7.0.2-pre.4066
-  resolution: "@openmrs/esm-patient-common-lib@npm:7.0.2-pre.4066"
+"@openmrs/esm-patient-common-lib@npm:^7.1.0":
+  version: 7.1.0
+  resolution: "@openmrs/esm-patient-common-lib@npm:7.1.0"
   dependencies:
     "@carbon/react": ^1.12.0
     lodash-es: ^4.17.21
@@ -4024,7 +4180,7 @@ __metadata:
     "@openmrs/esm-framework": 5.x
     react: 18.x
     single-spa: 6.x
-  checksum: cb9e9c6127365b6bf7e387aa59cbfc313b05e033539cae130e57818252d494c7cbbeeeabd1a0eec21e84a2bad5f3b50dccbe9fbc9e53758de9801aa20f1500d0
+  checksum: ba8b5194a7aeb9a1f3ecbb441e64c6843e991a52a208f2c57a1d015df1d090c34362afe8c7323072894ebec7d7ae584962f10f59c2c0dc24c68dc95b40935029
   languageName: node
   linkType: hard
 
@@ -4033,8 +4189,9 @@ __metadata:
   resolution: "@openmrs/esm-radiology-app@workspace:."
   dependencies:
     "@carbon/react": ^1.33.1
+    "@hookform/resolvers": ^3.3.4
     "@openmrs/esm-framework": next
-    "@openmrs/esm-patient-common-lib": next
+    "@openmrs/esm-patient-common-lib": ^7.1.0
     "@openmrs/esm-styleguide": next
     "@playwright/test": ^1.30.0
     "@swc/cli": ^0.1.62
@@ -4058,6 +4215,7 @@ __metadata:
     eslint-config-prettier: ^8.8.0
     eslint-config-ts-react-important-stuff: ^3.0.0
     eslint-plugin-prettier: ^4.2.1
+    fuzzy: ^0.1.3
     husky: ^8.0.3
     i18next: ^23.2.8
     i18next-parser: ^8.0.0
@@ -4071,7 +4229,7 @@ __metadata:
     pretty-quick: ^3.1.3
     react: ^18.2.0
     react-dom: ^18.2.0
-    react-hook-form: ^7.51.0
+    react-hook-form: ^7.51.1
     react-i18next: ^11.18.6
     react-image-annotate: ^1.8.0
     react-router-dom: ^6.14.1
@@ -4081,8 +4239,10 @@ __metadata:
     typescript: ^4.9.5
     webpack: ^5.88.1
     webpack-cli: ^5.1.4
+    zod: ^3.22.4
   peerDependencies:
     "@openmrs/esm-framework": "*"
+    "@openmrs/esm-patient-common-lib": "*"
     dayjs: 1.x
     react: 18.x
     react-i18next: 11.x
@@ -10519,6 +10679,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"downshift@npm:8.4.0":
+  version: 8.4.0
+  resolution: "downshift@npm:8.4.0"
+  dependencies:
+    "@babel/runtime": ^7.22.15
+    compute-scroll-into-view: ^3.0.3
+    prop-types: ^15.8.1
+    react-is: ^18.2.0
+    tslib: ^2.6.2
+  peerDependencies:
+    react: ">=16.12.0"
+  checksum: d86316b1d50b018fdc55cf0d604522d115b03d236eea0421c8f38ef0ea8adad8d53f5dc0e9014990deac578484c428f984abacf3d846f23c4881390a53447920
+  languageName: node
+  linkType: hard
+
 "duplexer3@npm:^0.1.4":
   version: 0.1.5
   resolution: "duplexer3@npm:0.1.5"
@@ -12314,6 +12489,13 @@ __metadata:
   version: 1.2.3
   resolution: "functions-have-names@npm:1.2.3"
   checksum: c3f1f5ba20f4e962efb71344ce0a40722163e85bee2101ce25f88214e78182d2d2476aa85ef37950c579eb6cf6ee811c17b3101bb84004bb75655f3e33f3fdb5
+  languageName: node
+  linkType: hard
+
+"fuzzy@npm:^0.1.3":
+  version: 0.1.3
+  resolution: "fuzzy@npm:0.1.3"
+  checksum: acc09c6173e12d5dc8ae51857551ddbe834befa9ebc6be6d5581d09117265d704809d80407d220fd0652f347a9975a4d106854cacc8bd031487a0ede86982f84
   languageName: node
   linkType: hard
 
@@ -19330,12 +19512,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-hook-form@npm:^7.51.0":
-  version: 7.51.0
-  resolution: "react-hook-form@npm:7.51.0"
+"react-hook-form@npm:^7.51.1":
+  version: 7.51.1
+  resolution: "react-hook-form@npm:7.51.1"
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
-  checksum: c3d9996a2c2867994f10d1f598ca24b0dee019221116750ebe64f5abb422081b76b217c0265807485c9f2fc7b2e8c2aa8bed153cbf86fa0c2603d42b714f20eb
+  checksum: 6ed9060ac9230a7e9e6ca46fc001cc5f44f35e6485e0c951ab1a5e85bd698c200a7230c5514f0642875e4f45f6cb8f79479deac0253f1c2b8db1445d1c96d796
   languageName: node
   linkType: hard
 
@@ -24645,6 +24827,13 @@ __metadata:
   version: 0.1.0
   resolution: "yocto-queue@npm:0.1.0"
   checksum: f77b3d8d00310def622123df93d4ee654fc6a0096182af8bd60679ddcdfb3474c56c6c7190817c84a2785648cdee9d721c0154eb45698c62176c322fb46fc700
+  languageName: node
+  linkType: hard
+
+"zod@npm:^3.22.4":
+  version: 3.22.4
+  resolution: "zod@npm:3.22.4"
+  checksum: 80bfd7f8039b24fddeb0718a2ec7c02aa9856e4838d6aa4864335a047b6b37a3273b191ef335bf0b2002e5c514ef261ffcda5a589fb084a48c336ffc4cdbab7f
   languageName: node
   linkType: hard
 
