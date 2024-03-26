@@ -25,72 +25,77 @@
       "slot": "radio-tiles-slot",
       "component": "testOrderedTileComponent",
       "meta": {
-          "name": "testsOrderedTileSlot",
-          "title": "Ordered tests"
+        "name": "testsOrderedTileSlot",
+        "title": "Ordered tests"
       }
-  },
-  {
+    },
+    {
       "name": "worklist-tile-component",
       "slot": "radio-tiles-slot",
       "component": "worklistTileComponent",
       "meta": {
-          "name": "worklisTileSlot",
-          "title": "Worklist"
+        "name": "worklisTileSlot",
+        "title": "Worklist"
       }
-  },
-  {
+    },
+    {
       "name": "referred-tile-component",
       "slot": "radio-tiles-slot",
       "component": "referredTileComponent",
       "meta": {
-          "name": "referredTileSlot",
-          "title": "Referred tests"
+        "name": "referredTileSlot",
+        "title": "Referred tests"
       }
-  },
-  {
-    "name": "review-tile-component",
-    "slot": "radio-tiles-slot",
-    "component": "reviewTileComponent",
-    "meta": {
+    },
+    {
+      "name": "review-tile-component",
+      "slot": "radio-tiles-slot",
+      "component": "reviewTileComponent",
+      "meta": {
         "name": "reviewTileSlot",
         "title": "Review"
-    }
-  },
-  {
-    "name": "approved-tile-component",
-    "slot": "radio-tiles-slot",
-    "component": "approveTileComponent",
-    "meta": {
+      }
+    },
+    {
+      "name": "approved-tile-component",
+      "slot": "radio-tiles-slot",
+      "component": "approveTileComponent",
+      "meta": {
         "name": "approveTileSlot",
         "title": "Approved"
-    }
-  },
-  {
-    "name": "notdone-tile-component",
-    "slot": "radio-tiles-slot",
-    "component": "notDoneTileComponent",
-    "meta": {
+      }
+    },
+    {
+      "name": "notdone-tile-component",
+      "slot": "radio-tiles-slot",
+      "component": "notDoneTileComponent",
+      "meta": {
         "name": "notDoneTileSlot",
         "title": "Not Done"
+      }
+    },
+    {
+      "name": "add-radiology-to-worklist-dialog",
+      "component": "addRadiologyToWorklistDialogComponent"
+    },
+    {
+      "name": "reject-order-dialog",
+      "component": "rejectOrderDialog"
+    },
+    {
+      "name": "radiology-instructions-modal",
+      "component": "radiologyInstructionsModalComponent"
+    },
+    {
+      "name": "review-radilogy-report-dialog",
+      "component": "reviewRadiologyReportDialog"
+    },
+    {
+      "name": "radiology-order-panel",
+      "component": "radiologyOrderPanel",
+      "slot": "order-basket-slot",
+      "order": 3
     }
-  },
-  {
-    "name":"add-radiology-to-worklist-dialog",
-    "component": "addRadiologyToWorklistDialogComponent"
-  },
-  {
-    "name": "reject-order-dialog",
-    "component": "rejectOrderDialog"
-  },
-  {
-    "name":"radiology-instructions-modal",
-    "component": "radiologyInstructionsModalComponent"
-  },
-  {
-
-    "name": "review-radilogy-report-dialog",
-    "component": "reviewRadiologyReportDialog"
-  }
   ],
   "pages": [
     {

@@ -2,8 +2,11 @@ import {
   getAsyncLifecycle,
   defineConfigSchema,
   getSyncLifecycle,
+  translateFrom,
 } from "@openmrs/esm-framework";
 import { configSchema } from "./config-schema";
+import { registerWorkspace } from "@openmrs/esm-patient-common-lib";
+
 import { createLeftPanelLink } from "./left-panel-link";
 import worklistTile from "./metrics-tiles/worklist-tile.component";
 import referredTile from "./metrics-tiles/referred-tile.component";
@@ -15,6 +18,7 @@ import addRadiologyToWorklistDialog from "./radiology-tabs/test-ordered/pick-rad
 import rejectOrderDialogComponent from "./radiology-tabs/test-ordered/reject-order-dialog/reject-order-dialog.component";
 import radiologyInstructionsModal from "./radiology-tabs/test-ordered/radiology-instructions/radiology-instructions.component";
 import ReviewOrderDialog from "./radiology-tabs/review-ordered/review-radiology-report-dialog/review-radiology-report-dialog.component";
+import RadiologyOrderBasketPanelExtension from "./form/radiology-orders/radiology-order-basket-panel/radiology-order-basket-panel.extension";
 
 const moduleName = "@openmrs/esm-radiology-app";
 
@@ -46,33 +50,52 @@ export const radiologyDashboardLink = getSyncLifecycle(
   }),
   options
 );
+
+// Tiles
 export const worklistTileComponent = getSyncLifecycle(worklistTile, options);
-
 export const referredTileComponent = getSyncLifecycle(referredTile, options);
-
 export const testOrderedTileComponent = getSyncLifecycle(testsOrdered, options);
-
 export const reviewTileComponent = getSyncLifecycle(reviewTile, options);
-
 export const approveTileComponent = getSyncLifecycle(approveTile, options);
-
 export const notDoneTileComponent = getSyncLifecycle(rejectedTile, options);
-
 export const addRadiologyToWorklistDialogComponent = getSyncLifecycle(
   addRadiologyToWorklistDialog,
   options
 );
+
+// Modals
 export const rejectOrderDialog = getSyncLifecycle(
   rejectOrderDialogComponent,
   options
 );
-
 export const radiologyInstructionsModalComponent = getSyncLifecycle(
   radiologyInstructionsModal,
   options
 );
-
 export const reviewRadiologyReportDialog = getSyncLifecycle(
   ReviewOrderDialog,
   options
 );
+
+export const radiologyOrderPanel = getSyncLifecycle(
+  RadiologyOrderBasketPanelExtension,
+  options
+);
+
+// t('addRadiologyOrderWorkspaceTitle', 'Add Radiology order')
+registerWorkspace({
+  name: "add-radiology-order",
+  type: "order",
+  title: translateFrom(
+    moduleName,
+    "addRadiologyOrderWorkspaceTitle",
+    "Add radiology order"
+  ),
+  load: getAsyncLifecycle(
+    () =>
+      import(
+        "./form/radiology-orders/add-radiology-order/add-radiology-order.workspace"
+      ),
+    options
+  ),
+});
