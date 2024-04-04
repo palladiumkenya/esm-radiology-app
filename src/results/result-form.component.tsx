@@ -68,11 +68,10 @@ const ProcedureReportForm: React.FC<ResultFormProps> = ({
       patient: patientUuid,
       procedureOrder: order.uuid,
       concept: order.concept.uuid,
-      status: "IN_PROGRESS",
+      status: "COMPLETED",
       procedureReport: report,
-      participants: [],
-      procedureResults: [],
       complications: [],
+      encounters: [],
     };
 
     saveProcedureReport(reportPayload).then(
