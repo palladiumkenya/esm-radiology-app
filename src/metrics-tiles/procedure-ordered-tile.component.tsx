@@ -10,9 +10,9 @@ const ProcedureOrderedTileComponent = () => {
 
   return (
     <SummaryTile
-      label={t("orders", "Procedures")}
+      label={t("pending", "Pending")}
       value={testOrderedCount}
-      headerLabel={t("procedureOrdered", "Pending Procedures")}
+      headerLabel={t("activeOrders", "Active Orders")}
     />
   );
 };
