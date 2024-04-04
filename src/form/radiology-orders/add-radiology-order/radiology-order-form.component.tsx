@@ -3,7 +3,6 @@ import classNames from "classnames";
 import {
   type DefaultWorkspaceProps,
   launchPatientWorkspace,
-  promptBeforeClosing,
   useOrderBasket,
 } from "@openmrs/esm-patient-common-lib";
 import {
@@ -63,11 +62,8 @@ export function RadiologyOrderForm({
   const { t } = useTranslation();
   const isTablet = useLayoutType() === "tablet";
   const session = useSession();
-  const {
-    orderConfigObject,
-    isLoading: isLoadingOrderConfig,
-    error: errorFetchingOrderConfig,
-  } = useOrderConfig();
+  const { orderConfigObject, isLoading: isLoadingOrderConfig } =
+    useOrderConfig();
   const { orders, setOrders } = useOrderBasket<RadiologyOrderBasketItem>(
     "radiology",
     prepRadiologyOrderPostData
@@ -81,12 +77,10 @@ export function RadiologyOrderForm({
   const {
     items: { answers: lateralityItems },
     isLoading: isLoadingLaterality,
-    isError: errorFetchingLaterality,
   } = useConceptById("160594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   const {
     items: { answers: bodySiteItems },
     isLoading: isLoadingBodySiteItems,
-    isError: errorFetchingBodySiteItems,
   } = useConceptById("162668AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   const config = useConfig<RadiologyConfig>();
   const orderReasonRequired = (
@@ -194,9 +188,9 @@ export function RadiologyOrderForm({
     [
       orders,
       setOrders,
-      closeWorkspace,
       session?.currentProvider?.uuid,
       defaultValues,
+      closeWorkspaceWithSavedChanges,
     ]
   );
 
@@ -220,7 +214,7 @@ export function RadiologyOrderForm({
 
   useEffect(() => {
     promptBeforeClosing(() => isDirty);
-  }, [isDirty]);
+  }, [isDirty, promptBeforeClosing]);
 
   const [selectedPriority, setSelectedPriority] = useState("");
   const [showScheduleDate, setShowScheduleDate] = useState(false);
@@ -228,7 +222,6 @@ export function RadiologyOrderForm({
   const handlePriorityChange = (event) => {
     const selectedValue = event.selectedItem ? event.selectedItem.label : "";
     setSelectedPriority(selectedValue);
-    console.warn("Selected value is: ", selectedValue);
     // Set the state to show the TextInput based on the selected option
     setShowScheduleDate(selectedValue === "Scheduled");
   };
@@ -242,7 +235,7 @@ export function RadiologyOrderForm({
           className={styles.inlineNotification}
           title={t(
             "errorLoadingTestTypes",
-            "Error occured when loading test types"
+            "Error occurred when loading test types"
           )}
           subtitle={t(
             "tryReopeningTheForm",
@@ -291,7 +284,7 @@ export function RadiologyOrderForm({
                 <Controller
                   name="urgency"
                   control={control}
-                  render={({ field: { onChange, onBlur, value } }) => (
+                  render={({ field: { onBlur } }) => (
                     <ComboBox
                       size="lg"
                       id="priorityInput"
@@ -348,7 +341,7 @@ export function RadiologyOrderForm({
                   <Controller
                     name="orderReason"
                     control={control}
-                    render={({ field: { onChange, onBlur, value } }) => (
+                    render={({ field: { onChange, onBlur } }) => (
                       <ComboBox
                         size="lg"
                         id="orderReasonInput"
@@ -375,7 +368,7 @@ export function RadiologyOrderForm({
                 <Controller
                   name="laterality"
                   control={control}
-                  render={({ field: { onChange, onBlur, value } }) => (
+                  render={({ field: { onChange, onBlur } }) => (
                     <ComboBox
                       size="lg"
                       id="lateralityInput"
@@ -407,7 +400,7 @@ export function RadiologyOrderForm({
                 <Controller
                   name="bodySite"
                   control={control}
-                  render={({ field: { onChange, onBlur, value } }) => (
+                  render={({ field: { onChange, onBlur } }) => (
                     <ComboBox
                       size="lg"
                       id="bodySiteInput"
