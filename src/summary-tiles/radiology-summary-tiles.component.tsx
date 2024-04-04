@@ -4,15 +4,12 @@ import styles from "./radiology-summary-tiles.scss";
 import {
   AssignedExtension,
   useConnectedExtensions,
-  useSession,
   Extension,
 } from "@openmrs/esm-framework";
 import { ComponentContext } from "@openmrs/esm-framework/src/internal";
 
 const RadiologySummaryTiles: React.FC = () => {
   const { t } = useTranslation();
-
-  const session = useSession();
 
   const radioTileSlot = "radio-tiles-slot";
 

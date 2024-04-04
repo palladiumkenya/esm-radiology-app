@@ -10,9 +10,9 @@ const RejectedTileComponent = () => {
 
   return (
     <SummaryTile
-      label={t("not done", "Not Done")}
+      label={t("notDone", "Not Done")}
       value={completedCount}
-      headerLabel={t("not done", "Not Done")}
+      headerLabel={t("notDone", "Not Done")}
     />
   );
 };

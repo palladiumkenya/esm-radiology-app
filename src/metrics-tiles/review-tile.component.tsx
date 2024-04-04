@@ -9,9 +9,9 @@ const ReviewTileComponent = () => {
   const { count: completedCount } = useProcedureOrderStats("COMPLETED");
   return (
     <SummaryTile
-      label={t("review", "Review")}
+      label={t("underReview", "Under Review")}
       value={completedCount}
-      headerLabel={t("review", "Review")}
+      headerLabel={t("pendingReview", "Pending Review")}
     />
   );
 };
