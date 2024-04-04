@@ -94,10 +94,9 @@ export const TestsOrdered: React.FC = () => {
     { id: 1, header: t("orderNumber", "Order Number"), key: "orderNumber" },
     { id: 2, header: t("patient", "Patient"), key: "patient" },
     { id: 4, header: t("procedure", "Procedure"), key: "procedure" },
-    { id: 5, header: t("orderType", "Order type"), key: "action" },
     { id: 6, header: t("status", "Status"), key: "status" },
-    { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
+    { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 10, header: t("actions", "Actions"), key: "actions" },
   ];
 
