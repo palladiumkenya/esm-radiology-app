@@ -55,7 +55,7 @@ export const Review: React.FC = () => {
       ?.filter((item) => item.action === "NEW")
       .map((entry) => ({
         ...entry,
-        actions: <ReviewReport />,
+        actions: <ReviewReport order={entry} />,
       }));
   }, [paginatedResults]);
 
