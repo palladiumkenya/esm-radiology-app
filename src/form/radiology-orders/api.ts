@@ -42,8 +42,6 @@ export interface RadiologyOrderPost extends OrderPost {
   scheduleDate?: Date | string;
   commentsToFulfiller?: string;
   laterality?: string;
-  numberOfRepeats?: number;
-  frequency?: string;
   bodySite?: string;
 }
 
@@ -55,7 +53,7 @@ export function prepRadiologyOrderPostData(
   if (order.action === "NEW" || order.action === "RENEW") {
     return {
       action: "NEW",
-      type: "radiologyorder",
+      type: "procedureorder",
       patient: patientUuid,
       careSetting: careSettingUuid,
       orderer: order.orderer,
@@ -66,14 +64,12 @@ export function prepRadiologyOrderPostData(
       scheduleDate: order.scheduleDate,
       commentsToFulfiller: order.commentsToFulfiller,
       laterality: order.laterality,
-      numberOfRepeats: order.numberOfRepeats,
-      frequency: order.frequency,
       bodySite: order.bodySite,
     };
   } else if (order.action === "REVISE") {
     return {
       action: "REVISE",
-      type: "radiologyorder",
+      type: "procedureorder",
       patient: patientUuid,
       careSetting: order.careSetting,
       orderer: order.orderer,
@@ -85,14 +81,12 @@ export function prepRadiologyOrderPostData(
       scheduleDate: order.scheduleDate,
       commentsToFulfiller: order.commentsToFulfiller,
       laterality: order.laterality,
-      numberOfRepeats: order.numberOfRepeats,
-      frequency: order.frequency,
       bodySite: order.bodySite,
     };
   } else if (order.action === "DISCONTINUE") {
     return {
       action: "DISCONTINUE",
-      type: "radiologyorder",
+      type: "procedureorder",
       patient: patientUuid,
       careSetting: order.careSetting,
       orderer: order.orderer,
@@ -103,8 +97,6 @@ export function prepRadiologyOrderPostData(
       scheduleDate: order.scheduleDate,
       commentsToFulfiller: order.commentsToFulfiller,
       laterality: order.laterality,
-      numberOfRepeats: order.numberOfRepeats,
-      frequency: order.frequency,
       bodySite: order.bodySite,
     };
   } else {
