@@ -194,7 +194,7 @@ export function RadiologyOrderForm({
 
   useEffect(() => {
     promptBeforeClosing(() => isDirty);
-  }, [isDirty]);
+  }, [isDirty, promptBeforeClosing]);
 
   const [showScheduleDate, setShowScheduleDate] = useState(false);
 
