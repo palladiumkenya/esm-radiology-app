@@ -39,11 +39,9 @@ export function useOrderReasons(conceptUuids: Array<string>) {
 }
 
 export interface RadiologyOrderPost extends OrderPost {
-  scheduleDate?: Date | string;
-  commentsToFulfiller?: string;
+  scheduledDate?: Date | string;
+  commentToFulfiller?: string;
   laterality?: string;
-  numberOfRepeats?: number;
-  frequency?: string;
   bodySite?: string;
 }
 
@@ -52,10 +50,11 @@ export function prepRadiologyOrderPostData(
   patientUuid: string,
   encounterUuid: string
 ): RadiologyOrderPost {
+  let payload = {};
   if (order.action === "NEW" || order.action === "RENEW") {
-    return {
+    payload = {
       action: "NEW",
-      type: "radiologyorder",
+      type: "procedureorder",
       patient: patientUuid,
       careSetting: careSettingUuid,
       orderer: order.orderer,
@@ -63,17 +62,19 @@ export function prepRadiologyOrderPostData(
       concept: order.testType.conceptUuid,
       instructions: order.instructions,
       orderReason: order.orderReason,
-      scheduleDate: order.scheduleDate,
-      commentsToFulfiller: order.commentsToFulfiller,
+      commentToFulfiller: order.commentsToFulfiller,
       laterality: order.laterality,
-      numberOfRepeats: order.numberOfRepeats,
-      frequency: order.frequency,
       bodySite: order.bodySite,
+      urgency: order.urgency,
     };
+    if (order.urgency === "ON_SCHEDULED_DATE") {
+      payload["scheduledDate"] = order.scheduleDate;
+    }
+    return payload;
   } else if (order.action === "REVISE") {
-    return {
+    payload = {
       action: "REVISE",
-      type: "radiologyorder",
+      type: "procedureorder",
       patient: patientUuid,
       careSetting: order.careSetting,
       orderer: order.orderer,
@@ -81,32 +82,32 @@ export function prepRadiologyOrderPostData(
       concept: order.testType.conceptUuid,
       instructions: order.instructions,
       orderReason: order.orderReason,
-      previousOrder: order.previousOrder,
-      scheduleDate: order.scheduleDate,
-      commentsToFulfiller: order.commentsToFulfiller,
+      commentToFulfiller: order.commentsToFulfiller,
       laterality: order.laterality,
-      numberOfRepeats: order.numberOfRepeats,
-      frequency: order.frequency,
       bodySite: order.bodySite,
     };
+    if (order.urgency === "ON_SCHEDULED_DATE") {
+      payload["scheduledDate"] = order.scheduleDate;
+    }
+    return payload;
   } else if (order.action === "DISCONTINUE") {
-    return {
+    payload = {
       action: "DISCONTINUE",
-      type: "radiologyorder",
+      type: "procedureorder",
       patient: patientUuid,
       careSetting: order.careSetting,
       orderer: order.orderer,
       encounter: encounterUuid,
       concept: order.testType.conceptUuid,
       orderReason: order.orderReason,
-      previousOrder: order.previousOrder,
-      scheduleDate: order.scheduleDate,
-      commentsToFulfiller: order.commentsToFulfiller,
+      commentToFulfiller: order.commentsToFulfiller,
       laterality: order.laterality,
-      numberOfRepeats: order.numberOfRepeats,
-      frequency: order.frequency,
       bodySite: order.bodySite,
     };
+    if (order.urgency === "ON_SCHEDULED_DATE") {
+      payload["scheduledDate"] = order.scheduleDate;
+    }
+    return payload;
   } else {
     throw new Error(`Unknown order action: ${order.action}.`);
   }

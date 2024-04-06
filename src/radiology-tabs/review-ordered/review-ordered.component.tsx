@@ -17,8 +17,14 @@ import {
   Button,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import { showModal, usePagination } from "@openmrs/esm-framework";
+import {
+  formatDate,
+  parseDate,
+  showModal,
+  usePagination,
+} from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
+import styles from "../test-ordered/tests-ordered.scss";
 
 const ReviewReport: React.FC<any> = ({ order }) => {
   const handleReportPrompt = useCallback(() => {
@@ -55,7 +61,12 @@ export const Review: React.FC = () => {
       ?.filter((item) => item.action === "NEW")
       .map((entry) => ({
         ...entry,
-        actions: <ReviewReport />,
+        date: (
+          <span className={styles["single-line-display"]}>
+            {formatDate(parseDate(entry?.dateActivated))}
+          </span>
+        ),
+        actions: <ReviewReport order={entry} />,
       }));
   }, [paginatedResults]);
 

@@ -27,16 +27,12 @@ export interface RadiologyOrderBasketItem extends OrderBasketItem {
     label: string;
     conceptUuid: string;
   };
-  labReferenceNumber?: string;
   urgency?: string;
   instructions?: string;
-  previousOrder?: string;
   orderReason?: string;
   scheduleDate?: Date | string;
   commentsToFulfiller?: string;
   laterality?: string;
-  numberOfRepeats?: number;
-  frequency?: string;
   bodySite?: string;
 }
 

@@ -73,6 +73,11 @@ export const TestsOrdered: React.FC = () => {
       ?.filter((item) => item.action === "NEW")
       .map((entry) => ({
         ...entry,
+        date: (
+          <span className={styles["single-line-display"]}>
+            {formatDate(parseDate(entry?.dateActivated))}
+          </span>
+        ),
         actions: (
           <OverflowMenu flipped={true}>
             <PickRadiologyLabRequestActionMenu

@@ -18,6 +18,7 @@ import {
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
+import styles from "../test-ordered/tests-ordered.scss";
 
 export const OrdersNotDone: React.FC = () => {
   const { t } = useTranslation();
@@ -40,6 +41,11 @@ export const OrdersNotDone: React.FC = () => {
       ?.filter((item) => item.action === "NEW")
       .map((entry) => ({
         ...entry,
+        date: (
+          <span className={styles["single-line-display"]}>
+            {formatDate(parseDate(entry?.dateActivated))}
+          </span>
+        ),
         //TODO: add action items here
       }));
   }, [paginatedResults]);

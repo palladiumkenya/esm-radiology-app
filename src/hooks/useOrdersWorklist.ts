@@ -8,7 +8,7 @@ export function useOrdersWorklist(
 ) {
   const radiologyOrderType = "4237a01f-29c5-4167-9d8e-96d6e590aa33";
   const responseFormat =
-    "custom:(uuid,orderNumber,patient:ref,concept:(uuid,display,conceptClass),action,careSetting,orderer:ref,urgency,instructions,bodySite,laterality,commentToFulfiller,display,fulfillerStatus,dateStopped)";
+    "custom:(uuid,orderNumber,patient:ref,concept:(uuid,display,conceptClass),action,careSetting,orderer:ref,urgency,instructions,bodySite,laterality,commentToFulfiller,procedures,display,fulfillerStatus,dateStopped,scheduledDate,dateActivated)";
   const orderTypeParam = `orderTypes=${radiologyOrderType}&activatedOnOrAfterDate=${activatedOnOrAfterDate}&isStopped=false&fulfillerStatus=${fulfillerStatus}&v=${responseFormat}`;
   const apiUrl = `/ws/rest/v1/order?${orderTypeParam}`;
 
