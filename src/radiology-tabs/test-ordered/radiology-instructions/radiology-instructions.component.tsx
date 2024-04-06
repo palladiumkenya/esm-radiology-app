@@ -15,6 +15,7 @@ import {
 import { useTranslation } from "react-i18next";
 import styles from "./radiology-instructions.scss";
 import { Result } from "../../work-list/work-list.resource";
+import { formatDate, parseDate } from "@openmrs/esm-framework";
 
 interface RadiologyInstructionsModalProps {
   order: Result;
@@ -32,7 +33,9 @@ const RadiologyInstructionsModal: React.FC<RadiologyInstructionsModalProps> = ({
     { key: "Order Urgency", value: order.urgency },
     {
       key: "Schedule date",
-      value: order.scheduledDate || new Date().toLocaleDateString(),
+      value:
+        formatDate(parseDate(order.scheduledDate)) ||
+        new Date().toLocaleDateString(),
     },
     { key: "Body Site", value: order.bodySite?.display },
     { key: "Laterality", value: order.laterality },
