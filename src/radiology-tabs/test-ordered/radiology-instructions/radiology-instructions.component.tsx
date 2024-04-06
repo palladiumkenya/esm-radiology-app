@@ -28,15 +28,14 @@ const RadiologyInstructionsModal: React.FC<RadiologyInstructionsModalProps> = ({
   const { t } = useTranslation();
 
   const tableData = [
+    { key: "Radiology Ordered", value: order.display },
     { key: "Order Urgency", value: order.urgency },
     {
       key: "Schedule date",
       value: order.scheduledDate || new Date().toLocaleDateString(),
     },
-    { key: "Body Site", value: order.display },
+    { key: "Body Site", value: order.bodySite?.display },
     { key: "Laterality", value: order.laterality },
-    { key: "Number of repeats", value: order.numberOfRepeats },
-    { key: "Frequency", value: order.frequency?.display },
   ];
 
   return (
@@ -59,12 +58,24 @@ const RadiologyInstructionsModal: React.FC<RadiologyInstructionsModalProps> = ({
               </TableBody>
             </Table>
             <b />
-            <Tile>
-              <p>
-                <b>Instructions</b>
-              </p>
-              <p className={styles.instructions}>{order.instructions}</p>
-            </Tile>
+            {order.instructions && (
+              <Tile>
+                <p>
+                  <b>Order Instructions</b>
+                </p>
+                <p className={styles.instructions}>{order.instructions}</p>
+              </Tile>
+            )}
+            {order.commentToFulfiller && (
+              <Tile>
+                <p>
+                  <b>Orderer comments</b>
+                </p>
+                <p className={styles.instructions}>
+                  {order.commentToFulfiller}
+                </p>
+              </Tile>
+            )}
           </section>
         </div>
       </ModalBody>

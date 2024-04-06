@@ -26,7 +26,8 @@ export interface Result {
   fulfillerStatus: string;
   fulfillerComment: any;
   specimenSource: SpecimenSource;
-  laterality: any;
+  laterality: string;
+  bodySite: Concept;
   clinicalHistory: any;
   frequency: any;
   numberOfRepeats: any;
