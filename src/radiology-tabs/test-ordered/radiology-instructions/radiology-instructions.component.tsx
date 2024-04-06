@@ -33,9 +33,9 @@ const RadiologyInstructionsModal: React.FC<RadiologyInstructionsModalProps> = ({
     { key: "Order Urgency", value: order.urgency },
     {
       key: "Schedule date",
-      value:
-        formatDate(parseDate(order.scheduledDate)) ||
-        new Date().toLocaleDateString(),
+      value: order.scheduledDate
+        ? formatDate(parseDate(order.scheduledDate))
+        : new Date().toLocaleDateString(),
     },
     { key: "Body Site", value: order.bodySite?.display },
     { key: "Laterality", value: order.laterality },
