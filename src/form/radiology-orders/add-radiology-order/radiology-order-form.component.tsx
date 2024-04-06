@@ -3,6 +3,7 @@ import classNames from "classnames";
 import {
   type DefaultWorkspaceProps,
   launchPatientWorkspace,
+  promptBeforeClosing,
   useOrderBasket,
 } from "@openmrs/esm-patient-common-lib";
 import {
@@ -40,7 +41,7 @@ import { z } from "zod";
 import { moduleName } from "../../../constants";
 import { type RadiologyConfig } from "../../../config-schema";
 import styles from "./radiology-order-form.scss";
-import type { RadiologyOrderBasketItem, OrderFrequency } from "../../../types";
+import type { RadiologyOrderBasketItem } from "../../../types";
 import { useOrderConfig } from "../useOrderConfig";
 
 export interface RadiologyOrderFormProps {
@@ -62,8 +63,11 @@ export function RadiologyOrderForm({
   const { t } = useTranslation();
   const isTablet = useLayoutType() === "tablet";
   const session = useSession();
-  const { orderConfigObject, isLoading: isLoadingOrderConfig } =
-    useOrderConfig();
+  const {
+    orderConfigObject,
+    isLoading: isLoadingOrderConfig,
+    error: errorFetchingOrderConfig,
+  } = useOrderConfig();
   const { orders, setOrders } = useOrderBasket<RadiologyOrderBasketItem>(
     "radiology",
     prepRadiologyOrderPostData
@@ -74,13 +78,16 @@ export function RadiologyOrderForm({
     error: errorLoadingTestTypes,
   } = useRadiologyTypes();
   const [showErrorNotification, setShowErrorNotification] = useState(false);
-  const {
-    items: { answers: lateralityItems },
-    isLoading: isLoadingLaterality,
-  } = useConceptById("160594AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+
+  const lateralityItems = [
+    { value: "LEFT", label: "Left" },
+    { value: "RIGHT", label: "Right" },
+    { value: "BILATERAL", label: "Bilateral" },
+  ];
   const {
     items: { answers: bodySiteItems },
     isLoading: isLoadingBodySiteItems,
+    isError: errorFetchingBodySiteItems,
   } = useConceptById("162668AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   const config = useConfig<RadiologyConfig>();
   const orderReasonRequired = (
@@ -98,7 +105,6 @@ export function RadiologyOrderForm({
         "Priority is required"
       ),
     }),
-    labReferenceNumber: z.string().optional(),
     testType: z.object(
       { label: z.string(), conceptUuid: z.string() },
       {
@@ -114,30 +120,9 @@ export function RadiologyOrderForm({
         ),
       }
     ),
-    orderReason: orderReasonRequired
-      ? z
-          .string({
-            required_error: translateFrom(
-              moduleName,
-              "addLabOrderLabOrderReasonRequired",
-              "Order reason is required"
-            ),
-          })
-          .refine(
-            (value) => !!value,
-            translateFrom(
-              moduleName,
-              "addLabOrderLabOrderReasonRequired",
-              "Order reason is required"
-            )
-          )
-      : z.string().optional(),
-    previousOrder: z.string().optional(),
-    scheduleDate: z.union([z.string(), z.date()]),
+    scheduleDate: z.union([z.string(), z.date(), z.string().optional()]),
     commentsToFulfiller: z.string().optional(),
     laterality: z.string().optional(),
-    numberOfRepeats: z.number().optional(),
-    frequency: z.string().optional(),
     bodySite: z.string().optional(),
   });
 
@@ -152,11 +137,6 @@ export function RadiologyOrderForm({
       ...initialOrder,
     },
   });
-
-  const orderFrequencies: Array<OrderFrequency> = useMemo(
-    () => orderConfigObject?.orderFrequencies ?? [],
-    [orderConfigObject]
-  );
 
   const orderReasonUuids =
     (
@@ -188,9 +168,9 @@ export function RadiologyOrderForm({
     [
       orders,
       setOrders,
+      closeWorkspace,
       session?.currentProvider?.uuid,
       defaultValues,
-      closeWorkspaceWithSavedChanges,
     ]
   );
 
@@ -214,17 +194,9 @@ export function RadiologyOrderForm({
 
   useEffect(() => {
     promptBeforeClosing(() => isDirty);
-  }, [isDirty, promptBeforeClosing]);
+  }, [isDirty]);
 
-  const [selectedPriority, setSelectedPriority] = useState("");
   const [showScheduleDate, setShowScheduleDate] = useState(false);
-
-  const handlePriorityChange = (event) => {
-    const selectedValue = event.selectedItem ? event.selectedItem.label : "";
-    setSelectedPriority(selectedValue);
-    // Set the state to show the TextInput based on the selected option
-    setShowScheduleDate(selectedValue === "Scheduled");
-  };
 
   return (
     <>
@@ -235,7 +207,7 @@ export function RadiologyOrderForm({
           className={styles.inlineNotification}
           title={t(
             "errorLoadingTestTypes",
-            "Error occurred when loading test types"
+            "Error occured when loading test types"
           )}
           subtitle={t(
             "tryReopeningTheForm",
@@ -284,17 +256,24 @@ export function RadiologyOrderForm({
                 <Controller
                   name="urgency"
                   control={control}
-                  render={({ field: { onBlur } }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <ComboBox
                       size="lg"
                       id="priorityInput"
                       titleText={t("priority", "Priority")}
-                      // selectedItem={priorityOptions.find((option) => option.value === value) || null}
-                      selectedItem={selectedPriority}
+                      selectedItem={
+                        priorityOptions.find(
+                          (option) => option.value === value
+                        ) || null
+                      }
                       items={priorityOptions}
                       onBlur={onBlur}
-                      // onChange={({ selectedItem }) => onChange(selectedItem?.value || '')}
-                      onChange={handlePriorityChange}
+                      onChange={({ selectedItem }) => {
+                        onChange(selectedItem?.value || "");
+                        setShowScheduleDate(
+                          selectedItem?.label === "Scheduled"
+                        );
+                      }}
                       invalid={errors.urgency?.message}
                       invalidText={errors.urgency?.message}
                     />
@@ -334,46 +313,22 @@ export function RadiologyOrderForm({
               </Column>
             </Grid>
           )}
-          {orderReasons.length > 0 && (
-            <Grid className={styles.gridRow}>
-              <Column lg={16} md={8} sm={4}>
-                <InputWrapper>
-                  <Controller
-                    name="orderReason"
-                    control={control}
-                    render={({ field: { onChange, onBlur } }) => (
-                      <ComboBox
-                        size="lg"
-                        id="orderReasonInput"
-                        titleText={t("orderReason", "Order reason")}
-                        selectedItem={""}
-                        itemToString={(item) => item?.display}
-                        items={orderReasons}
-                        onBlur={onBlur}
-                        onChange={({ selectedItem }) =>
-                          onChange(selectedItem?.uuid || "")
-                        }
-                        invalid={errors.orderReason?.message}
-                        invalidText={errors.orderReason?.message}
-                      />
-                    )}
-                  />
-                </InputWrapper>
-              </Column>
-            </Grid>
-          )}
           <Grid className={styles.gridRow}>
             <Column lg={16} md={8} sm={4}>
               <InputWrapper>
                 <Controller
                   name="laterality"
                   control={control}
-                  render={({ field: { onChange, onBlur } }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <ComboBox
                       size="lg"
                       id="lateralityInput"
                       titleText={t("laterality", "Laterality")}
-                      // selectedItem={lateralityItems.find((option) => option.uuid === value) || null}
+                      selectedItem={
+                        lateralityItems?.find(
+                          (option) => option.value === value
+                        ) || null
+                      }
                       items={lateralityItems}
                       onBlur={onBlur}
                       onChange={({ selectedItem }) =>
@@ -381,13 +336,7 @@ export function RadiologyOrderForm({
                       }
                       invalid={errors.laterality?.message}
                       invalidText={errors.laterality?.message}
-                      itemToString={(item) => item?.display}
-                      disabled={isLoadingLaterality}
-                      placeholder={
-                        isLoadingOrderConfig
-                          ? `${t("loading", "Loading")}...`
-                          : t("testTypePlaceholder", "Select one")
-                      }
+                      itemToString={(item) => item?.label}
                     />
                   )}
                 />
@@ -400,76 +349,24 @@ export function RadiologyOrderForm({
                 <Controller
                   name="bodySite"
                   control={control}
-                  render={({ field: { onChange, onBlur } }) => (
+                  render={({ field: { onChange, onBlur, value } }) => (
                     <ComboBox
                       size="lg"
                       id="bodySiteInput"
                       titleText={t("bodySite", "Body Site")}
-                      // selectedItem={lateralityItems.find((option) => option.uuid === value) || null}
+                      selectedItem={
+                        bodySiteItems?.find(
+                          (option) => option.uuid === value
+                        ) || null
+                      }
                       items={bodySiteItems}
                       onBlur={onBlur}
                       onChange={({ selectedItem }) =>
-                        onChange(selectedItem?.value || "")
+                        onChange(selectedItem?.uuid || "")
                       }
-                      invalid={errors.laterality?.message}
-                      invalidText={errors.laterality?.message}
+                      invalid={errors.bodySite?.message}
+                      invalidText={errors.bodySite?.message}
                       itemToString={(item) => item?.display}
-                      disabled={isLoadingBodySiteItems}
-                      placeholder={
-                        isLoadingBodySiteItems
-                          ? `${t("loading", "Loading")}...`
-                          : t("testTypePlaceholder", "Select one")
-                      }
-                    />
-                  )}
-                />
-              </InputWrapper>
-            </Column>
-          </Grid>
-          <Grid className={styles.gridRow}>
-            <Column lg={16} md={8} sm={4}>
-              <InputWrapper>
-                <NumberInput
-                  id="numberOfRepeats"
-                  label={t("numberOfRepeats", "Number Of Repeats")}
-                  min={0}
-                  // onChange={(event) => field.onChange(parseInt(event.target.value || 0))}
-                  // value={field.value}
-                  hideSteppers={false}
-                />
-              </InputWrapper>
-            </Column>
-          </Grid>
-          <Grid className={styles.gridRow}>
-            <Column lg={16} md={8} sm={4}>
-              <InputWrapper>
-                <Controller
-                  name="frequency"
-                  control={control}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                    <ComboBox
-                      size="lg"
-                      id="frequencyInput"
-                      titleText={t("frequency", "Frequency")}
-                      selectedItem={
-                        orderFrequencies.find(
-                          (option) => option.value === value
-                        ) || null
-                      }
-                      items={orderFrequencies}
-                      onBlur={onBlur}
-                      onChange={({ selectedItem }) =>
-                        onChange(selectedItem?.value || "")
-                      }
-                      invalid={errors.frequency?.message}
-                      invalidText={errors.frequency?.message}
-                      itemToString={(item) => item?.value}
-                      disabled={isLoadingOrderConfig}
-                      placeholder={
-                        isLoadingOrderConfig
-                          ? `${t("loading", "Loading")}...`
-                          : t("testTypePlaceholder", "Select one")
-                      }
                     />
                   )}
                 />
