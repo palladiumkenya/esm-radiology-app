@@ -16,8 +16,9 @@ import {
   TableToolbarSearch,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import { usePagination } from "@openmrs/esm-framework";
+import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
+import styles from "../test-ordered/tests-ordered.scss";
 
 export const ApprovedOrders: React.FC = () => {
   const { t } = useTranslation();
@@ -40,7 +41,11 @@ export const ApprovedOrders: React.FC = () => {
       ?.filter((item) => item.action === "NEW")
       .map((entry) => ({
         ...entry,
-        //TODO: add action items here
+        date: (
+          <span className={styles["single-line-display"]}>
+            {formatDate(parseDate(entry?.dateActivated))}
+          </span>
+        ),
       }));
   }, [paginatedResults]);
 

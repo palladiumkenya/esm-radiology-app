@@ -18,8 +18,9 @@ import {
   TableToolbarSearch,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import { usePagination } from "@openmrs/esm-framework";
+import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
+import styles from "../test-ordered/tests-ordered.scss";
 
 export const ReferredTests: React.FC = () => {
   const { t } = useTranslation();
@@ -43,6 +44,11 @@ export const ReferredTests: React.FC = () => {
       ?.filter((item) => item.action === "NEW")
       .map((entry) => ({
         ...entry,
+        date: (
+          <span className={styles["single-line-display"]}>
+            {formatDate(parseDate(entry?.dateActivated))}
+          </span>
+        ),
         //TODO: add action items here
         actions: (
           <OverflowMenu flipped={true}>
