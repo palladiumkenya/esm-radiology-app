@@ -29,7 +29,7 @@ const SummaryTile: React.FC<SummaryTileProps> = ({
         <div></div>
         <Button
           kind="ghost"
-          renderIcon={(props) => (
+          renderIcon={() => (
             <ArrowRight size={16} className={styles.arrowIcon} />
           )}
           iconDescription={t("view", "View ")}

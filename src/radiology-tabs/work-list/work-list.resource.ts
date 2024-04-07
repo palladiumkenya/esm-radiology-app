@@ -38,7 +38,7 @@ export interface Result {
   procedures: Procedure[];
 }
 
-export interface Procedure{
+export interface Procedure {
   uuid: string;
   outcome: string;
 }

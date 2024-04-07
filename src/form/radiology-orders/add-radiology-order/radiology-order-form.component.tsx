@@ -1,9 +1,8 @@
-import React, { useCallback, useEffect, useState, useMemo } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
 import {
   type DefaultWorkspaceProps,
   launchPatientWorkspace,
-  promptBeforeClosing,
   useOrderBasket,
 } from "@openmrs/esm-patient-common-lib";
 import {
@@ -30,7 +29,6 @@ import {
   Grid,
   InlineNotification,
   TextArea,
-  NumberInput,
 } from "@carbon/react";
 import { useTranslation } from "react-i18next";
 import { priorityOptions } from "./radiology-order";
@@ -42,7 +40,7 @@ import { moduleName } from "../../../constants";
 import { type RadiologyConfig } from "../../../config-schema";
 import styles from "./radiology-order-form.scss";
 import type { RadiologyOrderBasketItem } from "../../../types";
-import { useOrderConfig } from "../useOrderConfig";
+import { BLEEDING_SITE } from "../../../utils/functions";
 
 export interface RadiologyOrderFormProps {
   initialOrder: RadiologyOrderBasketItem;
@@ -63,11 +61,6 @@ export function RadiologyOrderForm({
   const { t } = useTranslation();
   const isTablet = useLayoutType() === "tablet";
   const session = useSession();
-  const {
-    orderConfigObject,
-    isLoading: isLoadingOrderConfig,
-    error: errorFetchingOrderConfig,
-  } = useOrderConfig();
   const { orders, setOrders } = useOrderBasket<RadiologyOrderBasketItem>(
     "radiology",
     prepRadiologyOrderPostData
@@ -86,15 +79,8 @@ export function RadiologyOrderForm({
   ];
   const {
     items: { answers: bodySiteItems },
-    isLoading: isLoadingBodySiteItems,
-    isError: errorFetchingBodySiteItems,
-  } = useConceptById("162668AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  } = useConceptById(BLEEDING_SITE);
   const config = useConfig<RadiologyConfig>();
-  const orderReasonRequired = (
-    config.labTestsWithOrderReasons?.find(
-      (c) => c.labTestUuid === initialOrder?.testType?.conceptUuid
-    ) || {}
-  ).required;
 
   const radiologyOrderFormSchema = z.object({
     instructions: z.string().optional(),
@@ -144,7 +130,6 @@ export function RadiologyOrderForm({
         (c) => c.labTestUuid === defaultValues?.testType?.conceptUuid
       ) || {}
     ).orderReasons || [];
-  const { orderReasons } = useOrderReasons(orderReasonUuids);
 
   const handleFormSubmission = useCallback(
     (data: RadiologyOrderBasketItem) => {

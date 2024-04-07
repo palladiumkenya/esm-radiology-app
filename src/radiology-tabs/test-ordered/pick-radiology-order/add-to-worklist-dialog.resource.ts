@@ -112,7 +112,7 @@ export function useReferralLocations() {
   const config = useConfig();
   const { laboratoryReferalDestinationUuid } = config;
   const apiUrl = `${restBaseUrl}/concept/${laboratoryReferalDestinationUuid}`;
-  const { data, error, isLoading } = useSWRImmutable<FetchResponse>(
+  const { data, isLoading } = useSWRImmutable<FetchResponse>(
     apiUrl,
     openmrsFetch
   );

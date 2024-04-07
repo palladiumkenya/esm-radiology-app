@@ -244,3 +244,5 @@ export function useGetPatientByUuid(uuid: string) {
     isError: error,
   };
 }
+
+export const BLEEDING_SITE = "162668AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA";

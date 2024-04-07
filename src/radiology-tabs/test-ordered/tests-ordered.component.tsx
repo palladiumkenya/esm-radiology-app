@@ -66,7 +66,7 @@ export const TestsOrdered: React.FC = () => {
   } = usePagination(searchResults, currentPageSize);
 
   const pageSizes = [10, 20, 30, 40, 50];
-  const [expandedRows, setExpandedRows] = useState<Set<string>>(new Set());
+  const [expandedRows] = useState<Set<string>>(new Set());
 
   const rows = useMemo(() => {
     return paginatedResults

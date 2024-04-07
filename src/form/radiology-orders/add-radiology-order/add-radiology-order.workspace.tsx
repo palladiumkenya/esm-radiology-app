@@ -14,7 +14,6 @@ import {
 import {
   type DefaultWorkspaceProps,
   launchPatientWorkspace,
-  type OrderBasketItem,
 } from "@openmrs/esm-patient-common-lib";
 import { TestTypeSearch } from "./radiology-type-search";
 import { RadiologyOrderForm } from "./radiology-order-form.component";

@@ -21,7 +21,7 @@ export function useOrderConfig(): {
     orderFrequencies: Array<OrderFrequency>;
   };
 } {
-  const { data, error, isLoading, isValidating } = useSWRImmutable<
+  const { data, error, isLoading } = useSWRImmutable<
     { data: OrderConfig },
     Error
   >(`${restBaseUrl}/orderentryconfig`, openmrsFetch);

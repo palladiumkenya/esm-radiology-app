@@ -31,7 +31,6 @@ export const Review: React.FC = () => {
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
   const { workListEntries, isLoading } = useOrdersWorklist("", "COMPLETED");
   const [searchString, setSearchString] = useState<string>("");
-  
   const searchResults = useSearchResults(workListEntries, searchString);
 
   const ReviewReport: React.FC<any> = ({ order }) => {

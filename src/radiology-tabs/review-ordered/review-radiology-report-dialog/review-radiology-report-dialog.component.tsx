@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import {
   Button,
@@ -9,6 +9,10 @@ import {
   TextArea,
   Accordion,
   AccordionItem,
+  Table,
+  TableBody,
+  TableRow,
+  TableCell,
 } from "@carbon/react";
 import { useTranslation } from "react-i18next";
 import styles from "./review-radiology-report-dialog.scss";
@@ -16,7 +20,6 @@ import { Result } from "../../work-list/work-list.resource";
 import { showNotification, showSnackbar } from "@openmrs/esm-framework";
 import { updateProdedure } from "../../test-ordered/pick-radiology-order/add-to-worklist-dialog.resource";
 import { mutate } from "swr";
-import { Table, TableBody, TableRow, TableCell } from "@carbon/react";
 interface ReviewOrderDialogProps {
   order: Result;
   closeModal: () => void;

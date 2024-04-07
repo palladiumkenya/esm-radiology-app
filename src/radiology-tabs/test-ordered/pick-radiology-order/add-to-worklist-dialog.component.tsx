@@ -23,7 +23,7 @@ interface AddRadiologyToWorklistDialogProps {
 
 const AddRadiologyToWorklistDialog: React.FC<
   AddRadiologyToWorklistDialogProps
-> = ({ queueId, order, closeModal }) => {
+> = ({ order, closeModal }) => {
   const { t } = useTranslation();
 
   const [isReferredChecked, setIsReferredChecked] = useState(false);
