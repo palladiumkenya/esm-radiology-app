@@ -135,3 +135,16 @@ export async function updateOrder(uuid: string, body: any) {
     body: body,
   });
 }
+
+// update Procedure
+export async function updateProdedure(uuid: string, body: any) {
+  const abortController = new AbortController();
+  return openmrsFetch(`${restBaseUrl}/procedure/${uuid}`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    signal: abortController.signal,
+    body: body,
+  });
+}

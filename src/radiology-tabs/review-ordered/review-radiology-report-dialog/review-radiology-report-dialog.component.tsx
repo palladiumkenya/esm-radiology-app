@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import {
   Button,
@@ -14,8 +14,9 @@ import { useTranslation } from "react-i18next";
 import styles from "./review-radiology-report-dialog.scss";
 import { Result } from "../../work-list/work-list.resource";
 import { showNotification, showSnackbar } from "@openmrs/esm-framework";
-import { updateOrder } from "../../test-ordered/pick-radiology-order/add-to-worklist-dialog.resource";
+import { updateProdedure } from "../../test-ordered/pick-radiology-order/add-to-worklist-dialog.resource";
 import { mutate } from "swr";
+import { Table, TableBody, TableRow, TableCell } from "@carbon/react";
 interface ReviewOrderDialogProps {
   order: Result;
   closeModal: () => void;
@@ -28,45 +29,56 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
   const { t } = useTranslation();
 
   const [notes, setNotes] = useState("");
+  const tableData = [
+    { key: "Order Urgency", value: order.urgency },
+    {
+      key: "Schedule date",
+      value: order.scheduledDate || new Date().toLocaleDateString(),
+    },
+    { key: "Body Site", value: order.display },
+    { key: "Laterality", value: order.laterality },
+    { key: "Number of repeats", value: order.numberOfRepeats },
+    { key: "Frequency", value: order.frequency?.display },
+  ];
+  const procedureTableData = [{ key: "Lab Results: ", value: order.display }];
 
-  const rejectOrder = async (event) => {
+  const updateProcedures = async (event) => {
     event.preventDefault();
-
-    const payload = {
-      fulfillerStatus: "DECLINED",
-      fulfillerComment: notes,
+    const body = {
+      outcome: "SUCCESSFUL",
     };
-    updateOrder(order.uuid, payload).then(
-      () => {
+    updateProdedure(order?.procedures[0].uuid, body)
+      .then(() => {
         showSnackbar({
           isLowContrast: true,
-          title: t("rejectOrder", "Rejected Order"),
+          title: t("createResponse", "Create Review"),
           kind: "success",
           subtitle: t(
-            "successfullyrejected",
-            `You havRejectOrdere successfully rejected an Order with OrderNumber ${order.orderNumber} `
+            "pickSuccessfully",
+            "You have successfully created a review"
           ),
         });
         closeModal();
         mutate(
           (key) =>
-            typeof key === "string" && key.startsWith("/ws/rest/v1/order")
+            typeof key === "string" && key.startsWith("/ws/rest/v1/procedure"),
+          undefined,
+          { revalidate: true }
         );
-      },
-      (err) => {
+      })
+      .catch((error) => {
         showNotification({
-          title: t(`errorRejecting order', 'Error Rejecting a order`),
+          title: t(`errorPicking', 'Error Creating Review`),
           kind: "error",
           critical: true,
-          description: err?.message,
+          description: error?.message,
         });
-      }
-    );
+      });
   };
 
   return (
     <div>
-      <Form onSubmit={rejectOrder}>
+      <Form onSubmit={updateProcedures}>
         <ModalHeader
           closeModal={closeModal}
           title={t("reviewReport", "Review Radiology Report")}
@@ -78,10 +90,40 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
                 <AccordionItem
                   title={t("procedureInstructions", "Procedure Instructions")}
                 >
-                  <p>Lorem ipsum dolor sit amet</p>
+                  <p>
+                    <Table
+                      size="lg"
+                      useZebraStyles={false}
+                      aria-label="sample table"
+                    >
+                      <TableBody>
+                        {tableData.map((row, index) => (
+                          <TableRow key={index}>
+                            <TableCell>{row.key}</TableCell>
+                            <TableCell>{row.value}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </p>
                 </AccordionItem>
                 <AccordionItem title={t("procedureReport", "Procedure Report")}>
-                  <p>Lorem ipsum dolor sit amet</p>
+                  <p>
+                    <Table
+                      size="lg"
+                      useZebraStyles={false}
+                      aria-label="sample table"
+                    >
+                      <TableBody>
+                        {procedureTableData.map((row, index) => (
+                          <TableRow key={index}>
+                            <TableCell>{row.key}</TableCell>
+                            <TableCell>{row.value}</TableCell>
+                          </TableRow>
+                        ))}
+                      </TableBody>
+                    </Table>
+                  </p>
                 </AccordionItem>
               </Accordion>
             </section>
@@ -96,11 +138,11 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button kind="danger" type="submit">
-            {t("rejectOrder", "Reject Report")}
+          <Button kind="danger" onClick={closeModal}>
+            {t("cancel", "Cancel")}
           </Button>
-          <Button kind="primary" onClick={closeModal}>
-            {t("cancel", "Approve")}
+          <Button kind="primary" type="submit">
+            {t("approve", "Approve")}
           </Button>
         </ModalFooter>
       </Form>
