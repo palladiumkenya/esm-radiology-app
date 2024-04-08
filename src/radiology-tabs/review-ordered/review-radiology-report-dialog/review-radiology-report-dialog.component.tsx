@@ -43,7 +43,7 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
     { key: "Number of repeats", value: order.numberOfRepeats },
     { key: "Frequency", value: order.frequency?.display },
   ];
-  const procedureTableData = [{ key: "Lab Results: ", value: order.display }];
+  const procedureTableData = [{ key: "Lab Results: ", value: order?.procedures[0]?.procedureReport }];
 
   const updateProcedures = async (event) => {
     event.preventDefault();

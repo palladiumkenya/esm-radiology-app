@@ -41,6 +41,7 @@ export interface Result {
 export interface Procedure {
   uuid: string;
   outcome: string;
+  procedureReport: string;
 }
 export interface Patient {
   uuid: string;
