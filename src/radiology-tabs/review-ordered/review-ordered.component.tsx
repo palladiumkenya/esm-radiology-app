@@ -26,28 +26,26 @@ import {
 import { useSearchResults } from "../../hooks/useSearchResults";
 import styles from "../test-ordered/tests-ordered.scss";
 
-const ReviewReport: React.FC<any> = ({ order }) => {
-  const handleReportPrompt = useCallback(() => {
-    const dispose = showModal("review-radilogy-report-dialog", {
-      closeModal: () => dispose(),
-      order,
-    });
-  }, [order]);
-  return (
-    <Button kind="tertiary" onClick={handleReportPrompt}>
-      Review
-    </Button>
-  );
-};
-
 export const Review: React.FC = () => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
   const { workListEntries, isLoading } = useOrdersWorklist("", "COMPLETED");
   const [searchString, setSearchString] = useState<string>("");
-
   const searchResults = useSearchResults(workListEntries, searchString);
 
+  const ReviewReport: React.FC<any> = ({ order }) => {
+    const launchRadiologyInstructionsModal = useCallback(() => {
+      const dispose = showModal("review-radilogy-report-dialog", {
+        closeModal: () => dispose(),
+        order,
+      });
+    }, [order]);
+    return (
+      <Button kind="tertiary" onClick={launchRadiologyInstructionsModal}>
+        Review
+      </Button>
+    );
+  };
   const {
     goTo,
     results: paginatedResults,

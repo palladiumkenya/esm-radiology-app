@@ -112,7 +112,7 @@ export function useReferralLocations() {
   const config = useConfig();
   const { laboratoryReferalDestinationUuid } = config;
   const apiUrl = `${restBaseUrl}/concept/${laboratoryReferalDestinationUuid}`;
-  const { data, error, isLoading } = useSWRImmutable<FetchResponse>(
+  const { data, isLoading } = useSWRImmutable<FetchResponse>(
     apiUrl,
     openmrsFetch
   );
@@ -127,6 +127,19 @@ export function useReferralLocations() {
 export async function updateOrder(uuid: string, body: any) {
   const abortController = new AbortController();
   return openmrsFetch(`${restBaseUrl}/order/${uuid}/fulfillerdetails`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    signal: abortController.signal,
+    body: body,
+  });
+}
+
+// update Procedure
+export async function updateProdedure(uuid: string, body: any) {
+  const abortController = new AbortController();
+  return openmrsFetch(`${restBaseUrl}/procedure/${uuid}`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -1,5 +1,4 @@
 import React from "react";
-import { useTranslation } from "react-i18next";
 import styles from "./radiology-summary-tiles.scss";
 import {
   AssignedExtension,
@@ -9,8 +8,6 @@ import {
 import { ComponentContext } from "@openmrs/esm-framework/src/internal";
 
 const RadiologySummaryTiles: React.FC = () => {
-  const { t } = useTranslation();
-
   const radioTileSlot = "radio-tiles-slot";
 
   const tilesExtensions = useConnectedExtensions(
@@ -21,7 +18,7 @@ const RadiologySummaryTiles: React.FC = () => {
     <div className={styles.cardContainer}>
       {tilesExtensions
         .filter((extension) => Object.keys(extension.meta).length > 0)
-        .map((extension, index) => {
+        .map((extension) => {
           return (
             <ComponentContext.Provider
               key={extension.id}

@@ -36,7 +36,6 @@ export interface TestTypeSearchProps {
 
 export function TestTypeSearch({ openLabForm }: TestTypeSearchProps) {
   const { t } = useTranslation();
-  const isTablet = useLayoutType() === "tablet";
   const [searchTerm, setSearchTerm] = useState("");
   const debouncedSearchTerm = useDebounce(searchTerm);
   const searchInputRef = useRef(null);

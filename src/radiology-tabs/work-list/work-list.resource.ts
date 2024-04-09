@@ -1,6 +1,7 @@
 import { openmrsFetch } from "@openmrs/esm-framework";
 import useSWR from "swr";
 export interface Result {
+  [x: string]: any;
   uuid: string;
   orderNumber: string;
   accessionNumber: string;
@@ -34,8 +35,14 @@ export interface Result {
   links: Link[];
   type: string;
   resourceVersion: string;
+  procedures: Procedure[];
 }
 
+export interface Procedure {
+  uuid: string;
+  outcome: string;
+  procedureReport: string;
+}
 export interface Patient {
   uuid: string;
   display: string;
