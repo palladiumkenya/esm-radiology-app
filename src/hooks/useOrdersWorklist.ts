@@ -12,7 +12,7 @@ export function useOrdersWorklist(
   const orderTypeParam = `orderTypes=${radiologyOrderType}&activatedOnOrAfterDate=${activatedOnOrAfterDate}&isStopped=false&fulfillerStatus=${fulfillerStatus}&v=${responseFormat}`;
   const apiUrl = `/ws/rest/v1/order?${orderTypeParam}`;
 
-  const { data, error, isLoading } = useSWR<
+  const { data, error, isLoading, mutate } = useSWR<
     { data: { results: Array<Result> } },
     Error
   >(apiUrl, openmrsFetch);
@@ -57,5 +57,6 @@ export function useOrdersWorklist(
     workListEntries: orders?.length > 0 ? orders : [],
     isLoading,
     isError: error,
+    mutate,
   };
 }
