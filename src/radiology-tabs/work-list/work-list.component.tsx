@@ -65,7 +65,7 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
 
   const [activatedOnOrAfterDate, setActivatedOnOrAfterDate] = useState("");
 
-  const { workListEntries, isLoading } = useOrdersWorklist(
+  const { workListEntries, isLoading, mutate } = useOrdersWorklist(
     activatedOnOrAfterDate,
     fulfillerStatus
   );
@@ -81,8 +81,11 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
 
   const RejectOrder: React.FC<RejectOrderProps> = ({ order }) => {
     const launchRejectOrderModal = useCallback(() => {
-      const dispose = showModal("reject-order-dialog", {
-        closeModal: () => dispose(),
+      const dispose = showModal("reject-radiology-order-dialog", {
+        closeModal: () => {
+          mutate();
+          dispose();
+        },
         order,
       });
     }, [order]);
