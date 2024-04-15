@@ -24,7 +24,7 @@ export function useOrdersWorklist(
         order.dateStopped === null &&
         order.action === "NEW" &&
         order.concept.conceptClass.uuid ===
-          "8caa332c-efe4-4025-8b18-3398328e1323"
+        "8caa332c-efe4-4025-8b18-3398328e1323"
       );
     } else if (fulfillerStatus === "IN_PROGRESS") {
       return (
@@ -32,7 +32,7 @@ export function useOrdersWorklist(
         order.dateStopped === null &&
         order.action !== "DISCONTINUE" &&
         order.concept.conceptClass.uuid ===
-          "8caa332c-efe4-4025-8b18-3398328e1323"
+        "8caa332c-efe4-4025-8b18-3398328e1323"
       );
     } else if (fulfillerStatus === "DECLINED") {
       return (
@@ -40,7 +40,7 @@ export function useOrdersWorklist(
         order.dateStopped === null &&
         order.action !== "DISCONTINUE" &&
         order.concept.conceptClass.uuid ===
-          "8caa332c-efe4-4025-8b18-3398328e1323"
+        "8caa332c-efe4-4025-8b18-3398328e1323"
       );
     } else if (fulfillerStatus === "COMPLETED") {
       return (
@@ -48,13 +48,14 @@ export function useOrdersWorklist(
         order.dateStopped === null &&
         order.action !== "DISCONTINUE" &&
         order.concept.conceptClass.uuid ===
-          "8caa332c-efe4-4025-8b18-3398328e1323"
+        "8caa332c-efe4-4025-8b18-3398328e1323"
       );
     }
   });
+  const sortedOrders = orders?.sort((a, b) => new Date(a.dateActivated).getTime() - new Date(b.dateActivated).getTime());
 
   return {
-    workListEntries: orders?.length > 0 ? orders : [],
+    workListEntries: sortedOrders?.length > 0 ? sortedOrders : [],
     isLoading,
     isError: error,
     mutate,
