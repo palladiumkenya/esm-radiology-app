@@ -1,6 +1,11 @@
 import { Type } from "@openmrs/esm-framework";
 
 export const configSchema = {
+  radiologyConceptSetUuid: {
+    _type: Type.String,
+    _description: "Radiology Concept SET UUID",
+    _default: "164068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  },
   orders: {
     labOrderTypeUuid: {
       _type: Type.UUID,
@@ -25,6 +30,7 @@ interface OrderReason {
   orderReasons: Array<string>;
 }
 export type RadiologyConfig = {
+  radiologyConceptSetUuid: string;
   orders: {
     labOrderTypeUuid: string;
     labOrderableConcepts: Array<string>;
