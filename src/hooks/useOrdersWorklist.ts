@@ -50,6 +50,14 @@ export function useOrdersWorklist(
         order.concept.conceptClass.uuid ===
           "8caa332c-efe4-4025-8b18-3398328e1323"
       );
+    } else if (fulfillerStatus === "EXCEPTION") {
+      return (
+        order.fulfillerStatus === "EXCEPTION" &&
+        order.dateStopped === null &&
+        order.action !== "DISCONTINUE" &&
+        order.concept.conceptClass.uuid ===
+          "8caa332c-efe4-4025-8b18-3398328e1323"
+      );
     }
   });
   const sortedOrders = orders?.sort(
