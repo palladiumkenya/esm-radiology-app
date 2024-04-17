@@ -19,7 +19,7 @@ import rejectOrderDialogComponent from "./radiology-tabs/test-ordered/reject-ord
 import radiologyInstructionsModal from "./radiology-tabs/test-ordered/radiology-instructions/radiology-instructions.component";
 import ReviewOrderDialog from "./radiology-tabs/review-ordered/review-radiology-report-dialog/review-radiology-report-dialog.component";
 import RadiologyOrderBasketPanelExtension from "./form/radiology-orders/radiology-order-basket-panel/radiology-order-basket-panel.extension";
-
+import radiologyRejectReasonModal from "./radiology-tabs/test-ordered/reject-order-dialog/radiology-reject-reason.component";
 const moduleName = "@openmrs/esm-radiology-app";
 
 const options = {
@@ -79,6 +79,10 @@ export const reviewRadiologyReportDialog = getSyncLifecycle(
 
 export const radiologyOrderPanel = getSyncLifecycle(
   RadiologyOrderBasketPanelExtension,
+  options
+);
+export const radiologyRejectReasonModalComponent = getSyncLifecycle(
+  radiologyRejectReasonModal,
   options
 );
 

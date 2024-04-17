@@ -42,7 +42,7 @@ export const RadiologyTabs: React.FC = () => {
             <ApprovedOrders />
           </TabPanel>
           <TabPanel>
-            <OrdersNotDone />
+            <OrdersNotDone fulfillerStatus={"DECLINED"} />
           </TabPanel>
         </TabPanels>
       </Tabs>
