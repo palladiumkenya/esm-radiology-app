@@ -35,11 +35,12 @@ function openmrsFetchMultiple(urls: Array<string>) {
 }
 
 function useRadiologyConceptsSWR(labOrderableConcepts?: Array<string>) {
+  const config = useConfig<RadiologyConfig>();
   const { data, isLoading, error } = useSWRImmutable(
     () =>
       labOrderableConcepts
         ? labOrderableConcepts.map((c) => `${restBaseUrl}/concept/${c}`)
-        : `${restBaseUrl}/concept/164068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA?v=custom:setMembers`,
+        : `${restBaseUrl}/concept/${config.radiologyConceptSetUuid}?v=custom:setMembers`,
     (labOrderableConcepts ? openmrsFetchMultiple : openmrsFetch) as any,
     {
       shouldRetryOnError(err) {
