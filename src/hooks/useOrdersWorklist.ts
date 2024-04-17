@@ -52,9 +52,13 @@ export function useOrdersWorklist(
       );
     }
   });
+  const sortedOrders = orders?.sort(
+    (a, b) =>
+      new Date(a.dateActivated).getTime() - new Date(b.dateActivated).getTime()
+  );
 
   return {
-    workListEntries: orders?.length > 0 ? orders : [],
+    workListEntries: sortedOrders?.length > 0 ? sortedOrders : [],
     isLoading,
     isError: error,
     mutate,
