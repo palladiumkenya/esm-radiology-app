@@ -12,7 +12,7 @@ import { type Concept } from "../../../types";
 import { type RadiologyConfig } from "../../../config-schema";
 
 type ConceptResult = FetchResponse<Concept>;
-type ConceptResults = FetchResponse<{ results: Array<Concept> }>;
+type ConceptResults = FetchResponse<{ setMembers: Array<Concept> }>;
 
 export interface RadiologyType {
   label: string;
@@ -39,7 +39,7 @@ function useRadiologyConceptsSWR(labOrderableConcepts?: Array<string>) {
     () =>
       labOrderableConcepts
         ? labOrderableConcepts.map((c) => `${restBaseUrl}/concept/${c}`)
-        : `${restBaseUrl}/concept?s=byConceptClass&conceptClass=8caa332c-efe4-4025-8b18-3398328e1323`,
+        : `${restBaseUrl}/concept/164068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA?v=custom:setMembers`,
     (labOrderableConcepts ? openmrsFetchMultiple : openmrsFetch) as any,
     {
       shouldRetryOnError(err) {
@@ -52,7 +52,7 @@ function useRadiologyConceptsSWR(labOrderableConcepts?: Array<string>) {
     if (isLoading || error) return null;
     return labOrderableConcepts
       ? (data as Array<ConceptResult>)?.flatMap((d) => d.data.setMembers)
-      : (data as ConceptResults)?.data.results ?? ([] as Concept[]);
+      : (data as ConceptResults)?.data.setMembers ?? ([] as Concept[]);
   }, [data, isLoading, error]);
 
   return {
