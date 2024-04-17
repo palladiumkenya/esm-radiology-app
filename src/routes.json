@@ -99,6 +99,10 @@
     {
       "name": "review-radilogy-report-dialog",
       "component": "reviewRadiologyReportDialog"
+    },
+    {
+      "name":"radiology-reject-reason-modal",
+      "component": "radiologyRejectReasonModalComponent"
     }
   ],
   "pages": [
