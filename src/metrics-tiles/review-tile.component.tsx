@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import SummaryTile from "../summary-tiles/summary-tile.component";
 import { useProcedureOrderStats } from "../summary-tiles/radiology-summary.resource";
 
-const ReviewTileComponent = () => {
+const ReviewRadiologyTileComponent = () => {
   const { t } = useTranslation();
 
   const { count: completedCount } = useProcedureOrderStats("COMPLETED");
@@ -16,4 +16,4 @@ const ReviewTileComponent = () => {
   );
 };
 
-export default ReviewTileComponent;
+export default ReviewRadiologyTileComponent;

@@ -14,16 +14,27 @@ import {
   TableToolbar,
   TableToolbarContent,
   TableToolbarSearch,
+  Tag,
 } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
+import {
+  formatDate,
+  parseDate,
+  usePagination,
+  ConfigurableLink,
+} from "@openmrs/esm-framework";
 import { useSearchResults } from "../../hooks/useSearchResults";
 import styles from "../test-ordered/tests-ordered.scss";
-
-export const ApprovedOrders: React.FC = () => {
+import { getStatusColor } from "../../utils/functions";
+interface ApprovedOrdersProps {
+  fulfillerStatus: string;
+}
+export const ApprovedOrders: React.FC<ApprovedOrdersProps> = ({
+  fulfillerStatus,
+}) => {
   const { t } = useTranslation();
   const [currentPageSize, setCurrentPageSize] = useState<number>(10);
-  const { workListEntries, isLoading } = useOrdersWorklist("", "ON_HOLD");
+  const { workListEntries, isLoading } = useOrdersWorklist("", fulfillerStatus);
   const [searchString, setSearchString] = useState<string>("");
 
   const searchResults = useSearchResults(workListEntries, searchString);
@@ -36,19 +47,6 @@ export const ApprovedOrders: React.FC = () => {
 
   const pageSizes = [10, 20, 30, 40, 50];
 
-  const rows = useMemo(() => {
-    return paginatedResults
-      ?.filter((item) => item.action === "NEW")
-      .map((entry) => ({
-        ...entry,
-        date: (
-          <span className={styles["single-line-display"]}>
-            {formatDate(parseDate(entry?.dateActivated))}
-          </span>
-        ),
-      }));
-  }, [paginatedResults]);
-
   const tableColums = [
     { id: 0, header: t("date", "Date"), key: "date" },
     { id: 1, header: t("orderNumber", "Order Number"), key: "orderNumber" },
@@ -59,6 +57,48 @@ export const ApprovedOrders: React.FC = () => {
     { id: 8, header: t("orderer", "Orderer"), key: "orderer" },
     { id: 9, header: t("urgency", "Urgency"), key: "urgency" },
   ];
+
+  const rows = useMemo(() => {
+    return paginatedResults
+      ?.filter((item) => item.fulfillerStatus === "ON_HOLD")
+      .map((entry) => ({
+        ...entry,
+        id: entry.uuid,
+        date: (
+          <span className={styles["single-line-display"]}>
+            {formatDate(parseDate(entry?.dateActivated))}
+          </span>
+        ),
+        patient: {
+          content: (
+            <ConfigurableLink
+              to={`\${openmrsSpaBase}/patient/${entry.patient}/chart/laboratory-orders`}
+            >
+              {entry.patient.split("-")[1]}
+            </ConfigurableLink>
+          ),
+        },
+        orderNumber: { content: <span>{entry.orderNumber}</span> },
+        procedure: { content: <span>{entry.concept.display}</span> },
+        status: {
+          content: (
+            <>
+              <Tag>
+                <span
+                  className={styles.statusContainer}
+                  style={{ color: `${getStatusColor(entry.fulfillerStatus)}` }}
+                >
+                  <span>{entry.fulfillerStatus}</span>
+                </span>
+              </Tag>
+            </>
+          ),
+        },
+        orderer: { content: <span>{entry.orderer}</span> },
+        orderType: { content: <span>{entry?.orderType?.display}</span> },
+        priority: { content: <span>{entry.urgency}</span> },
+      }));
+  }, [paginatedResults]);
 
   return isLoading ? (
     <DataTableSkeleton />
@@ -132,3 +172,4 @@ export const ApprovedOrders: React.FC = () => {
     </div>
   );
 };
+export default ApprovedOrders;

@@ -43,7 +43,7 @@ const RadiologyInstructionsModal: React.FC<RadiologyInstructionsModalProps> = ({
     <div>
       <ModalHeader
         closeModal={closeModal}
-        title={t("radiologyInstructions", "Procedure Order Instructions")}
+        title={t("radiologyInstructions", "Radiology Order Instructions")}
       />
       <ModalBody>
         <div className={styles.modalBody}>
