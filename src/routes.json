@@ -110,5 +110,13 @@
       "component": "root",
       "route": "radiology"
     }
+  ],
+  "workspaces": [
+    {
+      "component": "addRadiologyOrderWorkspace",
+      "name": "add-radiology-order",
+      "title": "Add Radiology Order",
+      "type": "order"
+    }
   ]
 }
