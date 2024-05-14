@@ -18,12 +18,10 @@ import {
   useLayoutType,
   useSession,
   ResponsiveWrapper,
-} from "@openmrs/esm-framework";
-import {
   closeWorkspace,
-  launchPatientWorkspace,
-  useOrderBasket,
-} from "@openmrs/esm-patient-common-lib";
+  launchWorkspace,
+} from "@openmrs/esm-framework";
+import { useOrderBasket } from "@openmrs/esm-patient-common-lib";
 import { prepRadiologyOrderPostData } from "../api";
 import { type RadiologyType, useRadiologyTypes } from "./useRadiologyTypes";
 import { createEmptyLabOrder } from "./radiology-order";
@@ -226,7 +224,7 @@ const TestTypeSearchResultItem: React.FC<TestTypeSearchResultItemProps> = ({
     setOrders([...orders, labOrder]);
     closeWorkspace("add-radiology-order", {
       ignoreChanges: true,
-      onWorkspaceClose: () => launchPatientWorkspace("order-basket"),
+      onWorkspaceClose: () => launchWorkspace("order-basket"),
     });
   }, [orders, setOrders, createLabOrder, testType]);
 
