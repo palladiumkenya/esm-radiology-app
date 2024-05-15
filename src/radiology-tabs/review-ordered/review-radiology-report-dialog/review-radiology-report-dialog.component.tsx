@@ -18,7 +18,7 @@ import { useTranslation } from "react-i18next";
 import styles from "./review-radiology-report-dialog.scss";
 import { Result } from "../../work-list/work-list.resource";
 import { showNotification, showSnackbar } from "@openmrs/esm-framework";
-import { updateProdedure } from "../../test-ordered/pick-radiology-order/add-to-worklist-dialog.resource";
+import { updateOrder } from "../../test-ordered/pick-radiology-order/add-to-worklist-dialog.resource";
 import { mutate } from "swr";
 interface ReviewOrderDialogProps {
   order: Result;
@@ -44,15 +44,19 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
     { key: "Frequency", value: order.frequency?.display },
   ];
   const procedureTableData = [
-    { key: "Lab Results: ", value: order?.procedures[0]?.procedureReport },
+    {
+      key: "Radiology Results: ",
+      value: order?.procedures[0]?.procedureReport,
+    },
   ];
 
   const updateProcedures = async (event) => {
     event.preventDefault();
     const body = {
-      outcome: "SUCCESSFUL",
+      fulfillerComment: "",
+      fulfillerStatus: "ON_HOLD",
     };
-    updateProdedure(order?.procedures[0].uuid, body)
+    updateOrder(order?.uuid, body)
       .then(() => {
         showSnackbar({
           isLowContrast: true,
@@ -66,7 +70,7 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
         closeModal();
         mutate(
           (key) =>
-            typeof key === "string" && key.startsWith("/ws/rest/v1/procedure"),
+            typeof key === "string" && key.startsWith("/ws/rest/v1/order"),
           undefined,
           { revalidate: true }
         );
@@ -93,7 +97,7 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
             <section className={styles.infoSection}>
               <Accordion>
                 <AccordionItem
-                  title={t("procedureInstructions", "Procedure Instructions")}
+                  title={t("radiologyInstructions", "Radiology Instructions")}
                 >
                   <p>
                     <Table
@@ -112,7 +116,7 @@ const ReviewOrderDialog: React.FC<ReviewOrderDialogProps> = ({
                     </Table>
                   </p>
                 </AccordionItem>
-                <AccordionItem title={t("procedureReport", "Procedure Report")}>
+                <AccordionItem title={t("radiologyReport", "Radiology Report")}>
                   <p>
                     <Table
                       size="lg"

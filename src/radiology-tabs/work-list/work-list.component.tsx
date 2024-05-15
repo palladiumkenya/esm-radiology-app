@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import { Information, Microscope, TrashCan } from "@carbon/react/icons";
+import { Information, ImageMedical, TrashCan } from "@carbon/react/icons";
 
 import {
   DataTable,
@@ -93,7 +93,11 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
       <Button
         kind="ghost"
         onClick={launchRejectOrderModal}
-        renderIcon={(props) => <TrashCan size={16} {...props} />}
+        renderIcon={(props) => (
+          <Tooltip align="top" label="Delete">
+            <TrashCan size={16} {...props} />
+          </Tooltip>
+        )}
       />
     );
   };
@@ -202,13 +206,13 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
           kind="ghost"
           onClick={() => {
             launchOverlay(
-              t("procedureReportForm", "Procedure report form"),
+              t("radiologyReportForm", "Radiology report form"),
               <ProcedureReportForm patientUuid={patientUuid} order={order} />
             );
           }}
           renderIcon={(props) => (
-            <Tooltip align="top" label="Lab Results">
-              <Microscope size={16} {...props} />
+            <Tooltip align="top" label="Radiology Results">
+              <ImageMedical size={16} {...props} />
             </Tooltip>
           )}
         />

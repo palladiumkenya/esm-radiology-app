@@ -11,7 +11,7 @@ import {
 } from "@openmrs/esm-patient-common-lib";
 import { RadiologyOrderBasketItemTile } from "./radiology-order-basket-item-tile.component";
 import { prepRadiologyOrderPostData } from "../api";
-import LabIcon from "./radiology-icon.component";
+import RadiologyIcon from "./radiology-icon.component";
 import styles from "./radiology-order-basket-panel.scss";
 import { type RadiologyOrderBasketItem } from "../../../types";
 
@@ -97,7 +97,7 @@ export default function RadiologyOrderBasketPanelExtension() {
     >
       <div className={styles.container}>
         <div className={styles.iconAndLabel}>
-          <LabIcon isTablet={isTablet} />
+          <RadiologyIcon isTablet={isTablet} />
           <h4 className={styles.heading}>{`${t(
             "radiologyOrders",
             "Radiology orders"

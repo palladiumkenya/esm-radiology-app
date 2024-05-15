@@ -70,7 +70,6 @@ const ProcedureReportForm: React.FC<ResultFormProps> = ({
       concept: order.concept.uuid,
       status: "COMPLETED",
       procedureReport: report,
-      complications: [],
       encounters: [],
     };
 
