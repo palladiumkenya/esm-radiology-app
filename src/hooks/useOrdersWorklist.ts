@@ -1,15 +1,18 @@
-import { openmrsFetch } from "@openmrs/esm-framework";
+import { openmrsFetch, useConfig } from "@openmrs/esm-framework";
 import useSWR from "swr";
 import { Result } from "../radiology-tabs/work-list/work-list.resource";
+import { RadiologyConfig } from "../config-schema";
 
 export function useOrdersWorklist(
   activatedOnOrAfterDate: string,
   fulfillerStatus: string
 ) {
-  const radiologyOrderType = "4237a01f-29c5-4167-9d8e-96d6e590aa33";
+  const {
+    orders: { radiologyOrderTypeUuid },
+  } = useConfig<RadiologyConfig>();
   const responseFormat =
     "custom:(uuid,orderNumber,patient:ref,concept:(uuid,display,conceptClass),action,careSetting,orderer:ref,urgency,instructions,bodySite,laterality,commentToFulfiller,procedures,display,fulfillerStatus,dateStopped,scheduledDate,dateActivated,fulfillerComment)";
-  const orderTypeParam = `orderTypes=${radiologyOrderType}&activatedOnOrAfterDate=${activatedOnOrAfterDate}&isStopped=false&fulfillerStatus=${fulfillerStatus}&v=${responseFormat}`;
+  const orderTypeParam = `orderTypes=${radiologyOrderTypeUuid}&activatedOnOrAfterDate=${activatedOnOrAfterDate}&isStopped=false&fulfillerStatus=${fulfillerStatus}&v=${responseFormat}`;
   const apiUrl = `/ws/rest/v1/order?${orderTypeParam}`;
 
   const { data, error, isLoading, mutate } = useSWR<
