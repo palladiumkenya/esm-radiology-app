@@ -1,15 +1,18 @@
 import useSWR, { mutate } from "swr";
-import { openmrsFetch, restBaseUrl } from "@openmrs/esm-framework";
+import { openmrsFetch, restBaseUrl, useConfig } from "@openmrs/esm-framework";
 
 import { Result } from "../radiology-tabs/work-list/work-list.resource";
 import { useCallback } from "react";
+import { RadiologyConfig } from "../config-schema";
 
 // worklist
 export function useProcedureOrderStats(fulfillerStatus: string) {
-  const procedureOrderTypeUuid = "4237a01f-29c5-4167-9d8e-96d6e590aa33"; // TODO Make configurable
+  const {
+    orders: { radiologyOrderTypeUuid },
+  } = useConfig<RadiologyConfig>();
   const responseFormat =
     "custom:(uuid,orderNumber,patient:ref,concept:(uuid,display,conceptClass),action,careSetting,orderer:ref,urgency,instructions,commentToFulfiller,display,fulfillerStatus,dateStopped)";
-  const orderTypeParam = `orderTypes=${procedureOrderTypeUuid}&fulfillerStatus=${fulfillerStatus}&v=${responseFormat}`;
+  const orderTypeParam = `orderTypes=${radiologyOrderTypeUuid}&fulfillerStatus=${fulfillerStatus}&v=${responseFormat}`;
 
   const apiUrl = `/ws/rest/v1/order?${orderTypeParam}`;
 
@@ -19,10 +22,10 @@ export function useProcedureOrderStats(fulfillerStatus: string) {
         (key) =>
           typeof key === "string" &&
           key.startsWith(
-            `${restBaseUrl}/order?orderType=${procedureOrderTypeUuid}`
+            `${restBaseUrl}/order?orderType=${radiologyOrderTypeUuid}`
           )
       ),
-    [procedureOrderTypeUuid]
+    [radiologyOrderTypeUuid]
   );
 
   const { data, error, isLoading } = useSWR<

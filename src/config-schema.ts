@@ -7,6 +7,11 @@ export const configSchema = {
     _default: "164068AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
   },
   orders: {
+    radiologyOrderTypeUuid: {
+      _type: Type.UUID,
+      _description: "UUID for the 'Radiology' order type",
+      _default: "b4a7c280-369e-4d12-9ce8-18e36783fed6",
+    },
     labOrderTypeUuid: {
       _type: Type.UUID,
       _description: "UUID for the 'Lab' order type",
@@ -34,6 +39,7 @@ export type RadiologyConfig = {
   orders: {
     labOrderTypeUuid: string;
     labOrderableConcepts: Array<string>;
+    radiologyOrderTypeUuid: string;
   };
   labTestsWithOrderReasons: Array<OrderReason>;
 };
