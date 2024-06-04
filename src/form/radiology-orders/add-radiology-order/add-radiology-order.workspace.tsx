@@ -26,7 +26,7 @@ export interface AddRadiologyOrderWorkspace
   extends DefaultWorkspaceProps,
     AddRadiologyOrderWorkspaceAdditionalProps {}
 
-function AddRadiologyOrderWorkspace({
+export default function AddRadiologyOrderWorkspace({
   order: initialOrder,
   closeWorkspace,
   closeWorkspaceWithSavedChanges,
@@ -95,5 +95,3 @@ function AddRadiologyOrderWorkspace({
     </div>
   );
 }
-
-export default AddRadiologyOrderWorkspace;
