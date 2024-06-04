@@ -1,17 +1,20 @@
 import React, { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
-import { useOrderBasket } from "@openmrs/esm-patient-common-lib";
 import {
   type DefaultWorkspaceProps,
+  launchPatientWorkspace,
+  useOrderBasket,
+} from "@openmrs/esm-patient-common-lib";
+import {
   translateFrom,
   useLayoutType,
   useSession,
   useConfig,
-  launchWorkspace,
 } from "@openmrs/esm-framework";
 import {
   careSettingUuid,
   prepRadiologyOrderPostData,
+  useOrderReasons,
   useConceptById,
 } from "../api";
 import {
@@ -144,7 +147,7 @@ export function RadiologyOrderForm({
       newOrders[orderIndex] = data;
       setOrders(newOrders);
       closeWorkspaceWithSavedChanges({
-        onWorkspaceClose: () => launchWorkspace("order-basket"),
+        onWorkspaceClose: () => launchPatientWorkspace("order-basket"),
       });
     },
     [
@@ -164,7 +167,7 @@ export function RadiologyOrderForm({
       )
     );
     closeWorkspace({
-      onWorkspaceClose: () => launchWorkspace("order-basket"),
+      onWorkspaceClose: () => launchPatientWorkspace("order-basket"),
     });
   }, [closeWorkspace, orders, setOrders, defaultValues]);
 
