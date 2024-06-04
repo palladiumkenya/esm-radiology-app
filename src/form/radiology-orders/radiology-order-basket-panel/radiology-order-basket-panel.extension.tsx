@@ -3,8 +3,9 @@ import classNames from "classnames";
 import { useTranslation } from "react-i18next";
 import { Button, Tile } from "@carbon/react";
 import { Add, ChevronDown, ChevronUp } from "@carbon/react/icons";
-import { launchWorkspace, useLayoutType } from "@openmrs/esm-framework";
+import { useLayoutType } from "@openmrs/esm-framework";
 import {
+  launchPatientWorkspace,
   type OrderBasketItem,
   useOrderBasket,
   closeWorkspace,
@@ -65,14 +66,15 @@ export default function RadiologyOrderBasketPanelExtension() {
   const openNewRadiologyForm = useCallback(() => {
     closeWorkspace("order-basket", {
       ignoreChanges: true,
-      onWorkspaceClose: () => launchWorkspace("add-radiology-order"),
+      onWorkspaceClose: () => launchPatientWorkspace("add-radiology-order"),
     });
   }, []);
 
   const openEditRadiologyForm = useCallback((order: OrderBasketItem) => {
     closeWorkspace("order-basket", {
       ignoreChanges: true,
-      onWorkspaceClose: () => launchWorkspace("add-radiology-order", { order }),
+      onWorkspaceClose: () =>
+        launchPatientWorkspace("add-radiology-order", { order }),
     });
   }, []);
 

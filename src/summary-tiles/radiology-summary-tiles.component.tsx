@@ -23,7 +23,6 @@ const RadiologySummaryTiles: React.FC = () => {
             <ComponentContext.Provider
               key={extension.id}
               value={{
-                featureName: extension.meta.featureName,
                 moduleName: extension.moduleName,
                 extension: {
                   extensionId: extension.id,
