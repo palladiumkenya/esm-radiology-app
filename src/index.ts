@@ -5,7 +5,6 @@ import {
   translateFrom,
 } from "@openmrs/esm-framework";
 import { configSchema } from "./config-schema";
-import { registerWorkspace } from "@openmrs/esm-patient-common-lib";
 
 import { createLeftPanelLink } from "./left-panel-link";
 import worklistTile from "./metrics-tiles/worklist-tile.component";
@@ -87,19 +86,11 @@ export const radiologyRejectReasonModalComponent = getSyncLifecycle(
 );
 
 // t('addRadiologyOrderWorkspaceTitle', 'Add Radiology order')
-registerWorkspace({
-  name: "add-radiology-order",
-  type: "order",
-  title: translateFrom(
-    moduleName,
-    "addRadiologyOrderWorkspaceTitle",
-    "Add radiology order"
-  ),
-  load: getAsyncLifecycle(
-    () =>
-      import(
-        "./form/radiology-orders/add-radiology-order/add-radiology-order.workspace"
-      ),
-    options
-  ),
-});
+
+export const addRadiologyOrderWorkspace = getAsyncLifecycle(
+  () =>
+    import(
+      "./form/radiology-orders/add-radiology-order/add-radiology-order.workspace"
+    ),
+  options
+);

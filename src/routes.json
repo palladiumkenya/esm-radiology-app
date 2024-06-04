@@ -105,6 +105,14 @@
       "component": "radiologyRejectReasonModalComponent"
     }
   ],
+  "workspaces": [
+    {
+      "name": "add-radiology-order",
+      "title": "addRadiologyOrderWorkspaceTitle",
+      "component": "addRadiologyOrderWorkspace",
+      "type": "order"
+    }
+  ],
   "pages": [
     {
       "component": "root",
