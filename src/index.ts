@@ -20,7 +20,6 @@ import radiologyInstructionsModal from "./radiology-tabs/test-ordered/radiology-
 import ReviewOrderDialog from "./radiology-tabs/review-ordered/review-radiology-report-dialog/review-radiology-report-dialog.component";
 import RadiologyOrderBasketPanelExtension from "./form/radiology-orders/radiology-order-basket-panel/radiology-order-basket-panel.extension";
 import radiologyRejectReasonModal from "./radiology-tabs/test-ordered/reject-order-dialog/radiology-reject-reason.component";
-import AddRadiologyOrderWorkspace from "./form/radiology-orders/add-radiology-order/add-radiology-order.workspace";
 const moduleName = "@openmrs/esm-radiology-app";
 
 const options = {
@@ -86,7 +85,21 @@ export const radiologyRejectReasonModalComponent = getSyncLifecycle(
   radiologyRejectReasonModal,
   options
 );
-export const addRadiologyOrderWorkspace = getSyncLifecycle(
-  AddRadiologyOrderWorkspace,
-  options
-);
+
+// t('addRadiologyOrderWorkspaceTitle', 'Add Radiology order')
+registerWorkspace({
+  name: "add-radiology-order",
+  type: "order",
+  title: translateFrom(
+    moduleName,
+    "addRadiologyOrderWorkspaceTitle",
+    "Add radiology order"
+  ),
+  load: getAsyncLifecycle(
+    () =>
+      import(
+        "./form/radiology-orders/add-radiology-order/add-radiology-order.workspace"
+      ),
+    options
+  ),
+});
