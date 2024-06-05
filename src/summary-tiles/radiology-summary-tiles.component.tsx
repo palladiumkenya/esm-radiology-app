@@ -8,10 +8,10 @@ import {
 import { ComponentContext } from "@openmrs/esm-framework/src/internal";
 
 const RadiologySummaryTiles: React.FC = () => {
-  const radioTileSlot = "radio-tiles-slot";
+  const radiologyTileSlot = "radiology-tiles-slot";
 
   const tilesExtensions = useConnectedExtensions(
-    radioTileSlot
+    radiologyTileSlot
   ) as AssignedExtension[];
 
   return (
@@ -27,7 +27,7 @@ const RadiologySummaryTiles: React.FC = () => {
                 moduleName: extension.moduleName,
                 extension: {
                   extensionId: extension.id,
-                  extensionSlotName: radioTileSlot,
+                  extensionSlotName: radiologyTileSlot,
                   extensionSlotModuleName: extension.moduleName,
                 },
               }}

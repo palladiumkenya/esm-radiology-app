@@ -21,8 +21,8 @@
       "slot": "radiology-dashboard-slot"
     },
     {
-      "name": "tests-ordered-tile-component",
-      "slot": "radio-tiles-slot",
+      "name": "radiology-tests-ordered-tile-component",
+      "slot": "radiology-tiles-slot",
       "component": "testOrderedTileComponent",
       "meta": {
         "name": "testsOrderedTileSlot",
@@ -30,8 +30,8 @@
       }
     },
     {
-      "name": "worklist-tile-component",
-      "slot": "radio-tiles-slot",
+      "name": "radiology-worklist-tile-component",
+      "slot": "radiology-tiles-slot",
       "component": "worklistTileComponent",
       "meta": {
         "name": "worklisTileSlot",
@@ -39,8 +39,8 @@
       }
     },
     {
-      "name": "referred-tile-component",
-      "slot": "radio-tiles-slot",
+      "name": "radiology-referred-tile-component",
+      "slot": "radiology-tiles-slot",
       "component": "referredTileComponent",
       "meta": {
         "name": "referredTileSlot",
@@ -48,8 +48,8 @@
       }
     },
     {
-      "name": "review-tile-component",
-      "slot": "radio-tiles-slot",
+      "name": "radiology-review-tile-component",
+      "slot": "radiology-tiles-slot",
       "component": "reviewTileComponent",
       "meta": {
         "name": "reviewTileSlot",
@@ -57,8 +57,8 @@
       }
     },
     {
-      "name": "approved-tile-component",
-      "slot": "radio-tiles-slot",
+      "name": "radiology-approved-tile-component",
+      "slot": "radiology-tiles-slot",
       "component": "approveTileComponent",
       "meta": {
         "name": "approveTileSlot",
@@ -66,8 +66,8 @@
       }
     },
     {
-      "name": "notdone-tile-component",
-      "slot": "radio-tiles-slot",
+      "name": "radiology-notdone-tile-component",
+      "slot": "radiology-tiles-slot",
       "component": "notDoneTileComponent",
       "meta": {
         "name": "notDoneTileSlot",
