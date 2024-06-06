@@ -108,9 +108,11 @@
   "workspaces": [
     {
       "name": "add-radiology-order",
-      "title": "addRadiologyOrderWorkspaceTitle",
+      "type": "order",
       "component": "addRadiologyOrderWorkspace",
-      "type": "order"
+      "title": "addRadiologyOrderWorkspaceTitle"
+     
+      
     }
   ],
   "pages": [
