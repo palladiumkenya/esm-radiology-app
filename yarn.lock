@@ -4173,9 +4173,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openmrs/esm-patient-common-lib@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "@openmrs/esm-patient-common-lib@npm:7.1.0"
+"@openmrs/esm-patient-common-lib@npm:next":
+  version: 8.0.2-pre.4670
+  resolution: "@openmrs/esm-patient-common-lib@npm:8.0.2-pre.4670"
   dependencies:
     "@carbon/react": ^1.12.0
     lodash-es: ^4.17.21
@@ -4184,7 +4184,7 @@ __metadata:
     "@openmrs/esm-framework": 5.x
     react: 18.x
     single-spa: 6.x
-  checksum: ba8b5194a7aeb9a1f3ecbb441e64c6843e991a52a208f2c57a1d015df1d090c34362afe8c7323072894ebec7d7ae584962f10f59c2c0dc24c68dc95b40935029
+  checksum: 5fa6cd535a2d5612fe24d6ac20a8eef12c5db0b98cc151f6cb20994c22b15ba3b994ce87290d5a479bdf8841bd028ab46d81006df19e2ff77fb0990e26cd73d8
   languageName: node
   linkType: hard
 
@@ -4195,7 +4195,7 @@ __metadata:
     "@carbon/react": ^1.33.1
     "@hookform/resolvers": ^3.3.4
     "@openmrs/esm-framework": next
-    "@openmrs/esm-patient-common-lib": ^7.1.0
+    "@openmrs/esm-patient-common-lib": next
     "@openmrs/esm-styleguide": next
     "@playwright/test": ^1.30.0
     "@swc/cli": ^0.1.62

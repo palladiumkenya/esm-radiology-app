@@ -5,16 +5,14 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@carbon/react";
 import { ArrowLeft } from "@carbon/react/icons";
 import {
+  DefaultWorkspaceProps,
   age,
   formatDate,
   parseDate,
   useLayoutType,
   usePatient,
 } from "@openmrs/esm-framework";
-import {
-  type DefaultWorkspaceProps,
-  launchPatientWorkspace,
-} from "@openmrs/esm-patient-common-lib";
+import { launchPatientWorkspace } from "@openmrs/esm-patient-common-lib";
 import { TestTypeSearch } from "./radiology-type-search";
 import { RadiologyOrderForm } from "./radiology-order-form.component";
 import styles from "./add-radiology-order.scss";
