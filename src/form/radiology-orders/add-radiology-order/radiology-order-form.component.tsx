@@ -1,7 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import classNames from "classnames";
 import {
-  type DefaultWorkspaceProps,
   launchPatientWorkspace,
   useOrderBasket,
 } from "@openmrs/esm-patient-common-lib";
@@ -10,11 +9,11 @@ import {
   useLayoutType,
   useSession,
   useConfig,
+  DefaultWorkspaceProps,
 } from "@openmrs/esm-framework";
 import {
   careSettingUuid,
   prepRadiologyOrderPostData,
-  useOrderReasons,
   useConceptById,
 } from "../api";
 import {
