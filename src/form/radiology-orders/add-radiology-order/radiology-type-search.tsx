@@ -215,7 +215,7 @@ const TestTypeSearchResultItem: React.FC<TestTypeSearchResultItemProps> = ({
     (testType: RadiologyType) => {
       return createEmptyLabOrder(testType, session.currentProvider.uuid);
     },
-    [session.currentProvider.uuid]
+    [session.currentProvider?.uuid]
   );
 
   const { t } = useTranslation();
