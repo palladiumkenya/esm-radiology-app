@@ -7,12 +7,6 @@ import {
 import { configSchema } from "./config-schema";
 
 import { createLeftPanelLink } from "./left-panel-link";
-import worklistTile from "./metrics-tiles/worklist-tile.component";
-import referredTile from "./metrics-tiles/referred-tile.component";
-import testsOrdered from "./metrics-tiles/procedure-ordered-tile.component";
-import reviewTile from "./metrics-tiles/review-tile.component";
-import approveTile from "./metrics-tiles/approved-tile.component";
-import rejectedTile from "./metrics-tiles/rejected-tile.component";
 import addRadiologyToWorklistDialog from "./radiology-tabs/test-ordered/pick-radiology-order/add-to-worklist-dialog.component";
 import rejectOrderDialogComponent from "./radiology-tabs/test-ordered/reject-order-dialog/reject-order-dialog.component";
 import radiologyInstructionsModal from "./radiology-tabs/test-ordered/radiology-instructions/radiology-instructions.component";
@@ -50,13 +44,6 @@ export const radiologyDashboardLink = getSyncLifecycle(
   options
 );
 
-// Tiles
-export const worklistTileComponent = getSyncLifecycle(worklistTile, options);
-export const referredTileComponent = getSyncLifecycle(referredTile, options);
-export const testOrderedTileComponent = getSyncLifecycle(testsOrdered, options);
-export const reviewTileComponent = getSyncLifecycle(reviewTile, options);
-export const approveTileComponent = getSyncLifecycle(approveTile, options);
-export const notDoneTileComponent = getSyncLifecycle(rejectedTile, options);
 export const addRadiologyToWorklistDialogComponent = getSyncLifecycle(
   addRadiologyToWorklistDialog,
   options
