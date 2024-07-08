@@ -27,12 +27,24 @@ export const RadiologyTabs: React.FC = () => {
           contained
           style={{ marginLeft: "1rem" }}
         >
-          <Tab>{t("pendingOrders", "Active Orders")} ({activeOrdersCount})</Tab>
-          <Tab>{t("workList", "WorkList")} ({workListCount})</Tab>
-          <Tab>{t("referredProcedures", "Referred Out")} ({referredTestsCount})</Tab>
-          <Tab>{t("review", "Pending Review")} ({reviewCount})</Tab>
-          <Tab>{t("approved", "Approved")} ({approvedOrdersCount})</Tab>
-          <Tab>{t("notDone", "Not Done")} ({ordersNotDoneCount})</Tab>
+          <Tab>
+            {t("pendingOrders", "Active Orders")} ({activeOrdersCount})
+          </Tab>
+          <Tab>
+            {t("workList", "WorkList")} ({workListCount})
+          </Tab>
+          <Tab>
+            {t("referredProcedures", "Referred Out")} ({referredTestsCount})
+          </Tab>
+          <Tab>
+            {t("review", "Pending Review")} ({reviewCount})
+          </Tab>
+          <Tab>
+            {t("approved", "Approved")} ({approvedOrdersCount})
+          </Tab>
+          <Tab>
+            {t("notDone", "Not Done")} ({ordersNotDoneCount})
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -42,13 +54,13 @@ export const RadiologyTabs: React.FC = () => {
             <WorkList fulfillerStatus={"IN_PROGRESS"} />
           </TabPanel>
           <TabPanel>
-            <ReferredTests/>
+            <ReferredTests />
           </TabPanel>
           <TabPanel>
             <Review />
           </TabPanel>
           <TabPanel>
-            <ApprovedOrders/>
+            <ApprovedOrders />
           </TabPanel>
           <TabPanel>
             <OrdersNotDone fulfillerStatus={"DECLINED"} />
