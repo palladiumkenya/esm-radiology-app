@@ -14,6 +14,7 @@ import {
 import {
   careSettingUuid,
   prepRadiologyOrderPostData,
+  useBillableItem,
   useConceptById,
 } from "../api";
 import {
@@ -28,6 +29,13 @@ import {
   Grid,
   InlineNotification,
   TextArea,
+  Tile,
+  InlineLoading,
+  StructuredListWrapper,
+  StructuredListHead,
+  StructuredListRow,
+  StructuredListCell,
+  StructuredListBody,
 } from "@carbon/react";
 import { useTranslation } from "react-i18next";
 import { priorityOptions } from "./radiology-order";
@@ -60,6 +68,8 @@ export function RadiologyOrderForm({
   const { t } = useTranslation();
   const isTablet = useLayoutType() === "tablet";
   const session = useSession();
+  const { billableItem } = useBillableItem(initialOrder?.testType?.conceptUuid);
+
   const { orders, setOrders } = useOrderBasket<RadiologyOrderBasketItem>(
     "radiology",
     prepRadiologyOrderPostData
@@ -205,6 +215,42 @@ export function RadiologyOrderForm({
         id="radiologyOrderForm"
       >
         <div className={styles.form}>
+          <Tile id="" className={styles.prices}>
+            {billableItem ? (
+              <div className={styles.listContainer}>
+                <StructuredListWrapper isCondensed>
+                  <StructuredListHead>
+                    <StructuredListRow head>
+                      <StructuredListCell head className={styles.cell}>
+                        {t("mode", "payment methods")}
+                      </StructuredListCell>
+                      <StructuredListCell head className={styles.cell}>
+                        {t("prices", "prices")}
+                      </StructuredListCell>
+                    </StructuredListRow>
+                  </StructuredListHead>
+                  <StructuredListBody>
+                    {billableItem.servicePrices.map((priceItem) => (
+                      <StructuredListRow key={priceItem.uuid}>
+                        <StructuredListCell className={styles.cell}>
+                          {priceItem.paymentMode.name}
+                        </StructuredListCell>
+                        <StructuredListCell className={styles.cell}>
+                          {priceItem.price}
+                        </StructuredListCell>
+                      </StructuredListRow>
+                    ))}
+                  </StructuredListBody>
+                </StructuredListWrapper>
+              </div>
+            ) : (
+              <InlineLoading
+                iconDescription="Loading"
+                description="Loading the prices..."
+              />
+            )}
+          </Tile>
+
           <Grid className={styles.gridRow}>
             <Column lg={16} md={8} sm={4}>
               <InputWrapper>

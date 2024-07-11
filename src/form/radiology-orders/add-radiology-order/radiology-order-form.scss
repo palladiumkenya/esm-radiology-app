@@ -1,4 +1,5 @@
 @use '@carbon/styles/scss/type';
+@use '@carbon/layout';
 @use '@carbon/styles/scss/spacing';
 @use '@carbon/colors';
 @import '@openmrs/esm-styleguide/src/vars';
@@ -78,4 +79,19 @@
     margin: 1rem;
     margin-bottom: calc(var(--bottom-nav-height) + 1rem);
   }
+}
+
+.prices {
+  justify-content: center;
+  align-items: center;
+  margin: layout.$spacing-03 ;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cell {
+  padding:spacing.$spacing-05;
 }
