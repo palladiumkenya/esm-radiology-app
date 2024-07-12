@@ -222,7 +222,7 @@ export function RadiologyOrderForm({
                   <StructuredListHead>
                     <StructuredListRow head>
                       <StructuredListCell head className={styles.cell}>
-                        {t("mode", "payment methods")}
+                        {t("paymentMethods", "Payment methods")}
                       </StructuredListCell>
                       <StructuredListCell head className={styles.cell}>
                         {t("prices", "Prices")}
