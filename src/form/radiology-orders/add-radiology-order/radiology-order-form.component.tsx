@@ -10,6 +10,7 @@ import {
   useSession,
   useConfig,
   DefaultWorkspaceProps,
+  ExtensionSlot,
 } from "@openmrs/esm-framework";
 import {
   careSettingUuid,
@@ -205,6 +206,11 @@ export function RadiologyOrderForm({
         id="radiologyOrderForm"
       >
         <div className={styles.form}>
+          <ExtensionSlot
+            name="top-of-lab-order-form-slot"
+            state={{ order: initialOrder }}
+          />
+
           <Grid className={styles.gridRow}>
             <Column lg={16} md={8} sm={4}>
               <InputWrapper>
