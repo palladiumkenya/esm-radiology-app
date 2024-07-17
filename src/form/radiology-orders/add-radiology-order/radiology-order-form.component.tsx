@@ -207,7 +207,7 @@ export function RadiologyOrderForm({
       >
         <div className={styles.form}>
           <ExtensionSlot
-            name="top-of-lab-order-form-slot"
+            name="top-of-imaging-order-form-slot"
             state={{ order: initialOrder }}
           />
 
