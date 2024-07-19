@@ -32,25 +32,57 @@ export function useProcedureOrderStats(fulfillerStatus: string) {
     { data: { results: Array<Result> } },
     Error
   >(apiUrl, openmrsFetch);
-
+ 
   const radiologyOrders = data?.data?.results?.filter((order) => {
-    if (
-      order.concept.conceptClass.uuid === "8caa332c-efe4-4025-8b18-3398328e1323"
-    ) {
-      return order;
+    if (fulfillerStatus === "") {
+      return (
+        order.fulfillerStatus === null &&
+        order.dateStopped === null &&
+        order.action === "NEW" &&
+        order.concept.conceptClass.uuid ===
+          "8caa332c-efe4-4025-8b18-3398328e1323"
+      );
+    } else if (fulfillerStatus === "IN_PROGRESS") {
+      return (
+        order.fulfillerStatus === "IN_PROGRESS" &&
+        order.dateStopped === null &&
+        order.action !== "DISCONTINUE" &&
+        order.concept.conceptClass.uuid ===
+          "8caa332c-efe4-4025-8b18-3398328e1323"
+      );
+    } else if (fulfillerStatus === "DECLINED") {
+      return (
+        order.fulfillerStatus === "DECLINED" &&
+        order.dateStopped === null &&
+        order.action !== "DISCONTINUE" &&
+        order.concept.conceptClass.uuid ===
+          "8caa332c-efe4-4025-8b18-3398328e1323"
+      );
+    } else if (fulfillerStatus === "COMPLETED") {
+      return (
+        order.fulfillerStatus === "COMPLETED" &&
+        order.dateStopped === null &&
+        order.action !== "DISCONTINUE" &&
+        order.concept.conceptClass.uuid ===
+          "8caa332c-efe4-4025-8b18-3398328e1323"
+      );
+    } else if (fulfillerStatus === "EXCEPTION") {
+      return (
+        order.fulfillerStatus === "EXCEPTION" &&
+        order.dateStopped === null &&
+        order.action !== "DISCONTINUE" &&
+        order.concept.conceptClass.uuid ===
+          "8caa332c-efe4-4025-8b18-3398328e1323"
+      );
     }
   });
 
   let length = 0;
 
-  if (!fulfillerStatus) {
-    const processedData = radiologyOrders?.filter(
-      (d) => d.fulfillerStatus == null
-    );
+  if (fulfillerStatus!=null) {
+    const processedData = radiologyOrders;
     length = processedData?.length;
-  } else {
-    length = data?.data ? data.data.results.length : 0;
-  }
+  }  
   return {
     count: length,
     isLoading,
