@@ -32,7 +32,7 @@ export function useProcedureOrderStats(fulfillerStatus: string) {
     { data: { results: Array<Result> } },
     Error
   >(apiUrl, openmrsFetch);
- 
+
   const radiologyOrders = data?.data?.results?.filter((order) => {
     if (fulfillerStatus === "") {
       return (
@@ -79,10 +79,10 @@ export function useProcedureOrderStats(fulfillerStatus: string) {
 
   let length = 0;
 
-  if (fulfillerStatus!=null) {
+  if (fulfillerStatus != null) {
     const processedData = radiologyOrders;
     length = processedData?.length;
-  }  
+  }
   return {
     count: length,
     isLoading,
