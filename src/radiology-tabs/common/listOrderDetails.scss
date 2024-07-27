@@ -1,0 +1,57 @@
+@use '../../../node_modules/@carbon/styles/scss/spacing';
+@use '../../../node_modules/@carbon/styles/scss/type/index';
+@import "../../../node_modules/@openmrs/esm-styleguide/src/vars";
+
+.orderTile {
+  width: 100%;
+  margin: 2px 0 8px;
+  padding: 0 8px 0 8px;
+  background-color: #fff;
+  border-left: 4px solid var(--brand-03);
+  color: $text-02;
+  margin-bottom: 1rem !important;
+}
+
+.ordersContainer {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  margin-bottom: 1rem;
+
+  &:global(.cds--tile) {
+    min-height: 3rem !important;
+    padding-left: 10px !important;
+  }
+}
+
+.ordersContainer > :global(.cds--tile) {
+  min-height: 3rem !important;
+  padding-left: 10px !important;
+  margin: auto;
+}
+ 
+.orderPropertyDisplay {
+    font-size: 15px !important;
+  }
+  
+  .bodyLong01 {
+    font-size: 13px !important;
+  }
+  
+  .displayValue {
+    color: #525252;
+    font-weight: bold;
+  }
+  
+  .actionBtns {
+    float: right;
+    margin-left: 1rem;
+    margin-top: 2rem;
+  }
+  .noOrdersDiv{
+    background-color: #fff;
+    text-align: center;
+    font-weight:bold;
+    width: 100%;
+  }
+  

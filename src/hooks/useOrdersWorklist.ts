@@ -58,7 +58,8 @@ export function useOrdersWorklist(
         order.concept.conceptClass.uuid === radiologyConceptClass_UUID
       );
     }
-  });
+  }); 
+  
   const sortedOrders = orders?.sort(
     (a, b) =>
       new Date(a.dateActivated).getTime() - new Date(b.dateActivated).getTime()
