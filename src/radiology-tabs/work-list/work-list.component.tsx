@@ -1,7 +1,5 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Information, Microscope, TrashCan } from "@carbon/react/icons";
-
 import { DataTableSkeleton } from "@carbon/react";
 import styles from "./work-list.scss";
 import Overlay from "../../components/overlay/overlay.component";

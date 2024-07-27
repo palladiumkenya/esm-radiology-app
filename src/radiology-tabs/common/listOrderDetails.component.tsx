@@ -11,8 +11,6 @@ import {
   showNotification,
   showSnackbar,
 } from "@openmrs/esm-framework";
-import { Tile } from "@carbon/react";
-import { Button } from "@carbon/react";
 import {
   GroupedOrders,
   ListOrdersDetailsProps,
@@ -20,6 +18,7 @@ import {
 } from "./radiologyProps.resource";
 import { launchOverlay } from "../../components/overlay/hook";
 import ProcedureReportForm from "../../results/result-form.component";
+import { Button, Tile } from "@carbon/react";
 
 // can render orders of a patient
 const ListOrderDetails: React.FC<ListOrdersDetailsProps> = (props) => {
