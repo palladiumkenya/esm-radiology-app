@@ -30,7 +30,7 @@ export const TestsOrdered: React.FC = () => {
   const [searchString, setSearchString] = useState<string>("");
 
   if (isLoading) {
-   return <DataTableSkeleton />;
+    return <DataTableSkeleton />;
   }
   if (workListEntries.length > 0) {
     return (
@@ -48,5 +48,5 @@ export const TestsOrdered: React.FC = () => {
         />
       </div>
     );
-  }  
+  }
 };

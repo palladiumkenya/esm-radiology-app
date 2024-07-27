@@ -2,15 +2,11 @@ import React, { useState, useMemo, useCallback } from "react";
 import { useTranslation } from "react-i18next";
 import { Information, Microscope, TrashCan } from "@carbon/react/icons";
 
-import { 
-  DataTableSkeleton,  
-} from "@carbon/react";
+import { DataTableSkeleton } from "@carbon/react";
 import styles from "./work-list.scss";
 import Overlay from "../../components/overlay/overlay.component";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
-import {
-  WorklistProps,
-} from "../common/radiologyProps.resource";
+import { WorklistProps } from "../common/radiologyProps.resource";
 import GroupedOrdersTable from "../common/groupedOrdersTable.component";
 
 const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {

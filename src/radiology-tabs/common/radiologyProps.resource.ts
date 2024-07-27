@@ -66,22 +66,22 @@ export interface GroupedOrders {
 }
 export interface GroupedOrdersTableProps {
   orders: Result[];
-  showStatus:boolean;
-  showStartButton:boolean;
-  showActions:boolean;
-  showOrderType:boolean;
-  actions:OrderAction[];
+  showStatus: boolean;
+  showStartButton: boolean;
+  showActions: boolean;
+  showOrderType: boolean;
+  actions: OrderAction[];
 }
 
 export interface ListOrdersDetailsProps {
-  groupedOrders:  GroupedOrders
-  showStatus:boolean;
-  showStartButton:boolean;
-  showActions:boolean;
-  showOrderType:boolean;
-  actions:OrderAction[];
+  groupedOrders: GroupedOrders;
+  showStatus: boolean;
+  showStartButton: boolean;
+  showActions: boolean;
+  showOrderType: boolean;
+  actions: OrderAction[];
 }
 
-export interface OrderAction{
-  actionName:string;
+export interface OrderAction {
+  actionName: string;
 }

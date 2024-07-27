@@ -1,8 +1,6 @@
 import React, { useMemo, useState, useCallback } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  DataTableSkeleton,
-} from "@carbon/react";
+import { DataTableSkeleton } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import styles from "../test-ordered/tests-ordered.scss";
 import Overlay from "../../components/overlay/overlay.component";
@@ -17,7 +15,7 @@ export const OrdersNotDone: React.FC<NotDoneProps> = ({ fulfillerStatus }) => {
     fulfillerStatus
   );
   const [activatedOnOrAfterDate, setActivatedOnOrAfterDate] = useState("");
-  
+
   if (isLoading) {
     return <DataTableSkeleton role="progressbar" />;
   }
@@ -32,7 +30,7 @@ export const OrdersNotDone: React.FC<NotDoneProps> = ({ fulfillerStatus }) => {
             showStartButton={false}
             showActions={true}
             showOrderType={false}
-            actions={[{actionName:'radiology-reject-reason-modal'}]}
+            actions={[{ actionName: "radiology-reject-reason-modal" }]}
           />
         </div>
         <Overlay />

@@ -2,7 +2,15 @@ import React, { useMemo, useState } from "react";
 import styles from "./listOrderDetails.scss";
 
 import { useTranslation } from "react-i18next";
-import { formatDate, openmrsFetch, parseDate, restBaseUrl, showModal, showNotification, showSnackbar } from "@openmrs/esm-framework";
+import {
+  formatDate,
+  openmrsFetch,
+  parseDate,
+  restBaseUrl,
+  showModal,
+  showNotification,
+  showSnackbar,
+} from "@openmrs/esm-framework";
 import { Tile } from "@carbon/react";
 import { Button } from "@carbon/react";
 import {
@@ -116,9 +124,6 @@ const ListOrderDetails: React.FC<ListOrdersDetailsProps> = (props) => {
       </div>
     );
   };
-   
-  
-  
 
   return (
     <div className={styles.ordersContainer}>
@@ -295,7 +300,7 @@ const ListOrderDetails: React.FC<ListOrdersDetailsProps> = (props) => {
 
             {props.showStartButton && (
               <div>
-                <StartOrder order={row}/>
+                <StartOrder order={row} />
               </div>
             )}
           </div>

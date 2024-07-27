@@ -36,13 +36,13 @@ export const Review: React.FC = () => {
   ) : (
     <div>
       <GroupedOrdersTable
-            orders={workListEntries}
-            showStatus={false}
-            showStartButton={false}
-            showActions={true}
-            showOrderType={true}
-            actions={[{actionName:'review-radilogy-report-dialog'}]}
-          />
+        orders={workListEntries}
+        showStatus={false}
+        showStartButton={false}
+        showActions={true}
+        showOrderType={true}
+        actions={[{ actionName: "review-radilogy-report-dialog" }]}
+      />
     </div>
   );
 };
