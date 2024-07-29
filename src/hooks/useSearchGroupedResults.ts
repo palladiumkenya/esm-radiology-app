@@ -7,8 +7,6 @@ export function useSearchGroupedResults(
 ) {
   const searchResults = useMemo(() => {
     if (searchString && searchString.trim() !== "") {
-      const search = searchString.toLowerCase();
-
       // Normalize the search string to lowercase
       const lowerSearchString = searchString.toLowerCase();
       return data.filter((orderGroup) =>

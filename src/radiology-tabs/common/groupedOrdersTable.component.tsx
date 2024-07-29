@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from "react";
-import styles from "./listOrderDetails.scss";
+import styles from "./groupedOrdersTable.scss";
 import { useTranslation } from "react-i18next";
 import { formatDate, parseDate, usePagination } from "@openmrs/esm-framework";
 import { GroupedOrdersTableProps } from "./radiologyProps.resource";
@@ -15,19 +15,13 @@ import {
   TableExpandHeader,
   TableCell,
   DataTable,
-  DataTableSkeleton,
   Pagination,
-  OverflowMenu,
-  OverflowMenuItem,
   TableContainer,
   TableToolbar,
   TableToolbarContent,
   TableToolbarSearch,
-  Tile,
-  Button,
 } from "@carbon/react";
 import ListOrderDetails from "./listOrderDetails.component";
-import { usePaginationInfo } from "@openmrs/esm-patient-common-lib";
 
 //  render Grouped by patient Orders in radiology module
 const GroupedOrdersTable: React.FC<GroupedOrdersTableProps> = (props) => {
@@ -67,7 +61,6 @@ const GroupedOrdersTable: React.FC<GroupedOrdersTableProps> = (props) => {
   } = usePagination(searchResults, currentPageSize);
 
   const pageSizes = [10, 20, 30, 40, 50];
-  const [expandedRows] = useState<Set<string>>(new Set());
 
   const rowsdata = useMemo(() => {
     return paginatedResults.map((patient) => ({

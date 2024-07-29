@@ -127,98 +127,117 @@ const ListOrderDetails: React.FC<ListOrdersDetailsProps> = (props) => {
         <Tile className={styles.orderTile}>
           {props.showActions && (
             <div className={styles.actionBtns}>
-              {props.actions.map((action) => {
-                if (action.actionName === "add-radiology-to-worklist-dialog") {
-                  return (
-                    <Button
-                      kind="primary"
-                      onClick={() => {
-                        const dispose = showModal(
-                          "add-radiology-to-worklist-dialog",
-                          {
-                            closeModal: () => dispose(),
-                            order: orders.find((order) => order.uuid == row.id),
-                          }
-                        );
-                      }}
-                    >
-                      {t("picklabrequest", "Pick Lab Request")}
-                    </Button>
-                  );
-                }
-                if (action.actionName === "procedureReportForm") {
-                  return (
-                    <Button
-                      kind="primary"
-                      onClick={() => {
-                        launchOverlay(
-                          t("procedureReportForm", "Procedure report form"),
-                          <ProcedureReportForm
-                            patientUuid={row.patient.uuid}
-                            order={orders.find((order) => order.uuid == row.id)}
-                          />
-                        );
-                      }}
-                    >
-                      {t("procedurereportform", "Procedure Report Form")}
-                    </Button>
-                  );
-                }
-                if (action.actionName === "review-radilogy-report-dialog") {
-                  return (
-                    <Button
-                      kind="tertiary"
-                      onClick={() => {
-                        const dispose = showModal(
-                          "review-radilogy-report-dialog",
-                          {
-                            closeModal: () => dispose(),
-                            order: orders.find((order) => order.uuid == row.id),
-                          }
-                        );
-                      }}
-                    >
-                      {t("reviewradiologyreport", "Review Radiology Report")}
-                    </Button>
-                  );
-                }
-                if (action.actionName === "radiology-reject-reason-modal") {
-                  return (
-                    <Button
-                      kind="tertiary"
-                      onClick={() => {
-                        const dispose = showModal(
-                          "radiology-reject-reason-modal",
-                          {
-                            closeModal: () => dispose(),
-                            order: orders.find((order) => order.uuid == row.id),
-                          }
-                        );
-                      }}
-                    >
-                      {t("rejectreason", "Reject Reason")}
-                    </Button>
-                  );
-                }
-                if (action.actionName === "reject-radiology-order-dialog") {
-                  return (
-                    <Button
-                      kind="danger"
-                      onClick={() => {
-                        const dispose = showModal(
-                          "reject-radiology-order-dialog",
-                          {
-                            closeModal: () => dispose(),
-                            order: orders.find((order) => order.uuid == row.id),
-                          }
-                        );
-                      }}
-                    >
-                      {t("rejectorder", "Reject Order")}
-                    </Button>
-                  );
-                }
-              })}
+              {props.actions
+                .sort((a, b) => {
+                  // Replace 'property' with the actual property you want to sort by
+                  if (a.displayPosition < b.displayPosition) return -1;
+                  if (a.displayPosition > b.displayPosition) return 1;
+                  return 0;
+                })
+                .map((action) => {
+                  if (
+                    action.actionName === "add-radiology-to-worklist-dialog"
+                  ) {
+                    return (
+                      <Button
+                        kind="primary"
+                        onClick={() => {
+                          const dispose = showModal(
+                            "add-radiology-to-worklist-dialog",
+                            {
+                              closeModal: () => dispose(),
+                              order: orders.find(
+                                (order) => order.uuid == row.id
+                              ),
+                            }
+                          );
+                        }}
+                      >
+                        {t("picklabrequest", "Pick Lab Request")}
+                      </Button>
+                    );
+                  }
+                  if (action.actionName === "procedureReportForm") {
+                    return (
+                      <Button
+                        kind="primary"
+                        onClick={() => {
+                          launchOverlay(
+                            t("procedureReportForm", "Procedure report form"),
+                            <ProcedureReportForm
+                              patientUuid={row.patient.uuid}
+                              order={orders.find(
+                                (order) => order.uuid == row.id
+                              )}
+                            />
+                          );
+                        }}
+                      >
+                        {t("procedurereportform", "Procedure Report Form")}
+                      </Button>
+                    );
+                  }
+                  if (action.actionName === "review-radilogy-report-dialog") {
+                    return (
+                      <Button
+                        kind="tertiary"
+                        onClick={() => {
+                          const dispose = showModal(
+                            "review-radilogy-report-dialog",
+                            {
+                              closeModal: () => dispose(),
+                              order: orders.find(
+                                (order) => order.uuid == row.id
+                              ),
+                            }
+                          );
+                        }}
+                      >
+                        {t("reviewradiologyreport", "Review Radiology Report")}
+                      </Button>
+                    );
+                  }
+                  if (action.actionName === "radiology-reject-reason-modal") {
+                    return (
+                      <Button
+                        kind="tertiary"
+                        onClick={() => {
+                          const dispose = showModal(
+                            "radiology-reject-reason-modal",
+                            {
+                              closeModal: () => dispose(),
+                              order: orders.find(
+                                (order) => order.uuid == row.id
+                              ),
+                            }
+                          );
+                        }}
+                      >
+                        {t("rejectreason", "Reject Reason")}
+                      </Button>
+                    );
+                  }
+                  if (action.actionName === "reject-radiology-order-dialog") {
+                    return (
+                      <Button
+                        kind="danger"
+                        onClick={() => {
+                          const dispose = showModal(
+                            "reject-radiology-order-dialog",
+                            {
+                              closeModal: () => dispose(),
+                              order: orders.find(
+                                (order) => order.uuid == row.id
+                              ),
+                            }
+                          );
+                        }}
+                      >
+                        {t("rejectorder", "Reject Order")}
+                      </Button>
+                    );
+                  }
+                })}
             </div>
           )}
           <div>

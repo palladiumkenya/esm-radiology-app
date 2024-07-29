@@ -31,8 +31,11 @@ const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
             showActions={true}
             showOrderType={false}
             actions={[
-              { actionName: "reject-radiology-order-dialog" },
-              { actionName: "procedureReportForm" },
+              { actionName: "procedureReportForm", displayPosition: 1 },
+              {
+                actionName: "reject-radiology-order-dialog",
+                displayPosition: 2,
+              },
             ]}
           />
         </div>

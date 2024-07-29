@@ -9,7 +9,6 @@ interface NotDoneProps {
 }
 export const OrdersNotDone: React.FC<NotDoneProps> = ({ fulfillerStatus }) => {
   const { workListEntries, isLoading } = useOrdersWorklist("", fulfillerStatus);
-  const [activatedOnOrAfterDate, setActivatedOnOrAfterDate] = useState("");
 
   if (isLoading) {
     return <DataTableSkeleton role="progressbar" />;
@@ -25,7 +24,12 @@ export const OrdersNotDone: React.FC<NotDoneProps> = ({ fulfillerStatus }) => {
             showStartButton={false}
             showActions={true}
             showOrderType={false}
-            actions={[{ actionName: "radiology-reject-reason-modal" }]}
+            actions={[
+              {
+                actionName: "radiology-reject-reason-modal",
+                displayPosition: 1,
+              },
+            ]}
           />
         </div>
         <Overlay />
