@@ -1,13 +1,8 @@
-import { formatDate, parseDate } from "@openmrs/esm-framework";
 import { useMemo } from "react";
-import { Result } from "../radiology-tabs/work-list/work-list.resource";
-import {
-  GroupedOrders,
-  ListOrdersDetailsProps,
-} from "../radiology-tabs/common/radiologyProps.resource";
+import { GroupedOrders } from "../radiology-tabs/common/radiologyProps.resource";
 
 export function useSearchGroupedResults(
-  data: GroupedOrders[],
+  data: Array<GroupedOrders>,
   searchString: string
 ) {
   const searchResults = useMemo(() => {

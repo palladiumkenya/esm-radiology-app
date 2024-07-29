@@ -8,11 +8,9 @@ import { WorklistProps } from "../common/radiologyProps.resource";
 import GroupedOrdersTable from "../common/groupedOrdersTable.component";
 
 const WorkList: React.FC<WorklistProps> = ({ fulfillerStatus }) => {
-  const { t } = useTranslation();
-
   const [activatedOnOrAfterDate, setActivatedOnOrAfterDate] = useState("");
 
-  const { workListEntries, isLoading, mutate } = useOrdersWorklist(
+  const { workListEntries, isLoading } = useOrdersWorklist(
     activatedOnOrAfterDate,
     fulfillerStatus
   );

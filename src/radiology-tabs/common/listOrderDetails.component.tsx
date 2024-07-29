@@ -8,22 +8,17 @@ import {
   parseDate,
   restBaseUrl,
   showModal,
-  showNotification,
   showSnackbar,
 } from "@openmrs/esm-framework";
-import {
-  GroupedOrders,
-  ListOrdersDetailsProps,
-  OrderAction,
-} from "./radiologyProps.resource";
+import { ListOrdersDetailsProps } from "./radiologyProps.resource";
 import { launchOverlay } from "../../components/overlay/hook";
 import ProcedureReportForm from "../../results/result-form.component";
 import { Button, Tile } from "@carbon/react";
+import { OrderDetail } from "./orderDetail.component";
 
 // can render orders of a patient
 const ListOrderDetails: React.FC<ListOrdersDetailsProps> = (props) => {
   const orders = props.groupedOrders?.orders;
-  const patientname = orders.length > 0 ? orders[0].patient.display : "--";
   const { t } = useTranslation();
   const orderrows = useMemo(() => {
     return orders
@@ -92,19 +87,21 @@ const ListOrderDetails: React.FC<ListOrdersDetailsProps> = (props) => {
           setIsButtonDisabled(true);
         } else {
           const errorData = await response.json();
-          showNotification({
+          showSnackbar({
+            isLowContrast: true,
             title: t("errorUpdatingStatus", "Error updating status"),
+            subtitle: t("failedtoupdatestatus", "Failed to Update the Status"),
             kind: "error",
-            critical: true,
-            description: errorData.message || "Failed to update status",
           });
         }
       } catch (error) {
-        showNotification({
+        showSnackbar({
+          isLowContrast: true,
           title: t("errorUpdatingStatus", "Error updating status"),
+          subtitle:
+            t("failedtoupdatestatus", "Failed to Update the Status: ") +
+            error.message,
           kind: "error",
-          critical: true,
-          description: "Error updating status: " + error.message,
         });
       }
     };
@@ -225,77 +222,37 @@ const ListOrderDetails: React.FC<ListOrdersDetailsProps> = (props) => {
             </div>
           )}
           <div>
-            <div>
-              <p className={styles.bodyLong01}>
-                <span className={styles.label01}>
-                  {t("date", "DATE").toUpperCase()}
-                </span>
-                {" : "}
-                <span className={styles.displayValue}>{row.date}</span>
-              </p>
-            </div>
-
-            <div>
-              <p className={styles.bodyLong01}>
-                <span className={styles.label01}>
-                  {t("orderNumber", "Order Number").toUpperCase()}
-                </span>
-                {" : "}
-                <span className={styles.displayValue}>{row.orderNumber}</span>
-              </p>
-            </div>
-
-            <div>
-              <p className={styles.bodyLong01}>
-                <span className={styles.label01}>
-                  {t("procedure", "procedure").toUpperCase()}
-                </span>
-                {" : "}
-                <span className={styles.displayValue}>{row.procedure}</span>
-              </p>
-            </div>
+            <OrderDetail
+              label={t("date", "DATE").toUpperCase()}
+              value={row.date}
+            />
+            <OrderDetail
+              label={t("orderNumber", "Order Number").toUpperCase()}
+              value={row.orderNumber}
+            />
+            <OrderDetail
+              label={t("procedure", "procedure").toUpperCase()}
+              value={row.procedure}
+            />
 
             {props.showStatus && (
-              <div>
-                <p className={styles.bodyLong01}>
-                  <span className={styles.label01}>
-                    {t("status", "Status").toUpperCase()}
-                  </span>
-                  {" : "}
-                  <span className={styles.displayValue}>{row.status}</span>
-                </p>
-              </div>
+              <OrderDetail
+                label={t("status", "Status").toUpperCase()}
+                value={row.status}
+              />
             )}
-
-            <div>
-              <p className={styles.bodyLong01}>
-                <span className={styles.label01}>
-                  {t("urgency", "urgency").toUpperCase()}
-                </span>
-                {" : "}
-                <span className={styles.displayValue}>{row.urgency}</span>
-              </p>
-            </div>
-
-            <div>
-              <p className={styles.bodyLong01}>
-                <span className={styles.label01}>
-                  {t("orderer", "orderer").toUpperCase()}
-                </span>
-                {" : "}
-                <span className={styles.displayValue}>{row.orderer}</span>
-              </p>
-            </div>
-
-            <div>
-              <p className={styles.bodyLong01}>
-                <span className={styles.label01}>
-                  {t("instructions", "Instructions").toUpperCase()}
-                </span>
-                {" : "}
-                <span className={styles.displayValue}>{row.instructions}</span>
-              </p>
-            </div>
+            <OrderDetail
+              label={t("urgency", "urgency").toUpperCase()}
+              value={row.urgency}
+            />
+            <OrderDetail
+              label={t("orderer", "orderer").toUpperCase()}
+              value={row.orderer}
+            />
+            <OrderDetail
+              label={t("instructions", "Instructions").toUpperCase()}
+              value={row.instructions}
+            />
 
             {props.showStartButton && (
               <div>

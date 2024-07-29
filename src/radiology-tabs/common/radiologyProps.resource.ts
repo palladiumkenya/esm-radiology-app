@@ -19,15 +19,15 @@ export interface InstructionsProps {
 
 export interface GroupedOrders {
   patientId: string;
-  orders: Result[];
+  orders: Array<Result>;
 }
 export interface GroupedOrdersTableProps {
-  orders: Result[];
+  orders: Array<Result>;
   showStatus: boolean;
   showStartButton: boolean;
   showActions: boolean;
   showOrderType: boolean;
-  actions: OrderAction[];
+  actions: Array<OrderAction>;
 }
 
 export interface ListOrdersDetailsProps {
@@ -36,7 +36,7 @@ export interface ListOrdersDetailsProps {
   showStartButton: boolean;
   showActions: boolean;
   showOrderType: boolean;
-  actions: OrderAction[];
+  actions: Array<OrderAction>;
 }
 
 export interface OrderAction {

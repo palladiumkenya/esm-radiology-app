@@ -1,33 +1,11 @@
-import React, { useCallback, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
-import {
-  Table,
-  TableHead,
-  TableRow,
-  TableHeader,
-  TableBody,
-  TableExpandRow,
-  TableExpandedRow,
-  TableExpandHeader,
-  TableCell,
-  DataTable,
-  DataTableSkeleton,
-  Pagination,
-  OverflowMenu,
-  OverflowMenuItem,
-  TableContainer,
-  TableToolbar,
-  TableToolbarContent,
-  TableToolbarSearch,
-} from "@carbon/react";
+import React from "react";
+import { DataTableSkeleton } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 
 import GroupedOrdersTable from "../common/groupedOrdersTable.component";
 
 export const TestsOrdered: React.FC = () => {
-  const { t } = useTranslation();
   const { workListEntries, isLoading } = useOrdersWorklist("", "");
-  const [searchString, setSearchString] = useState<string>("");
 
   if (isLoading) {
     return <DataTableSkeleton />;

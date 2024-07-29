@@ -27,6 +27,7 @@ import {
   Button,
 } from "@carbon/react";
 import ListOrderDetails from "./listOrderDetails.component";
+import { usePaginationInfo } from "@openmrs/esm-patient-common-lib";
 
 //  render Grouped by patient Orders in radiology module
 const GroupedOrdersTable: React.FC<GroupedOrdersTableProps> = (props) => {
@@ -91,18 +92,10 @@ const GroupedOrdersTable: React.FC<GroupedOrdersTableProps> = (props) => {
         {({ rows, headers, getTableProps, getHeaderProps, getRowProps }) => (
           <>
             <TableContainer>
-              <TableToolbar
-                style={{
-                  position: "static",
-                  height: "3rem",
-                  overflow: "visible",
-                  margin: 0,
-                  // TODO: add background color to the toolbar
-                }}
-              >
+              <TableToolbar className={styles.ordersTableToolbar}>
                 <TableToolbarContent style={{ margin: 0 }}>
                   <TableToolbarSearch
-                    style={{ backgroundColor: "#f4f4f4" }}
+                    className={styles.ordersToolbarSearchBar}
                     onChange={(event) => setSearchString(event.target.value)}
                   />
                 </TableToolbarContent>
@@ -152,7 +145,7 @@ const GroupedOrdersTable: React.FC<GroupedOrdersTableProps> = (props) => {
                         style={{ textAlign: "center" }}
                         className={styles.noOrdersDiv}
                       >
-                        No Orders Available
+                        {t("noOrderAvailable", "No Orders Availalble")}
                       </TableCell>
                     </TableRow>
                   )}

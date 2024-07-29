@@ -1,15 +1,18 @@
-@use '../../../node_modules/@carbon/styles/scss/spacing';
-@use '../../../node_modules/@carbon/styles/scss/type/index';
-@import "../../../node_modules/@openmrs/esm-styleguide/src/vars";
+@use '@carbon/layout';
+@use '@carbon/colors';
+@use '@openmrs/esm-styleguide/src/vars' as *;
 
 .orderTile {
   width: 100%;
   margin: 2px 0 8px;
   padding: 0 8px 0 8px;
-  background-color: #fff;
+  background-color: colors.$white-0;
   border-left: 4px solid var(--brand-03);
   color: $text-02;
   margin-bottom: 1rem !important;
+  &:hover{
+    background-color: colors.$white-hover; 
+  }
 }
 
 .ordersContainer {
@@ -41,6 +44,8 @@
   .displayValue {
     color: #525252;
     font-weight: bold;
+    width: layout.$spacing-05;
+    height: layout.$spacing-05;
   }
   
   .actionBtns {
@@ -53,5 +58,16 @@
     text-align: center;
     font-weight:bold;
     width: 100%;
+  }
+  
+  .ordersTableToolbar{
+    position: static;
+    height: 3rem;
+    overflow: visible;
+    margin: 0;
+  }
+
+  .ordersToolbarSearchBar{
+    background-color:#f4f4f4 ;
   }
   

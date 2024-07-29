@@ -1,11 +1,9 @@
-import React, { useCallback, useMemo, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React from "react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import GroupedOrdersTable from "../common/groupedOrdersTable.component";
 import { DataTableSkeleton } from "@carbon/react";
 
 export const Review: React.FC = () => {
-  const { t } = useTranslation();
   const { workListEntries, isLoading } = useOrdersWorklist("", "COMPLETED");
 
   return isLoading ? (

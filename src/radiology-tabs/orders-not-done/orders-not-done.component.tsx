@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
 import { DataTableSkeleton } from "@carbon/react";
 import { useOrdersWorklist } from "../../hooks/useOrdersWorklist";
 import styles from "../test-ordered/tests-ordered.scss";
@@ -9,11 +8,7 @@ interface NotDoneProps {
   fulfillerStatus: string;
 }
 export const OrdersNotDone: React.FC<NotDoneProps> = ({ fulfillerStatus }) => {
-  const { t } = useTranslation();
-  const { workListEntries, isLoading, mutate } = useOrdersWorklist(
-    "",
-    fulfillerStatus
-  );
+  const { workListEntries, isLoading } = useOrdersWorklist("", fulfillerStatus);
   const [activatedOnOrAfterDate, setActivatedOnOrAfterDate] = useState("");
 
   if (isLoading) {
