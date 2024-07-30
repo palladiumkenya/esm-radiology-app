@@ -59,6 +59,7 @@ export function useOrdersWorklist(
       );
     }
   });
+
   const sortedOrders = orders?.sort(
     (a, b) =>
       new Date(a.dateActivated).getTime() - new Date(b.dateActivated).getTime()
