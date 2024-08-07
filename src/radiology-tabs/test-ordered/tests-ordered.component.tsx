@@ -21,9 +21,9 @@ export const TestsOrdered: React.FC = () => {
         actions={[
           {
             actionName: "add-radiology-to-worklist-dialog",
-            displayPosition: 1,
+            order: 1,
           },
-          { actionName: "reject-radiology-order-dialog", displayPosition: 2 },
+          { actionName: "reject-radiology-order-dialog", order: 2 },
         ]}
       />
     </div>

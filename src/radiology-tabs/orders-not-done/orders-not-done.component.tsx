@@ -27,7 +27,7 @@ export const OrdersNotDone: React.FC<NotDoneProps> = ({ fulfillerStatus }) => {
             actions={[
               {
                 actionName: "radiology-reject-reason-modal",
-                displayPosition: 1,
+                order: 1,
               },
             ]}
           />

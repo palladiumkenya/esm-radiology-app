@@ -41,5 +41,5 @@ export interface ListOrdersDetailsProps {
 
 export interface OrderAction {
   actionName: string;
-  displayPosition: 0 | number;
+  order: 0 | number;
 }

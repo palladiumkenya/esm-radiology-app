@@ -16,9 +16,7 @@ export const Review: React.FC = () => {
         showStartButton={false}
         showActions={true}
         showOrderType={true}
-        actions={[
-          { actionName: "review-radilogy-report-dialog", displayPosition: 1 },
-        ]}
+        actions={[{ actionName: "review-radilogy-report-dialog", order: 1 }]}
       />
     </div>
   );
