@@ -267,6 +267,7 @@ export function RadiologyOrderForm({
                       }}
                       invalid={errors.urgency?.message}
                       invalidText={errors.urgency?.message}
+                      disabled={!hasPrice}
                     />
                   )}
                 />
