@@ -182,7 +182,6 @@ export function RadiologyOrderForm({
   }, [isDirty, promptBeforeClosing]);
 
   const [showScheduleDate, setShowScheduleDate] = useState(false);
-  const [hasPrice, setHasPrice] = useState(true);
 
   return (
     <>
@@ -209,7 +208,7 @@ export function RadiologyOrderForm({
         <div className={styles.form}>
           <ExtensionSlot
             name="top-of-imaging-order-form-slot"
-            state={{ order: initialOrder, setHasPrice }}
+            state={{ order: initialOrder }}
           />
 
           <Grid className={styles.gridRow}>
@@ -231,7 +230,7 @@ export function RadiologyOrderForm({
                           : t("testTypePlaceholder", "Select one")
                       }
                       onBlur={onBlur}
-                      disabled={isLoadingTestTypes || !hasPrice}
+                      disabled={isLoadingTestTypes}
                       onChange={({ selectedItem }) => onChange(selectedItem)}
                       invalid={errors.testType?.message}
                       invalidText={errors.testType?.message}
@@ -267,7 +266,6 @@ export function RadiologyOrderForm({
                       }}
                       invalid={errors.urgency?.message}
                       invalidText={errors.urgency?.message}
-                      disabled={!hasPrice}
                     />
                   )}
                 />
@@ -287,7 +285,6 @@ export function RadiologyOrderForm({
                           datePickerType="single"
                           value={value}
                           onChange={([newStartDate]) => onChange(newStartDate)}
-                          disabled={!hasPrice}
                           onBlur={onBlur}
                           ref={ref}
                         >
@@ -329,7 +326,6 @@ export function RadiologyOrderForm({
                       invalid={errors.laterality?.message}
                       invalidText={errors.laterality?.message}
                       itemToString={(item) => item?.label}
-                      disabled={!hasPrice}
                     />
                   )}
                 />
@@ -360,7 +356,6 @@ export function RadiologyOrderForm({
                       invalid={errors.bodySite?.message}
                       invalidText={errors.bodySite?.message}
                       itemToString={(item) => item?.display}
-                      disabled={!hasPrice}
                     />
                   )}
                 />
@@ -385,7 +380,6 @@ export function RadiologyOrderForm({
                       value={value}
                       onChange={onChange}
                       onBlur={onBlur}
-                      disabled={!hasPrice}
                       maxCount={500}
                       invalid={errors.instructions?.message}
                       invalidText={errors.instructions?.message}
@@ -414,7 +408,6 @@ export function RadiologyOrderForm({
                       onChange={onChange}
                       onBlur={onBlur}
                       maxCount={500}
-                      disabled={!hasPrice}
                       invalid={errors.commentsToFulfiller?.message}
                       invalidText={errors.commentsToFulfiller?.message}
                     />
@@ -456,7 +449,6 @@ export function RadiologyOrderForm({
               className={styles.button}
               kind="primary"
               type="submit"
-              disabled={!hasPrice}
               size="xl"
             >
               {t("saveOrder", "Save order")}
