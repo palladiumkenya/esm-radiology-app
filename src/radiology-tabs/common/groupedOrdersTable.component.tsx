@@ -22,6 +22,7 @@ import {
   TableToolbarSearch,
 } from "@carbon/react";
 import ListOrderDetails from "./listOrderDetails.component";
+import TransitionLatestQueueEntryButton from "../test-ordered/transition-patient-new-queue/transition-latest-queue-entry-button.component";
 
 //  render Grouped by patient Orders in radiology module
 const GroupedOrdersTable: React.FC<GroupedOrdersTableProps> = (props) => {
@@ -68,12 +69,22 @@ const GroupedOrdersTable: React.FC<GroupedOrdersTableProps> = (props) => {
       patientname: patient.orders[0].patient?.display?.split("-")[1],
       orders: patient.orders,
       totalorders: patient.orders?.length,
+      fulfillerStatus: patient.orders[0].fulfillerStatus,
+      action:
+        patient.orders[0].fulfillerStatus === "COMPLETED" ? (
+          <TransitionLatestQueueEntryButton patientUuid={patient.patientId} />
+        ) : null,
     }));
   }, [paginatedResults]);
 
   const tableColumns = [
     { id: 0, header: t("patient", "Patient"), key: "patientname" },
     { id: 1, header: t("totalorders", "Total Orders"), key: "totalorders" },
+    {
+      id: 2,
+      header: t("actionButton", "Action"),
+      key: "action",
+    },
   ];
   return (
     <div>
