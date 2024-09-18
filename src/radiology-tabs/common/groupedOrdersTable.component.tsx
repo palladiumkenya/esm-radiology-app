@@ -77,15 +77,26 @@ const GroupedOrdersTable: React.FC<GroupedOrdersTableProps> = (props) => {
     }));
   }, [paginatedResults]);
 
-  const tableColumns = [
-    { id: 0, header: t("patient", "Patient"), key: "patientname" },
-    { id: 1, header: t("totalorders", "Total Orders"), key: "totalorders" },
-    {
-      id: 2,
-      header: t("actionButton", "Action"),
-      key: "action",
-    },
-  ];
+  const tableColumns = useMemo(() => {
+    const showActionColumn = workListEntries.some(
+      (order) => order.fulfillerStatus === "COMPLETED"
+    );
+
+    const columns = [
+      { id: 0, header: t("patient", "Patient"), key: "patientname" },
+      { id: 1, header: t("totalorders", "Total Orders"), key: "totalorders" },
+    ];
+
+    if (showActionColumn) {
+      columns.push({
+        id: 2,
+        header: t("actionButton", "Action"),
+        key: "action",
+      });
+    }
+
+    return columns;
+  }, [workListEntries, t]);
   return (
     <div>
       <DataTable
