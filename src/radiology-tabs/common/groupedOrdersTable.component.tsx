@@ -83,14 +83,14 @@ const GroupedOrdersTable: React.FC<GroupedOrdersTableProps> = (props) => {
     );
 
     const columns = [
-      { id: 0, header: t("patient", "Patient"), key: "patientname" },
+      { id: 0, header: t("patientName", "Patient Name"), key: "patientname" },
       { id: 1, header: t("totalorders", "Total Orders"), key: "totalorders" },
     ];
 
     if (showActionColumn) {
       columns.push({
         id: 2,
-        header: t("actionButton", "Action"),
+        header: t("action", "Action"),
         key: "action",
       });
     }
