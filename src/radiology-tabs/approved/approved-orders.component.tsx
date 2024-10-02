@@ -6,7 +6,10 @@ import GroupedOrdersTable from "../common/groupedOrdersTable.component";
 
 export const ApprovedOrders: React.FC = () => {
   const { t } = useTranslation();
-  const { workListEntries, isLoading } = useOrdersWorklist("", "ON_HOLD");
+  const { workListEntries, isLoading } = useOrdersWorklist("", "COMPLETED");
+  const approved = workListEntries.filter((item) =>
+    item.procedures?.some((procedure) => procedure.outcome === "SUCCESSFUL")
+  );
 
   if (isLoading) {
     return <DataTableSkeleton />;
@@ -15,7 +18,7 @@ export const ApprovedOrders: React.FC = () => {
   return (
     <div>
       <GroupedOrdersTable
-        orders={workListEntries}
+        orders={approved}
         showStatus={false}
         showStartButton={false}
         showActions={false}

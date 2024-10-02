@@ -8,6 +8,7 @@ import { Review } from "./review-ordered/review-ordered.component";
 import { ApprovedOrders } from "./approved/approved-orders.component";
 import { OrdersNotDone } from "./orders-not-done/orders-not-done.component";
 import { useProcedureOrderStats } from "../summary-tiles/radiology-summary.resource";
+import { useOrdersWorklist } from "../hooks/useOrdersWorklist";
 
 export const RadiologyTabs: React.FC = () => {
   const { t } = useTranslation();
@@ -15,9 +16,16 @@ export const RadiologyTabs: React.FC = () => {
   const { count: activeOrdersCount } = useProcedureOrderStats("");
   const { count: workListCount } = useProcedureOrderStats("IN_PROGRESS");
   const { count: referredTestsCount } = useProcedureOrderStats("EXCEPTION");
-  const { count: reviewCount } = useProcedureOrderStats("COMPLETED");
-  const { count: approvedOrdersCount } = useProcedureOrderStats("ON_HOLD");
   const { count: ordersNotDoneCount } = useProcedureOrderStats("DECLINED");
+  const { workListEntries } = useOrdersWorklist("", "COMPLETED");
+  const pendingReview = workListEntries.filter((item) =>
+    item.procedures?.some((procedure) => procedure.outcome !== "SUCCESSFUL")
+  );
+  const pendingReviewCount = pendingReview?.length ?? 0;
+  const approved = workListEntries.filter((item) =>
+    item.procedures?.some((procedure) => procedure.outcome === "SUCCESSFUL")
+  );
+  const approvedOrdersCount = approved?.length ?? 0;
 
   return (
     <div>
@@ -37,7 +45,7 @@ export const RadiologyTabs: React.FC = () => {
             {t("referredProcedures", "Referred Out")} ({referredTestsCount})
           </Tab>
           <Tab>
-            {t("review", "Pending Review")} ({reviewCount})
+            {t("review", "Pending Review")} ({pendingReviewCount})
           </Tab>
           <Tab>
             {t("approved", "Approved")} ({approvedOrdersCount})
