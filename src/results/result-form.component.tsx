@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import { mutate } from "swr";
 import styles from "./result-form.scss";
 import {
   Button,
@@ -57,7 +58,7 @@ const ProcedureReportForm: React.FC<ResultFormProps> = ({
   }, [patient, patientUuid]);
 
   if (isLoadingConcepts) {
-    return <div>Loading test details</div>;
+    return <div>{t("loadingTestDetails", "Loading test details")}</div>;
   }
 
   const onSubmit = (data, e) => {
@@ -85,6 +86,12 @@ const ProcedureReportForm: React.FC<ResultFormProps> = ({
           ),
         });
         closeOverlay();
+        mutate(
+          (key) =>
+            typeof key === "string" && key.startsWith("/ws/rest/v1/order"),
+          undefined,
+          { revalidate: true }
+        );
       },
       (err) => {
         showNotification({
